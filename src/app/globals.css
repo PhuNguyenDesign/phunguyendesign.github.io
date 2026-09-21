@@ -1,7 +1,16 @@
-@import url("https://use.typekit.net/cly7qfh.css");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
+/*
+  Neue Haas Grotesk requires a license — available on Adobe Fonts.
+  <style>
+  @import url("https://use.typekit.net/cly7qfh.css");
+</style>
+  @import url("https://use.typekit.net/YOUR_KIT_ID.css");
+  Families: neue-haas-grotesk-display, neue-haas-grotesk-text
+  Until then the site falls back to Helvetica Neue / system sans-serif.
+*/
 
 @custom-variant dark (&:is(.dark *));
 
@@ -50,25 +59,33 @@
 }
 
 :root {
-  /* Portfolio palette — warm, minimal, light */
-  --background: oklch(0.975 0.005 80);
-  --foreground: oklch(0.13 0.005 60);
-  --card: oklch(0.975 0.005 80);
-  --card-foreground: oklch(0.13 0.005 60);
-  --popover: oklch(0.975 0.005 80);
-  --popover-foreground: oklch(0.13 0.005 60);
-  --primary: oklch(0.13 0.005 60);
-  --primary-foreground: oklch(0.975 0.005 80);
-  --secondary: oklch(0.945 0.005 80);
-  --secondary-foreground: oklch(0.13 0.005 60);
-  --muted: oklch(0.945 0.005 80);
-  --muted-foreground: oklch(0.49 0.012 70);
-  --accent: oklch(0.945 0.005 80);
-  --accent-foreground: oklch(0.13 0.005 60);
+  /* Style guide palette */
+  --color-bg: #FAFAF8;
+  --color-light-gray: #DFE0E1;
+  --color-warm-gray: #A8A6A1;
+  --color-charcoal: #38383B;
+  --color-black: #000000;
+  --color-accent: #0F6B6D;
+
+  /* shadcn/ui token mapping */
+  --background: #000000;
+  --foreground: #FAFAF8;
+  --card: #000000;
+  --card-foreground: #FAFAF8;
+  --popover: #000000;
+  --popover-foreground: #FAFAF8;
+  --primary: #FAFAF8;
+  --primary-foreground: #000000;
+  --secondary: #DFE0E1;
+  --secondary-foreground: #38383B;
+  --muted: #DFE0E1;
+  --muted-foreground: #A8A6A1;
+  --accent: #0F6B6D;
+  --accent-foreground: #FAFAF8;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.008 80);
-  --input: oklch(0.9 0.008 80);
-  --ring: oklch(0.49 0.012 70);
+  --border: #DFE0E1;
+  --input: #DFE0E1;
+  --ring: #0F6B6D;
   --radius: 0.125rem;
 
   /* Sidebar (unused but needed by shadcn) */
@@ -92,32 +109,32 @@
 }
 
 .dark {
-  --background: oklch(0.12 0.005 60);
-  --foreground: oklch(0.96 0.005 80);
-  --card: oklch(0.16 0.005 60);
-  --card-foreground: oklch(0.96 0.005 80);
-  --popover: oklch(0.16 0.005 60);
-  --popover-foreground: oklch(0.96 0.005 80);
-  --primary: oklch(0.96 0.005 80);
-  --primary-foreground: oklch(0.12 0.005 60);
-  --secondary: oklch(0.2 0.005 60);
-  --secondary-foreground: oklch(0.96 0.005 80);
-  --muted: oklch(0.2 0.005 60);
-  --muted-foreground: oklch(0.6 0.008 70);
-  --accent: oklch(0.2 0.005 60);
-  --accent-foreground: oklch(0.96 0.005 80);
+  --background: #38383B;
+  --foreground: #FAFAF8;
+  --card: #38383B;
+  --card-foreground: #FAFAF8;
+  --popover: #38383B;
+  --popover-foreground: #FAFAF8;
+  --primary: #FAFAF8;
+  --primary-foreground: #38383B;
+  --secondary: #000000;
+  --secondary-foreground: #FAFAF8;
+  --muted: #000000;
+  --muted-foreground: #A8A6A1;
+  --accent: #0F6B6D;
+  --accent-foreground: #FAFAF8;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.6 0.008 70);
-  --sidebar: oklch(0.16 0.005 60);
-  --sidebar-foreground: oklch(0.96 0.005 80);
-  --sidebar-primary: oklch(0.96 0.005 80);
-  --sidebar-primary-foreground: oklch(0.12 0.005 60);
-  --sidebar-accent: oklch(0.2 0.005 60);
-  --sidebar-accent-foreground: oklch(0.96 0.005 80);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.6 0.008 70);
+  --border: rgba(255,255,255,0.1);
+  --input: rgba(255,255,255,0.15);
+  --ring: #0F6B6D;
+  --sidebar: #38383B;
+  --sidebar-foreground: #FAFAF8;
+  --sidebar-primary: #FAFAF8;
+  --sidebar-primary-foreground: #38383B;
+  --sidebar-accent: #000000;
+  --sidebar-accent-foreground: #FAFAF8;
+  --sidebar-border: rgba(255,255,255,0.1);
+  --sidebar-ring: #0F6B6D;
 }
 
 @layer base {

@@ -9,46 +9,42 @@ export interface Project {
   role: string;
   client?: string;
   placeholderBg: string;
+  thumbnail?: string;
 }
 
 export const projects: Project[] = [
   {
-    id: "factor-ae",
-    title: "Factor AE",
+    id: "marketeq",
+    title: "Marketeq",
     category: "Product Design · UX Strategy",
     year: "2024",
-    description:
-      "Enterprise project management platform for architecture and engineering firms. Designed end-to-end workflows for project planning, resource allocation, and financial tracking.",
+    description: "",
     featured: true,
     role: "Product Designer",
-    client: "Schema",
-    tags: ["Product Design", "UX Strategy", "Enterprise"],
+    tags: ["Product Design", "UX Strategy"],
     placeholderBg: "#E4DDD5",
+    thumbnail: "/marketeq_markup.jpg",
   },
   {
-    id: "open-edx",
-    title: "Open edX",
-    category: "Design Systems · Interaction Design",
-    year: "2023",
-    description:
-      "Learning management system design and design system development for the Open edX platform, serving millions of learners worldwide.",
+    id: "graphic-design",
+    title: "Graphic Design",
+    category: "Visual Design",
+    year: "2024",
+    description: "",
     featured: true,
-    role: "Product Designer",
-    client: "Schema",
-    tags: ["Design Systems", "Interaction Design", "Education"],
+    role: "Designer",
+    tags: ["Graphic Design", "Visual Design"],
     placeholderBg: "#D5DCE4",
   },
   {
-    id: "cleardemand",
-    title: "ClearDemand",
-    category: "Product Design · Design Systems",
+    id: "presentation-design",
+    title: "Presentation Design",
+    category: "Visual Design",
     year: "2024",
-    description:
-      "Retail pricing and promotion platform for grocery management. Designed complex data visualization interfaces and a comprehensive design system for pricing workflows.",
+    description: "",
     featured: true,
-    role: "Product Designer",
-    client: "Schema",
-    tags: ["Product Design", "Design Systems", "Data Visualization"],
+    role: "Designer",
+    tags: ["Presentation Design"],
     placeholderBg: "#D5E2DC",
   },
 ];

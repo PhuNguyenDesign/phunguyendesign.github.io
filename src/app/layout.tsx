@@ -3,6 +3,7 @@ import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import Preloader from "@/components/Preloader";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={instrumentSerif.variable}>
       <body className="antialiased">
+        <Preloader />
         <Nav />
         <main>{children}</main>
         <Footer />

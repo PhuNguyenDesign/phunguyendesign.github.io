@@ -81,23 +81,33 @@ export default function Home() {
               className={`group block ${i === 2 ? "md:col-span-2" : ""}`}
             >
               <div
-                className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-90 flex items-end p-6"
+                className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-90 relative"
                 style={{
                   aspectRatio: i === 2 ? "21/9" : "4/3",
                   backgroundColor: project.placeholderBg,
                 }}
               >
-                <span
-                  className="text-foreground/30"
-                  style={{
-                    fontSize: "clamp(3rem, 8vw, 6rem)",
-                    fontFamily: "var(--font-display)",
-                    lineHeight: 1,
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  {project.title}
-                </span>
+                {project.thumbnail ? (
+                  <img
+                    src={project.thumbnail}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="flex items-end p-6 w-full h-full">
+                    <span
+                      className="text-foreground/30"
+                      style={{
+                        fontSize: "clamp(3rem, 8vw, 6rem)",
+                        fontFamily: "var(--font-display)",
+                        lineHeight: 1,
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      {project.title}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-start justify-between">
