@@ -38,20 +38,30 @@ export default function WorkPage() {
         {projects.map((project) => (
           <Link key={project.id} href={`/work/${project.id}`} className="group block">
             <div
-              className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-90 flex items-end p-6"
+              className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-90"
               style={{ aspectRatio: "4/3", backgroundColor: project.placeholderBg }}
             >
-              <span
-                className="text-foreground/30"
-                style={{
-                  fontSize: "clamp(2.5rem, 6vw, 5rem)",
-                  fontFamily: "var(--font-display)",
-                  lineHeight: 1,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {project.title}
-              </span>
+              {project.thumbnail ? (
+                <img
+                  src={project.thumbnail}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="flex items-end p-6 w-full h-full">
+                  <span
+                    className="text-foreground/30"
+                    style={{
+                      fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                      fontFamily: "var(--font-display)",
+                      lineHeight: 1,
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {project.title}
+                  </span>
+                </div>
+              )}
             </div>
             <div className="flex items-start justify-between">
               <div>

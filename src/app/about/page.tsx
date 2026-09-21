@@ -76,11 +76,17 @@ export default function AboutPage() {
           >
             At heart, I&apos;m a translator — turning complexity into clarity, needs into decisions, and ideas into experiences people can see, understand, and use.
           </p>
+          <a
+            href="mailto:phunguyendesign@gmail.com"
+            className="inline-block text-center border border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors"
+            style={{ fontSize: "0.8125rem", padding: "0.625rem 1.25rem", letterSpacing: "0.04em" }}
+          >
+            Get in contact!
+          </a>
         </div>
 
         {/* Sidebar */}
         <div>
-          {/* Photo placeholder */}
           <img
             src="/phu-32.jpg"
             alt="Phu Nguyen"
@@ -110,21 +116,6 @@ export default function AboutPage() {
               <p className="text-foreground" style={{ fontSize: "0.875rem" }}>
                 San Diego, CA
               </p>
-            </div>
-            <div>
-              <p
-                className="text-muted-foreground mb-2"
-                style={{ fontSize: "0.6875rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
-              >
-                Contact
-              </p>
-              <a
-                href="mailto:phu.nguyen@schema.education"
-                className="text-foreground hover:text-muted-foreground transition-colors underline underline-offset-2"
-                style={{ fontSize: "0.875rem" }}
-              >
-                phu.nguyen@schema.education
-              </a>
             </div>
           </div>
         </div>
