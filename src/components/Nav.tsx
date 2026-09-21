@@ -69,7 +69,7 @@ export default function Nav() {
           className="mx-auto w-full"
           style={{ paddingLeft: "var(--page-pad-x)", paddingRight: "var(--page-pad-x)", maxWidth: "var(--max-w)" }}
         >
-          <ul className="flex flex-col gap-6">
+          <ul className="flex flex-col gap-6 items-center text-center">
             {NAV_LINKS.map(({ href, label }) => (
               <li key={href}>
                 <Link

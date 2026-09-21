@@ -22,7 +22,7 @@ export default function Home() {
             className="text-muted-foreground mb-10"
             style={{ fontSize: "0.6875rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
           >
-            Product Designer — San Francisco
+            Product Designer — San Diego
           </p>
 
           <h1
