@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Phu Nguyen — Product Designer",
   description:
     "Product designer focused on UX strategy, interaction design, visual design, and design systems.",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
