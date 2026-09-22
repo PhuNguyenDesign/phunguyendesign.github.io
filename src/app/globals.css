@@ -150,4 +150,32 @@
   html {
     scroll-behavior: smooth;
   }
+
+  .btn-teal {
+    display: inline-block;
+    border: 1px solid #0F6B6D;
+    color: #FAFAF8;
+    background-color: transparent;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    padding: 0.625rem 1.5rem;
+    transition: background-color 0.4s ease, letter-spacing 0.4s ease, padding 0.4s ease;
+  }
+  .btn-teal::after {
+    content: "\00a0\00a0→";
+    display: inline-block;
+    transition: transform 0.4s ease;
+  }
+  .btn-teal:hover {
+    background-color: #0F6B6D;
+    color: #FAFAF8;
+    letter-spacing: 0.2em;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+  .btn-teal:hover::after {
+    transform: translateX(6px);
+  }
 }

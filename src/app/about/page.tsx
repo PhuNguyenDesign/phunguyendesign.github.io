@@ -78,8 +78,7 @@ export default function AboutPage() {
           </p>
           <a
             href="mailto:phunguyendesign@gmail.com"
-            className="inline-block text-center border border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors"
-            style={{ fontSize: "0.8125rem", padding: "0.625rem 1.25rem", letterSpacing: "0.04em" }}
+            className="btn-teal"
           >
             Get in contact!
           </a>

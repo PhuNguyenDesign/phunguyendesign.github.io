@@ -34,7 +34,7 @@ export default function WorkPage() {
         </h1>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
           <Link key={project.id} href={`/work/${project.id}`} className="group block">
             <div
@@ -47,6 +47,10 @@ export default function WorkPage() {
                   alt={project.title}
                   className="w-full h-full object-cover"
                 />
+              ) : project.logo ? (
+                <div className="flex items-center justify-center w-full h-full p-8">
+                  <img src={project.logo} alt={project.title} style={{ maxWidth: "80%", maxHeight: "80%" }} />
+                </div>
               ) : (
                 <div className="flex items-end p-6 w-full h-full">
                   <span

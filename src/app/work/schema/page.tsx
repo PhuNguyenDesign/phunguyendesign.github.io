@@ -12,7 +12,9 @@ export default function SchemaPage() {
       {/* Hero */}
       <section
         style={{
-          background: "linear-gradient(135deg, #4A5568 0%, #6B7280 40%, #374151 100%)",
+          backgroundImage: "url('/schema/background.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           paddingTop: "calc(var(--nav-height) + 80px)",
           paddingBottom: "80px",
           textAlign: "center",
@@ -28,23 +30,44 @@ export default function SchemaPage() {
         </div>
       </section>
 
-      {/* Coming Soon */}
-      <section style={{ maxWidth: "1100px", margin: "0 auto", padding: "120px var(--page-pad-x)", textAlign: "center" }}>
-        <p style={{ fontSize: "0.9375rem", color: "#999", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "24px" }}>
-          Case Study
-        </p>
-        <h2 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "24px" }}>
-          Coming soon
-        </h2>
-        <p style={{ fontSize: "1rem", lineHeight: 1.8, color: "#444", maxWidth: "50ch", margin: "0 auto 48px" }}>
-          This case study is currently being written. Check back soon.
-        </p>
-        <Link
-          href="/work"
-          style={{ fontSize: "0.8125rem", color: "#1a1a1a", letterSpacing: "0.04em", borderBottom: "1px solid #1a1a1a", paddingBottom: "2px" }}
-        >
-          ← Back to work
-        </Link>
+      {/* Overview */}
+      <section style={{ backgroundColor: "#000", color: "#fff", padding: "80px var(--page-pad-x)" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.2)", marginBottom: "48px" }} />
+          <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "32px" }}>
+            01 – Overview
+          </h2>
+          <p style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)", lineHeight: 1.7, color: "rgba(255,255,255,0.5)", maxWidth: "65ch", marginBottom: "64px" }}>
+            I&apos;m a product designer at Schema, where I&apos;ve worked across multiple product initiatives for clients including Open edX, Factor AE, and ClearDemand. My work spans UX strategy, interaction design, visual design, design systems, and product thinking — from reworking complex user flows and shaping mobile experiences to building reusable UI patterns and translating design intent into production-ready systems.
+          </p>
+
+          {/* Sub-project cards */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+            {[
+              { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", image: "/schema/mobile.svg" },
+              { href: "/work/schema/agentic-design", label: "Agentic Design", category: "Product Design · AI", image: "/schema/agentic.svg" },
+              { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", image: "/schema/designsystem.svg" },
+            ].map(({ href, label, category, image }) => (
+              <Link key={href} href={href} className="group block" style={{ textDecoration: "none", color: "#fff" }}>
+                <div
+                  className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-80"
+                  style={{ aspectRatio: "4/3", backgroundColor: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  {image && (
+                    <img src={image} alt="" style={{ width: "60%", objectFit: "contain" }} />
+                  )}
+                </div>
+                <div style={{ display: "flex", alignItems: "start", justifyContent: "space-between" }}>
+                  <div>
+                    <p style={{ fontSize: "0.9375rem", fontFamily: "var(--font-display)", marginBottom: "4px" }}>{label}</p>
+                    <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.5)" }}>{category}</p>
+                  </div>
+                  <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", flexShrink: 0, marginLeft: "16px" }}>2025</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
     </div>

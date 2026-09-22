@@ -1,59 +1,86 @@
 import Link from "next/link";
 import { projects } from "@/lib/projects";
+import HeroImage from "@/components/HeroImage";
 
 export default function Home() {
   const featured = projects.filter((p) => p.featured);
 
   return (
     <>
-      {/* Hero */}
+      {/* Full-bleed hero */}
+      <div style={{ paddingTop: "var(--nav-height)" }}>
+        <HeroImage src="/homepicture.jpg">
+          {/* Light → dark gradient so text stays legible */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.62) 100%)",
+            }}
+          />
+          {/* Text — max-width centered with page gutter */}
+          <div className="absolute inset-0 flex flex-col">
+            <div
+              className="flex flex-col justify-between flex-1"
+              style={{
+                maxWidth: "var(--max-w)",
+                width: "100%",
+                margin: "0 auto",
+                padding: "clamp(20px, 3vw, 48px) var(--page-pad-x)",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "0.6875rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "rgba(250,250,248,0.65)",
+                }}
+              >
+                Product Designer — San Diego
+              </p>
+              <h1
+                className="text-foreground leading-[0.95] tracking-tight"
+                style={{
+                  fontSize: "clamp(3rem, 8vw, 8rem)",
+                  fontFamily: "var(--font-display)",
+                }}
+              >
+                <span className="font-instrument-serif italic">Translating</span>{" "}
+                complexity into clarity.
+              </h1>
+            </div>
+          </div>
+        </HeroImage>
+      </div>
+
+      {/* Below-hero content */}
       <section
-        className="flex flex-col justify-end pb-24 mx-auto"
+        className="mx-auto"
         style={{
-          minHeight: "100svh",
-          paddingTop: "var(--nav-height)",
+          paddingTop: "clamp(2.5rem, 4vw, 4rem)",
+          paddingBottom: "clamp(2rem, 4vw, 4rem)",
           paddingLeft: "var(--page-pad-x)",
           paddingRight: "var(--page-pad-x)",
           maxWidth: "var(--max-w)",
         }}
       >
-        <div className="mb-12">
-          <p
-            className="text-muted-foreground mb-10"
-            style={{ fontSize: "0.6875rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
+        <p
+          className="text-muted-foreground leading-relaxed mb-12"
+          style={{ fontSize: "1rem", maxWidth: "52ch", fontFamily: "var(--font-text)" }}
+        >
+          UX strategy, interaction design, visual design, and design systems —
+          building digital products at{" "}
+          <a
+            href="https://schema.education"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-foreground underline underline-offset-2 hover:text-muted-foreground transition-colors"
           >
-            Product Designer — San Diego
-          </p>
-
-          <h1
-            className="text-foreground mb-8 leading-[0.95] tracking-tight"
-            style={{
-              fontSize: "clamp(3rem, 8vw, 8rem)",
-              maxWidth: "18ch",
-              fontFamily: "var(--font-display)",
-            }}
-          >
-            <span className="font-instrument-serif italic">Translating</span>{" "}
-            complexity into clarity.
-          </h1>
-
-          <p
-            className="text-muted-foreground leading-relaxed"
-            style={{ fontSize: "1rem", maxWidth: "52ch", fontFamily: "var(--font-text)" }}
-          >
-            UX strategy, interaction design, visual design, and design systems —
-            building digital products at{" "}
-            <a
-              href="https://schema.education"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground underline underline-offset-2 hover:text-muted-foreground transition-colors"
-            >
-              Schema
-            </a>{" "}
-            for clients including Factor AE, Open edX, and ClearDemand.
-          </p>
-        </div>
+            Schema
+          </a>{" "}
+          for clients including Factor AE, Open edX, and ClearDemand.
+        </p>
 
         <div
           className="flex items-center gap-2 text-muted-foreground"
@@ -73,7 +100,7 @@ export default function Home() {
           maxWidth: "var(--max-w)",
         }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {featured.map((project, i) => (
             <Link
               key={project.id}
@@ -93,6 +120,10 @@ export default function Home() {
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
+                ) : project.logo ? (
+                  <div className="flex items-center justify-center w-full h-full p-8">
+                    <img src={project.logo} alt={project.title} style={{ maxWidth: "80%", maxHeight: "80%" }} />
+                  </div>
                 ) : (
                   <div className="flex items-end p-6 w-full h-full">
                     <span
@@ -136,8 +167,7 @@ export default function Home() {
         <div className="mt-16 flex justify-center">
           <Link
             href="/work"
-            className="text-muted-foreground hover:text-foreground transition-colors border-b border-muted-foreground/30 hover:border-foreground pb-px"
-            style={{ fontSize: "0.8125rem", letterSpacing: "0.04em" }}
+            className="btn-teal"
           >
             View all work
           </Link>

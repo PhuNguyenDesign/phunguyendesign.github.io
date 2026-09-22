@@ -10,6 +10,7 @@ export interface Project {
   client?: string;
   placeholderBg: string;
   thumbnail?: string;
+  logo?: string;
 }
 
 export const projects: Project[] = [
@@ -17,18 +18,19 @@ export const projects: Project[] = [
     id: "schema",
     title: "Schema",
     category: "Product Design · EdTech",
-    year: "2025",
+    year: "2024 – Present",
     description: "",
     featured: true,
     role: "Product Designer",
     tags: ["Product Design", "EdTech"],
-    placeholderBg: "#E8E4F0",
+    placeholderBg: "#FAFAF8",
+    logo: "/schema/logo.svg",
   },
   {
     id: "marketeq",
     title: "Marketeq",
     category: "Product Design · UX Strategy",
-    year: "2024",
+    year: "2023",
     description: "",
     featured: true,
     role: "Product Designer",
