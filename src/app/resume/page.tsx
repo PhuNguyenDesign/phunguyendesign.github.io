@@ -135,7 +135,7 @@ export default function ResumePage() {
               Based in
             </p>
             <p className="text-foreground" style={{ fontSize: "0.875rem" }}>
-              San Francisco, CA
+              San Diego, CA
             </p>
           </div>
           <div>
