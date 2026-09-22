@@ -37,17 +37,24 @@ export default function SchemaPage() {
           <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "32px" }}>
             01 – Overview
           </h2>
+          <p style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)", lineHeight: 1.7, color: "rgba(255,255,255,0.5)", maxWidth: "65ch", marginBottom: "20px" }}>
+            I&apos;ve been a product designer at Schema, a design and product agency, since April 2024. My client work spans
+            Open edX, ClearDemand, and Factor AE, from the native Open edX mobile learning experience to component libraries
+            for data-heavy B2B products.
+          </p>
           <p style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)", lineHeight: 1.7, color: "rgba(255,255,255,0.5)", maxWidth: "65ch", marginBottom: "64px" }}>
-            I&apos;m a product designer at Schema, where I&apos;ve worked across multiple product initiatives for clients including Open edX, Factor AE, and ClearDemand. My work spans UX strategy, interaction design, visual design, design systems, and product thinking — from reworking complex user flows and shaping mobile experiences to building reusable UI patterns and translating design intent into production-ready systems.
+            Most of my work sits where design meets systems. I design the states and patterns a product is built from, keep
+            shared design files trustworthy for the teams that rely on them, and, more recently, design directly in code
+            with AI agents.
           </p>
 
           {/* Sub-project cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px" }}>
             {[
-              { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", image: "/schema/mobile.svg" },
-              { href: "/work/schema/agentic-design", label: "Agentic Design", category: "Product Design · AI", image: "/schema/agentic.svg" },
-              { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", image: "/schema/designsystem.svg" },
-            ].map(({ href, label, category, image }) => (
+              { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", year: "2024 – 2026", image: "/schema/mobile.svg", blurb: "Visual course progress, and the shared design file behind the Open edX app." },
+              { href: "/work/schema/agentic-design", label: "Agentic Design", category: "Product Design · AI", year: "2026", image: "/schema/agentic.svg", blurb: "Designing through AI agents, and designing the AI interfaces themselves." },
+              { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", year: "2025 – 2026", image: "/schema/designsystem.svg", blurb: "Components and modules for ClearDemand, plus Paragon, Factor AE, and more." },
+            ].map(({ href, label, category, year, image, blurb }) => (
               <Link key={href} href={href} className="group block" style={{ textDecoration: "none", color: "#fff" }}>
                 <div
                   className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-80"
@@ -62,8 +69,9 @@ export default function SchemaPage() {
                     <p style={{ fontSize: "0.9375rem", fontFamily: "var(--font-display)", marginBottom: "4px" }}>{label}</p>
                     <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.5)" }}>{category}</p>
                   </div>
-                  <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", flexShrink: 0, marginLeft: "16px" }}>2025</span>
+                  <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", flexShrink: 0, marginLeft: "16px" }}>{year}</span>
                 </div>
+                <p style={{ fontSize: "0.875rem", lineHeight: 1.6, color: "rgba(255,255,255,0.6)", marginTop: "12px" }}>{blurb}</p>
               </Link>
             ))}
           </div>
