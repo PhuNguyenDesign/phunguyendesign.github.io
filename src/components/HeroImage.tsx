@@ -148,11 +148,20 @@ export default function HeroImage({ src, children }: { src: string; children?: R
     ctx.globalAlpha = 1;
   }, []);
 
-  useEffect(() => {
+  // Redraw only while the pointer is over the hero (or the effect is fading out), not every frame forever.
+  const startLoop = useCallback(() => {
+    if (rafRef.current !== null) return;
     const loop = () => { draw(); rafRef.current = requestAnimationFrame(loop); };
     rafRef.current = requestAnimationFrame(loop);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, [draw]);
+
+  const stopLoop = useCallback(() => {
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+    draw();
+  }, [draw]);
+
+  useEffect(() => () => { if (rafRef.current !== null) cancelAnimationFrame(rafRef.current); }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -162,12 +171,13 @@ export default function HeroImage({ src, children }: { src: string; children?: R
   }, []);
 
   const handleMouseEnter = useCallback(() => {
-    gsap.to(stateRef.current, { radius: 100, duration: 0.5, ease: "power3.out" });
-  }, []);
+    startLoop();
+    gsap.to(stateRef.current, { radius: 100, duration: 0.5, ease: "power3.out", overwrite: true });
+  }, [startLoop]);
 
   const handleMouseLeave = useCallback(() => {
-    gsap.to(stateRef.current, { radius: 0, duration: 0.6, ease: "power3.in" });
-  }, []);
+    gsap.to(stateRef.current, { radius: 0, duration: 0.6, ease: "power3.in", overwrite: true, onComplete: stopLoop });
+  }, [stopLoop]);
 
   return (
     <div
@@ -178,7 +188,7 @@ export default function HeroImage({ src, children }: { src: string; children?: R
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <img src={src} alt="" className="w-full block" style={{ objectFit: "cover", height: "88vh", objectPosition: "center" }} />
+      <img src={src} alt="" width={1125} height={751} fetchPriority="high" decoding="async" className="w-full block" style={{ objectFit: "cover", height: "88vh", objectPosition: "center" }} />
       {children}
       <canvas
         ref={canvasRef}

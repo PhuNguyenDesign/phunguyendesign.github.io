@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { projects } from "@/lib/projects";
+import PageHeader from "@/components/PageHeader";
+import ProjectCard from "@/components/ProjectCard";
 
 export const metadata: Metadata = {
   title: "Work — Phu Nguyen",
@@ -9,81 +10,23 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <div
-      className="pb-32 mx-auto"
+      className="mx-auto"
       style={{
         paddingTop: "var(--nav-height)",
         paddingLeft: "var(--page-pad-x)",
         paddingRight: "var(--page-pad-x)",
+        paddingBottom: "clamp(6rem, 10vw, 9rem)",
         maxWidth: "var(--max-w)",
       }}
     >
-      <header className="py-20 border-b border-border mb-16">
-        <p
-          className="text-muted-foreground mb-4"
-          style={{ fontSize: "0.6875rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
-        >
-          Selected Work
-        </p>
-        <h1
-          className="leading-tight tracking-tight text-foreground"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", fontFamily: "var(--font-display)" }}
-        >
-          Product design projects
-          <br />
-          <span className="font-instrument-serif italic">across industries.</span>
-        </h1>
-      </header>
+      <PageHeader label="Selected Work">
+        Product design projects{" "}
+        <span className="font-instrument-serif italic" style={{ fontWeight: 400 }}>across industries.</span>
+      </PageHeader>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-          <Link key={project.id} href={`/work/${project.id}`} className="group block">
-            <div
-              className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-90"
-              style={{ aspectRatio: "4/3", backgroundColor: project.placeholderBg }}
-            >
-              {project.thumbnail ? (
-                <img
-                  src={project.thumbnail}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-              ) : project.logo ? (
-                <div className="flex items-center justify-center w-full h-full p-8">
-                  <img src={project.logo} alt={project.title} style={{ maxWidth: "80%", maxHeight: "80%" }} />
-                </div>
-              ) : (
-                <div className="flex items-end p-6 w-full h-full">
-                  <span
-                    className="text-foreground/30"
-                    style={{
-                      fontSize: "clamp(2.5rem, 6vw, 5rem)",
-                      fontFamily: "var(--font-display)",
-                      lineHeight: 1,
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    {project.title}
-                  </span>
-                </div>
-              )}
-            </div>
-            <div className="flex items-start justify-between">
-              <div>
-                <h2
-                  className="text-foreground mb-1"
-                  style={{ fontSize: "0.9375rem", fontFamily: "var(--font-display)" }}
-                >
-                  {project.title}
-                </h2>
-                <p className="text-muted-foreground" style={{ fontSize: "0.8125rem" }}>
-                  {project.category}
-                </p>
-              </div>
-              <span className="text-muted-foreground shrink-0 ml-4" style={{ fontSize: "0.75rem" }}>
-                {project.year}
-              </span>
-            </div>
-          </Link>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14 pt-10 border-t border-border">
+        {projects.map((project, i) => (
+          <ProjectCard key={project.id} project={project} delay={(i % 2) * 0.08} headingLevel="h2" />
         ))}
       </div>
     </div>

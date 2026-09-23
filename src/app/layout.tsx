@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
@@ -21,13 +21,21 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  colorScheme: "dark",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={instrumentSerif.variable}>
+    <html lang="en" className={instrumentSerif.variable} style={{ colorScheme: "dark" }}>
       <body className="antialiased">
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <Preloader />
         <Nav />
-        <main>{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <Footer />
       </body>
     </html>

@@ -18,11 +18,12 @@ export default function Preloader() {
 
   return (
     <div
+      aria-hidden="true"
       style={{
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        backgroundColor: "#000",
+        backgroundColor: "#0a0a0a",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -42,7 +43,7 @@ export default function Preloader() {
       <p
         style={{
           color: "white",
-          fontFamily: "sans-serif",
+          fontFamily: "var(--font-display)",
           fontWeight: 700,
           fontSize: "1.75rem",
           letterSpacing: "0.25em",

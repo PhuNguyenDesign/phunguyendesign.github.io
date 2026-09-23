@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { projects } from "@/lib/projects";
 import HeroImage from "@/components/HeroImage";
+import Reveal from "@/components/Reveal";
+import ProjectCard from "@/components/ProjectCard";
 
 export default function Home() {
   const featured = projects.filter((p) => p.featured);
@@ -18,7 +20,7 @@ export default function Home() {
                 "linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.62) 100%)",
             }}
           />
-          {/* Text — max-width centered with page gutter */}
+          {/* Text: max-width centered with page gutter */}
           <div className="absolute inset-0 flex flex-col">
             <div
               className="flex flex-col justify-between flex-1"
@@ -37,7 +39,7 @@ export default function Home() {
                   color: "rgba(250,250,248,0.65)",
                 }}
               >
-                Product Designer — San Diego
+                Product Designer, San Diego
               </p>
               <h1
                 className="text-foreground leading-[0.95] tracking-tight"
@@ -54,122 +56,73 @@ export default function Home() {
         </HeroImage>
       </div>
 
-      {/* Below-hero content */}
+      {/* Intro */}
       <section
         className="mx-auto"
         style={{
-          paddingTop: "clamp(2.5rem, 4vw, 4rem)",
-          paddingBottom: "clamp(2rem, 4vw, 4rem)",
-          paddingLeft: "var(--page-pad-x)",
-          paddingRight: "var(--page-pad-x)",
+          padding: "clamp(4rem, 8vw, 7rem) var(--page-pad-x) clamp(3rem, 6vw, 5rem)",
           maxWidth: "var(--max-w)",
         }}
       >
-        <p
-          className="text-muted-foreground leading-relaxed mb-12"
-          style={{ fontSize: "1rem", maxWidth: "52ch", fontFamily: "var(--font-text)" }}
-        >
-          UX strategy, interaction design, visual design, and design systems —
-          building digital products at{" "}
-          <a
-            href="https://schema.education"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-foreground underline underline-offset-2 hover:text-muted-foreground transition-colors"
+        <Reveal>
+          <p
+            className="text-foreground"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(1.375rem, 2.4vw, 2rem)",
+              fontWeight: 500,
+              lineHeight: 1.3,
+              letterSpacing: "-0.015em",
+              maxWidth: "36ch",
+            }}
           >
-            Schema
-          </a>{" "}
-          for clients including Factor AE, Open edX, and ClearDemand.
-        </p>
-
-        <div
-          className="flex items-center gap-2 text-muted-foreground"
-          style={{ fontSize: "0.75rem", letterSpacing: "0.14em", textTransform: "uppercase" }}
-        >
-          <span>Selected Work</span>
-          <span>↓</span>
-        </div>
+            UX strategy, interaction design, visual design, and design systems at{" "}
+            <a
+              href="https://schema.education"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            >
+              Schema
+            </a>
+            , for clients including Open edX, ClearDemand, and Factor AE.
+          </p>
+        </Reveal>
       </section>
 
       {/* Selected Work */}
       <section
-        className="pb-32 mx-auto"
+        className="mx-auto"
         style={{
-          paddingLeft: "var(--page-pad-x)",
-          paddingRight: "var(--page-pad-x)",
+          padding: "0 var(--page-pad-x) clamp(6rem, 10vw, 9rem)",
           maxWidth: "var(--max-w)",
         }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featured.map((project, i) => (
-            <Link
-              key={project.id}
-              href={`/work/${project.id}`}
-              className={`group block ${i === 2 ? "md:col-span-2" : ""}`}
-            >
-              <div
-                className="w-full overflow-hidden mb-4 transition-opacity duration-300 group-hover:opacity-90 relative"
-                style={{
-                  aspectRatio: i === 2 ? "21/9" : "4/3",
-                  backgroundColor: project.placeholderBg,
-                }}
-              >
-                {project.thumbnail ? (
-                  <img
-                    src={project.thumbnail}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                  />
-                ) : project.logo ? (
-                  <div className="flex items-center justify-center w-full h-full p-8">
-                    <img src={project.logo} alt={project.title} style={{ maxWidth: "80%", maxHeight: "80%" }} />
-                  </div>
-                ) : (
-                  <div className="flex items-end p-6 w-full h-full">
-                    <span
-                      className="text-foreground/30"
-                      style={{
-                        fontSize: "clamp(3rem, 8vw, 6rem)",
-                        fontFamily: "var(--font-display)",
-                        lineHeight: 1,
-                        letterSpacing: "-0.02em",
-                      }}
-                    >
-                      {project.title}
-                    </span>
-                  </div>
-                )}
-              </div>
+        <h2
+          className="text-foreground"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)",
+            fontWeight: 600,
+            letterSpacing: "-0.025em",
+            lineHeight: 1.08,
+            paddingTop: "32px",
+            borderTop: "1px solid rgba(250,250,248,0.14)",
+            marginBottom: "40px",
+          }}
+        >
+          Selected Work
+        </h2>
 
-              <div className="flex items-start justify-between">
-                <div>
-                  <h2
-                    className="text-foreground mb-1"
-                    style={{ fontSize: "0.9375rem", fontFamily: "var(--font-display)" }}
-                  >
-                    {project.title}
-                  </h2>
-                  <p className="text-muted-foreground" style={{ fontSize: "0.8125rem" }}>
-                    {project.category}
-                  </p>
-                </div>
-                <span
-                  className="text-muted-foreground shrink-0 ml-4"
-                  style={{ fontSize: "0.75rem" }}
-                >
-                  {project.year}
-                </span>
-              </div>
-            </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14">
+          {featured.map((project, i) => (
+            <ProjectCard key={project.id} project={project} wide={i === 2} delay={(i % 2) * 0.08} />
           ))}
         </div>
 
-        <div className="mt-16 flex justify-center">
-          <Link
-            href="/work"
-            className="btn-teal"
-          >
-            View all work
+        <div className="mt-20 flex justify-center">
+          <Link href="/work" className="btn-teal">
+            View All Work
           </Link>
         </div>
       </section>

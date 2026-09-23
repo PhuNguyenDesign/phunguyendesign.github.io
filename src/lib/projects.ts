@@ -18,7 +18,7 @@ export const projects: Project[] = [
     id: "schema",
     title: "Schema",
     category: "Product Design · EdTech",
-    year: "2024 – Present",
+    year: "2024 - Present",
     description: "",
     featured: true,
     role: "Product Designer",

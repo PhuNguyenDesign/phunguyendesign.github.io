@@ -96,7 +96,7 @@ export default async function ProjectPage({
             className="text-muted-foreground leading-relaxed"
             style={{ fontSize: "1rem", fontFamily: "var(--font-text)" }}
           >
-            Add your full case study here — describe the problem, your process, key decisions, and outcomes.
+            Add your full case study here: describe the problem, your process, key decisions, and outcomes.
           </p>
         </div>
 
@@ -164,7 +164,7 @@ export default async function ProjectPage({
           className="text-muted-foreground leading-relaxed"
           style={{ fontSize: "0.875rem", fontFamily: "var(--font-text)" }}
         >
-          Add your case study sections here — problem framing, research, design process, final solution, and results.
+          Add your case study sections here: problem framing, research, design process, final solution, and results.
         </p>
       </div>
     </div>
