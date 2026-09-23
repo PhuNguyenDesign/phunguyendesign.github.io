@@ -93,7 +93,7 @@ export function Section({
             </div>
           ) : (
             <>
-              <div style={{ marginBottom: "40px", maxWidth: "24ch" }}>{heading}</div>
+              <div style={{ marginBottom: "40px", maxWidth: "40ch" }}>{heading}</div>
               {children}
             </>
           )}
@@ -165,12 +165,12 @@ export function Figure({
   );
 }
 
-// Two images of different weights side by side, so pairs don't read as a uniform row.
+// Two images side by side at the same size, so the pair ends on one clean edge.
 export function ImagePair({ labels }: { labels: [string, string] }) {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-      <div className="md:col-span-3"><ImageSlot label={labels[0]} ratio="4/3" /></div>
-      <div className="md:col-span-2"><ImageSlot label={labels[1]} ratio="3/4" /></div>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <ImageSlot label={labels[0]} ratio="4/3" />
+      <ImageSlot label={labels[1]} ratio="4/3" />
     </div>
   );
 }

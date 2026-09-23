@@ -73,7 +73,7 @@ export default function ResumePage() {
                     Schema
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "0.9375rem", lineHeight: 1.7, maxWidth: "58ch" }}>
-                    Led end-to-end product design across multiple client engagements. Responsibilities include UX strategy, interaction design, visual design, and design system development for Factor AE, Open edX, and ClearDemand.
+                    Led end-to-end product design across multiple client engagements. Responsibilities include UX strategy, interaction design, visual design, and design system development for Factor AE, Open edX, and ClearDemand.
                   </p>
                 </div>
               </div>

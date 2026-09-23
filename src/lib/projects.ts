@@ -11,6 +11,8 @@ export interface Project {
   placeholderBg: string;
   thumbnail?: string;
   logo?: string;
+  /** Background image behind the logo; the logo is shown in white on top. */
+  cover?: string;
 }
 
 export const projects: Project[] = [
@@ -25,6 +27,7 @@ export const projects: Project[] = [
     tags: ["Product Design", "EdTech"],
     placeholderBg: "#FAFAF8",
     logo: "/schema/logo.svg",
+    cover: "/schema/background.png",
   },
   {
     id: "marketeq",

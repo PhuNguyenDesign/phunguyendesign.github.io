@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const meta = [
   { label: "Role", value: "Product Designer" },
-  { label: "Client", value: "Open edX (Axim Collaborative)" },
+  { label: "Client", value: "Open edX (Axim Collaborative)" },
   { label: "Timeframe", value: "2024 - 2026" },
   { label: "Tools", value: "Figma, Confluence, Notion" },
 ];
@@ -42,14 +42,14 @@ export default function SchemaMobilePage() {
     <CaseStudyPage>
       <CaseStudyHeader
         title="Mobile Work"
-        summary="Designing the native Open edX learning experience, and keeping the design source of truth behind it trustworthy."
+        summary="Designing the native Open edX learning experience, and keeping the design source of truth behind it trustworthy."
         meta={meta}
       />
 
-      <Section title="The Open edX Mobile App">
+      <Section title="The Open edX Mobile App">
         <Body>
-          The Open edX mobile app is open source. Learners use it on iOS and Android, and several organizations build it
-          together. Schema supports its roadmap through contributions funded by Axim, the nonprofit behind Open edX.
+          The Open edX mobile app is open source. Learners use it on iOS and Android, and several organizations build it
+          together. Schema supports its roadmap through contributions funded by Axim, the nonprofit behind Open edX.
           Development partners implement the designs.
         </Body>
         <Body last>
@@ -61,7 +61,7 @@ export default function SchemaMobilePage() {
 
       <Section title="Visual Course Progress" layout="stack">
         <Body>
-          On the web, Open edX has a dedicated progress page. On mobile, progress was a thin bar and an &ldquo;8 of 20
+          On the web, Open edX has a dedicated progress page. On mobile, progress was a thin bar and an &ldquo;8 of 20
           assignments&rdquo; count. The project set out to bring richer progress into the native app and to use it to
           point learners toward what to do next.
         </Body>
@@ -109,7 +109,7 @@ export default function SchemaMobilePage() {
       <Section title="Helping Run a Distributed Design Practice">
         <Body last>
           In early 2026 I co-led Schema’s part of the community mobile design meetings, where designers from several
-          Open edX providers review contributions to the app. I planned agendas, triaged the file’s project pages
+          Open edX providers review contributions to the app. I planned agendas, triaged the file’s project pages
           (what to merge into the main screens, what to archive, what to move to its own file), and kept the cleanup work
           visible to the community it was for.
         </Body>

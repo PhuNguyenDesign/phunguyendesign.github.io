@@ -20,14 +20,20 @@ export default function ProjectCard({
       <Link href={`/work/${project.id}`} className="group block">
         <div
           className="w-full overflow-hidden mb-5 relative"
-          style={{ aspectRatio: wide ? "21/9" : "4/3", backgroundColor: project.placeholderBg }}
+          style={{
+            aspectRatio: wide ? "21/9" : "4/3",
+            backgroundColor: project.placeholderBg,
+            backgroundImage: project.cover ? `url('${project.cover}')` : undefined,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
           <div className="w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100">
             {project.thumbnail ? (
               <img src={project.thumbnail} alt={project.title} width={1600} height={1200} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             ) : project.logo ? (
               <div className="flex items-center justify-center w-full h-full p-8">
-                <img src={project.logo} alt={project.title} width={201} height={109} loading="lazy" decoding="async" style={{ maxWidth: "80%", maxHeight: "80%", width: "auto", height: "auto" }} />
+                <img src={project.logo} alt={project.title} width={201} height={109} loading="lazy" decoding="async" style={{ maxWidth: "80%", maxHeight: "80%", width: project.cover ? "42%" : "auto", height: "auto", filter: project.cover ? "brightness(0) invert(1)" : undefined }} />
               </div>
             ) : (
               <div className="flex items-end p-6 w-full h-full">

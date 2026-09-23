@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const subProjects = [
-  { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", year: "2024 - 2026", image: "/schema/mobile.svg", blurb: "Visual course progress, and the shared design file behind the Open edX app." },
+  { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", year: "2024 - 2026", image: "/schema/mobile.svg", blurb: "Visual course progress, and the shared design file behind the Open edX app." },
   { href: "/work/schema/agentic-design", label: "Agentic Design", category: "Product Design · AI", year: "2026", image: "/schema/agentic.svg", blurb: "Designing through AI agents, and designing the AI interfaces themselves." },
   { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", year: "2025 - 2026", image: "/schema/designsystem.svg", blurb: "Components and modules for ClearDemand, plus Paragon, Factor AE, and more." },
 ];
@@ -41,7 +41,7 @@ export default function SchemaPage() {
       <Section title="Overview">
         <Body>
           I’ve been a product designer at Schema, a design and product agency, since April 2024. My client work spans
-          Open edX, ClearDemand, and Factor AE, from the native Open edX mobile learning experience to component libraries
+          Open edX, ClearDemand, and Factor AE, from the native Open edX mobile learning experience to component libraries
           for data-heavy B2B products.
         </Body>
         <Body last>

@@ -29,13 +29,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={instrumentSerif.variable} style={{ colorScheme: "dark" }}>
-      <body className="antialiased">
+      <body className="antialiased min-h-dvh flex flex-col">
         <a href="#main" className="skip-link">
           Skip to content
         </a>
         <Preloader />
         <Nav />
-        <main id="main" tabIndex={-1}>{children}</main>
+        <main id="main" tabIndex={-1} className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

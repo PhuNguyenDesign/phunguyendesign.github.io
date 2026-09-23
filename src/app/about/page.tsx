@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const bio = [
   "Long before I became a product designer, I learned to understand and communicate through more than words. Growing up signing with my Deaf mom taught me to communicate with my eyes. Speaking Vietnamese taught me to translate between languages and perspectives. Visual art and hip-hop taught me how movement, composition, and expression can communicate what words sometimes can’t.",
   "Those experiences shaped the way I see design today.",
-  "I’m Phu Nguyen, a product designer with three years of professional experience across UX strategy, interaction design, visual design, and design systems. At Schema, I’ve worked with clients including Factor AE, Open edX, and ClearDemand, translating complex product and user needs into clear, intuitive digital experiences across enterprise software, education technology, and retail platforms.",
+  "I’m Phu Nguyen, a product designer with three years of professional experience across UX strategy, interaction design, visual design, and design systems. At Schema, I’ve worked with clients including Factor AE, Open edX, and ClearDemand, translating complex product and user needs into clear, intuitive digital experiences across enterprise software, education technology, and retail platforms.",
   "My practice sits at the intersection of strong visual craft and disciplined product thinking. I care about how systems work, but also how they feel: through typography, hierarchy, motion, interaction, and the small decisions that shape a person’s experience.",
   "Product design may be my profession, but design, communication, and understanding people have been part of how I navigate the world for much longer.",
   "At heart, I’m a translator, turning complexity into clarity, needs into decisions, and ideas into experiences people can see, understand, and use.",
@@ -136,9 +136,9 @@ export default function AboutPage() {
         <div>
           {education.map(({ degree, school, dates }) => (
             <div key={degree} className="grid grid-cols-1 gap-1 border-t border-border py-5 first:border-t-0 first:pt-0 md:grid-cols-12 md:gap-6">
-              <p className="text-foreground md:col-span-5" style={{ fontSize: "0.9375rem", fontWeight: 500 }}>{degree}</p>
+              <p className="text-foreground md:col-span-4" style={{ fontSize: "0.9375rem", fontWeight: 500 }}>{degree}</p>
               <p className="text-muted-foreground md:col-span-4" style={{ fontSize: "0.9375rem" }}>{school}</p>
-              <p className="text-muted-foreground md:col-span-3 md:text-right" style={{ fontSize: "0.875rem", fontVariantNumeric: "tabular-nums" }}>{dates}</p>
+              <p className="text-muted-foreground md:col-span-4 md:text-right md:whitespace-nowrap" style={{ fontSize: "0.875rem", fontVariantNumeric: "tabular-nums" }}>{dates}</p>
             </div>
           ))}
         </div>

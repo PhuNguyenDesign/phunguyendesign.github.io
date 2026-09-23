@@ -188,7 +188,7 @@ export default function HeroImage({ src, children }: { src: string; children?: R
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <img src={src} alt="" width={1125} height={751} fetchPriority="high" decoding="async" className="w-full block" style={{ objectFit: "cover", height: "88vh", objectPosition: "center" }} />
+      <img src={src} alt="" width={1125} height={751} fetchPriority="high" decoding="async" className="w-full block" style={{ objectFit: "cover", height: "88vh", objectPosition: "72% center" }} />
       {children}
       <canvas
         ref={canvasRef}

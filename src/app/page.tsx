@@ -17,7 +17,7 @@ export default function Home() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.62) 100%)",
+                "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.62) 100%)",
             }}
           />
           {/* Text: max-width centered with page gutter */}
@@ -36,7 +36,8 @@ export default function Home() {
                   fontSize: "0.6875rem",
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
-                  color: "rgba(250,250,248,0.65)",
+                  color: "rgba(250,250,248,0.85)",
+                  textShadow: "0 1px 12px rgba(0,0,0,0.6)",
                 }}
               >
                 Product Designer, San Diego
@@ -85,7 +86,7 @@ export default function Home() {
             >
               Schema
             </a>
-            , for clients including Open edX, ClearDemand, and Factor AE.
+            , for clients including Open edX, ClearDemand, and Factor AE.
           </p>
         </Reveal>
       </section>

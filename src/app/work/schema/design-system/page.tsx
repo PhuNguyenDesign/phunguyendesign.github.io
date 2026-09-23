@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const meta = [
   { label: "Role", value: "Product Designer" },
-  { label: "Projects", value: "ClearDemand, Open edX Paragon, Factor AE, Spending Spotlight" },
+  { label: "Projects", value: "ClearDemand, Open edX Paragon, Factor AE, Spending Spotlight" },
   { label: "Timeframe", value: "Dec 2025 - Aug 2026" },
   { label: "Tools", value: "Figma, Claude Code, React + shadcn/ui, GitHub" },
 ];
@@ -40,9 +40,9 @@ const modules = [
 
 const otherWork = [
   {
-    client: "Open edX · Paragon",
+    client: "Open edX · Paragon",
     title: "Shared Design Collateral",
-    body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
+    body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
   },
   {
     client: "Factor AE",
