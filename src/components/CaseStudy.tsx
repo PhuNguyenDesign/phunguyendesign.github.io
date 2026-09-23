@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import FloatIn, { type FloatFrom } from "@/components/FloatIn";
 
 // Shared building blocks for the dark Schema case-study pages.
 // Sharp corners throughout; one neutral palette on an off-black base.
@@ -12,7 +13,7 @@ const base = "#0a0a0a";
 
 export function CaseStudyPage({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ backgroundColor: base, color: ink, fontFamily: "var(--font-text)" }}>
+    <div style={{ backgroundColor: base, color: ink, fontFamily: "var(--font-text)", overflowX: "clip" }}>
       {children}
     </div>
   );
@@ -112,24 +113,26 @@ export function Body({ children, last }: { children: React.ReactNode; last?: boo
 }
 
 // Placeholder frame until real visuals are exported. The label says what belongs here.
-export function ImageSlot({ label, ratio = "16/9" }: { label: string; ratio?: string }) {
+export function ImageSlot({ label, ratio = "16/9", from = "up", delay }: { label: string; ratio?: string; from?: FloatFrom; delay?: number }) {
   return (
-    <figure
-      role="img"
-      aria-label={`Image placeholder: ${label}`}
-      style={{
-        aspectRatio: ratio,
-        backgroundColor: "#141414",
-        backgroundImage: "linear-gradient(135deg, rgba(242,242,239,0.035), rgba(242,242,239,0))",
-        border: "1px solid rgba(242,242,239,0.08)",
-        display: "flex",
-        alignItems: "flex-end",
-        padding: "20px",
-        margin: 0,
-      }}
-    >
-      <figcaption style={{ fontSize: "0.8125rem", color: faint, lineHeight: 1.5, maxWidth: "40ch" }}>{label}</figcaption>
-    </figure>
+    <FloatIn from={from} delay={delay}>
+      <figure
+        role="img"
+        aria-label={`Image placeholder: ${label}`}
+        style={{
+          aspectRatio: ratio,
+          backgroundColor: "#141414",
+          backgroundImage: "linear-gradient(135deg, rgba(242,242,239,0.035), rgba(242,242,239,0))",
+          border: "1px solid rgba(242,242,239,0.08)",
+          display: "flex",
+          alignItems: "flex-end",
+          padding: "20px",
+          margin: 0,
+        }}
+      >
+        <figcaption style={{ fontSize: "0.8125rem", color: faint, lineHeight: 1.5, maxWidth: "40ch" }}>{label}</figcaption>
+      </figure>
+    </FloatIn>
   );
 }
 
@@ -143,6 +146,8 @@ export function Figure({
   video,
   width,
   height,
+  from = "up",
+  delay,
 }: {
   src: string;
   alt: string;
@@ -151,17 +156,21 @@ export function Figure({
   video?: boolean;
   width?: number;
   height?: number;
+  from?: FloatFrom;
+  delay?: number;
 }) {
   const media: React.CSSProperties = { width: "100%", display: "block", aspectRatio: ratio, objectFit: ratio ? "cover" : undefined, backgroundColor: "#141414" };
   return (
-    <figure style={{ margin: 0 }}>
-      {video ? (
-        <video src={src} controls preload="metadata" playsInline aria-label={alt} style={media} />
-      ) : (
-        <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" style={{ ...media, height: "auto", aspectRatio: ratio ?? (width && height ? `${width}/${height}` : undefined) }} />
-      )}
-      {caption && <figcaption style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>{caption}</figcaption>}
-    </figure>
+    <FloatIn from={from} delay={delay}>
+      <figure style={{ margin: 0 }}>
+        {video ? (
+          <video src={src} controls preload="metadata" playsInline aria-label={alt} style={media} />
+        ) : (
+          <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" style={{ ...media, height: "auto", aspectRatio: ratio ?? (width && height ? `${width}/${height}` : undefined) }} />
+        )}
+        {caption && <figcaption style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>{caption}</figcaption>}
+      </figure>
+    </FloatIn>
   );
 }
 
@@ -169,8 +178,8 @@ export function Figure({
 export function ImagePair({ labels }: { labels: [string, string] }) {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <ImageSlot label={labels[0]} ratio="4/3" />
-      <ImageSlot label={labels[1]} ratio="4/3" />
+      <ImageSlot label={labels[0]} ratio="4/3" from="left" />
+      <ImageSlot label={labels[1]} ratio="4/3" from="right" delay={0.08} />
     </div>
   );
 }

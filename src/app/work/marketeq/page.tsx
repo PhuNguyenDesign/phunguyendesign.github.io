@@ -120,8 +120,8 @@ export default function MarketeqPage() {
         </Body>
         <Spacer />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Figure src="/marketeq/Card-sorting.png" width={2500} height={3660} alt="Card sorting" caption="Card sorting" />
-          <Figure src="/marketeq/userflows.png" width={2500} height={3302} alt="User flows" caption="User flows" />
+          <Figure src="/marketeq/Card-sorting.png" width={2500} height={3660} alt="Card sorting" caption="Card sorting" from="left" />
+          <Figure src="/marketeq/userflows.png" width={2500} height={3302} alt="User flows" caption="User flows" from="right" delay={0.08} />
         </div>
       </Section>
 
@@ -269,8 +269,8 @@ export default function MarketeqPage() {
             <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: faint }}>Columns will be condensed into single columns while in live-view mode.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-8">
-            <Figure src="/marketeq/Empty-statessss-2.png" width={1244} height={1864} alt="Empty states" />
-            <Figure src="/marketeq/FINAL-SECTION.png" width={1188} height={2052} alt="Final section" />
+            <Figure src="/marketeq/Empty-statessss-2.png" width={1244} height={1864} alt="Empty states" from="left" />
+            <Figure src="/marketeq/FINAL-SECTION.png" width={1188} height={2052} alt="Final section" from="right" delay={0.08} />
           </div>
         </div>
       </Section>
@@ -282,9 +282,9 @@ export default function MarketeqPage() {
         <Spacer />
         <Figure src="/marketeq/topbar.png" width={2500} height={175} alt="Top navigation bar" />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ marginTop: "16px" }}>
-          <Figure src="/marketeq/preview-drop-down.png" width={792} height={588} alt="Preview dropdown" />
-          <Figure src="/marketeq/publish-drop-down.png" width={792} height={564} alt="Publish dropdown" />
-          <Figure src="/marketeq/option-button.png" width={792} height={1228} alt="More options" />
+          <Figure src="/marketeq/preview-drop-down.png" width={792} height={588} alt="Preview dropdown" from="left" />
+          <Figure src="/marketeq/publish-drop-down.png" width={792} height={564} alt="Publish dropdown" delay={0.08} />
+          <Figure src="/marketeq/option-button.png" width={792} height={1228} alt="More options" from="right" delay={0.16} />
         </div>
       </Section>
 
