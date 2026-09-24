@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, Section, Spacer, Statement } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
+import FloatIn from "@/components/FloatIn";
 import MarqueeColumns, { type MarqueeCard } from "@/components/MarqueeColumns";
 
 export const metadata: Metadata = {
@@ -30,25 +31,21 @@ const card = (file: string, alt: string, height: number): MarqueeCard => ({ src:
 const progressCards: MarqueeCard[][] = [
   [
     card("completion-25-light.png", "Course completion card at 25%, light theme", 1496),
-    card("videos-continue-dark.webp", "Videos card with a continue-watching video, dark theme", 1752),
-    card("assignments-caught-up-light.png", "Assignments card showing all 19 completed, light theme", 1440),
-    card("grades-dark.png", "Grades card with weighted grade and category breakdown, dark theme", 1856),
-  ],
-  [
     card("assignments-past-due-dark.png", "Assignments card with a past-due assignment, dark theme", 1440),
-    card("grades-light.png", "Grades card with weighted grade and category breakdown, light theme", 1856),
-    card("videos-caught-up-dark.png", "Videos card showing all 18 watched, dark theme", 1440),
+    card("videos-next-light.webp", "Videos card with the next video to watch, light theme", 1752),
+    card("grades-dark.png", "Grades card with weighted grade and category breakdown, dark theme", 1856),
+    card("assignments-caught-up-light.png", "Assignments card showing all 19 completed, light theme", 1440),
+    card("completion-50-dark.png", "Course completion card at 50% with section progress, dark theme", 1496),
+    card("videos-caught-up-light.png", "Videos card showing all 18 watched, light theme", 1440),
   ],
   [
-    card("videos-next-light.webp", "Videos card with the next video to watch, light theme", 1752),
+    card("videos-continue-dark.webp", "Videos card with a continue-watching video, dark theme", 1752),
+    card("grades-light.png", "Grades card with weighted grade and category breakdown, light theme", 1856),
     card("completion-25-dark.png", "Course completion card at 25%, dark theme", 1496),
     card("assignments-past-due-light.png", "Assignments card with a past-due assignment, light theme", 1440),
-  ],
-  [
-    card("videos-caught-up-light.png", "Videos card showing all 18 watched, light theme", 1440),
-    card("completion-50-dark.png", "Course completion card at 50% with section progress, dark theme", 1496),
-    card("videos-next-dark.webp", "Videos card with the next video to watch, dark theme", 1752),
+    card("videos-caught-up-dark.png", "Videos card showing all 18 watched, dark theme", 1440),
     card("videos-continue-light.webp", "Videos card with a continue-watching video, light theme", 1752),
+    card("videos-next-dark.webp", "Videos card with the next video to watch, dark theme", 1752),
   ],
 ];
 
@@ -102,9 +99,16 @@ export default function SchemaMobilePage() {
           teammate at the community mobile design meeting.
         </Body>
         <Spacer />
-        <MarqueeColumns columns={progressCards} height="min(85vh, 820px)" duration={48} />
+        <ImageSlot label="Hero: course home with progress widget and CTA cards" />
         <Spacer />
         <CardGrid items={progressWork} />
+        <Spacer />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <FloatIn from="left">
+            <MarqueeColumns columns={progressCards} aspectRatio="4/3" duration={60} />
+          </FloatIn>
+          <ImageSlot label="Video cards with partial-watch progress" ratio="4/3" from="right" delay={0.08} />
+        </div>
       </Section>
 
       <Statement>A progress bar is only useful if it helps learners decide what to do next.</Statement>
