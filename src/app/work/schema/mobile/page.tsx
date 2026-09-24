@@ -102,12 +102,12 @@ export default function SchemaMobilePage() {
         <ImageSlot label="Hero: course home with progress widget and CTA cards" />
         <Spacer />
         <CardGrid items={progressWork} />
-        <Spacer />
+        <Spacer size={112} />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <FloatIn from="left">
-            <MarqueeColumns columns={progressCards} aspectRatio="4/3" duration={60} />
+            <MarqueeColumns columns={progressCards} aspectRatio="4/5" duration={70} />
           </FloatIn>
-          <ImageSlot label="Video cards with partial-watch progress" ratio="4/3" from="right" delay={0.08} />
+          <ImageSlot label="Video cards with partial-watch progress" ratio="4/5" from="right" delay={0.08} />
         </div>
       </Section>
 
