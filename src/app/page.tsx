@@ -77,7 +77,7 @@ export default function Home() {
               maxWidth: "36ch",
             }}
           >
-            UX strategy, interaction design, visual design, and design systems at{" "}
+            I design products at{" "}
             <a
               href="https://schema.education"
               target="_blank"
@@ -86,7 +86,9 @@ export default function Home() {
             >
               Schema
             </a>
-            , for clients including Open edX, ClearDemand, and Factor AE.
+            {" "}for clients like Open edX, ClearDemand, and Factor AE, from research and interaction design to
+            design systems, and lately building my designs in code with AI. I start on paper, and I care a lot about
+            how things look and feel.
           </p>
         </Reveal>
       </section>

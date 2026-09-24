@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 };
 
 const meta = [
-  { label: "Role", value: "UX Research, UX Design, User Flows, Competitive Analysis, Wireframing, Interaction Design, Prototyping, Information Architecture" },
+  { label: "Role", value: "UX Designer" },
+  { label: "Scope", value: "Competitive analysis, card sorting, user flows, wireframes, interaction design, prototyping" },
   { label: "Company", value: "Marketeq Digital" },
   { label: "Tools", value: "Figma, Figjam" },
   { label: "Timeframe", value: "May 2023 - September 2023" },
@@ -62,32 +63,29 @@ export default function MarketeqPage() {
 
       <Section title="Project Overview">
         <Body>
-          Marketeq Digital is the newest headless CMS to enter the market as the first truly customizable platform.
-          It prides itself on providing a custom code-free integration tool that allows users to build fully customizable
-          API integrations, extensions, and websites without the need of a programmer.
+          Marketeq Digital is a headless CMS built around customization. Its promise is that people can build API
+          integrations, extensions, and websites without needing a programmer.
         </Body>
         <Body last>
-          As a UX researcher and Design Intern, I worked closely with the Senior Designer and CEO to define goals and
-          create new concepts that would greatly impact our product in a new and refreshing way. I created userflows,
-          wireframes, and prototypes, delved into interaction design, and created prototypes to ultimately develop
-          the foundation of our admin panel.
+          As a UX designer, I worked with the senior designer and the CEO to design the foundation of
+          the admin panel, the place where editors manage all of that content. I did the research, user flows,
+          wireframes, and prototypes, and carried it through to high-fidelity screens.
         </Body>
       </Section>
 
       <Section title="Challenges and Goal" layout="stack">
         <CardGrid
           items={[
-            { name: "Challenges", body: "Marketeq needed a powerful yet intuitive admin panel that content editors could use without technical knowledge. The existing system was fragmented, with no consistent design language and poor discoverability of features. Editors struggled to manage content, preview changes, and publish across multiple channels efficiently." },
-            { name: "Goal", body: "Design a scalable admin panel system that reduces the time editors spend on routine tasks, surfaces the right controls at the right time, and introduces a consistent component library that the engineering team can build on long-term." },
+            { name: "Challenge", body: "A headless CMS is only as good as its admin panel. Marketeq needed one that content editors could use without technical knowledge: managing content, previewing changes, and publishing without getting lost." },
+            { name: "Goal", body: "Design an admin panel that keeps routine tasks quick, shows the right controls at the right time, and is built from components the team could keep building on." },
           ]}
         />
       </Section>
 
       <Section title="Defining the Process" layout="stack">
         <Body last>
-          Collaborating with the CEO, we methodically split the process into four pivotal phases, recognizing the significance of each step.
-          Given the expansiveness of the sprint, this strategic breakdown allowed me to narrow and compartmentalize each phase,
-          channeling focused attention onto one task at a time.
+          The sprint was big, so the CEO and I split it into four phases. That let me focus on one thing at a time
+          instead of trying to solve everything at once.
         </Body>
         <Spacer />
         <div style={{ background: "linear-gradient(120deg, #4A3FCC 0%, #6B5FD8 35%, #9B8FC8 65%, #C0A8CC 100%)", padding: "clamp(16px, 4vw, 48px)" }}>
@@ -97,7 +95,7 @@ export default function MarketeqPage() {
 
       <Section title="Discovery">
         <Body>
-          In the discovery phase, I compiled a comprehensive list of digital products to gain insights into what constitutes a robust headless CMS. The categorization involved three key groups:
+          I started by collecting products to learn what makes a good headless CMS, sorted into three groups:
         </Body>
         <dl style={{ marginBottom: "40px" }}>
           {[
@@ -116,7 +114,7 @@ export default function MarketeqPage() {
 
       <Section title="Analysis" layout="stack">
         <Body last>
-          After identifying and classifying 10 examples in each category, I initiated a card sort and developed user flows. This process significantly enhanced my understanding of the functionalities and scope each digital product presented.
+          With 10 examples in each group, I ran a card sort and mapped user flows. It gave me a clear picture of what each product does and how far its features reach.
         </Body>
         <Spacer />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -130,14 +128,14 @@ export default function MarketeqPage() {
           <div>
             <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 500, marginBottom: "12px" }}>In-Depth Annotations</h3>
             <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, marginBottom: "32px" }}>
-              I went ahead and annotated each screen in-depth. Doing so allowed me to dissect the entire digital product filtering out what works and what doesn’t work.
+              I annotated every screen in detail, taking each product apart to see what works and what doesn’t.
             </p>
             <Figure src="/marketeq/Annotations-1.png" width={2500} height={1428} alt="In-depth annotations" />
           </div>
           <div>
             <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 500, marginBottom: "12px" }}>Feature Lists</h3>
             <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, marginBottom: "16px" }}>
-              Leveraging my compiled research, I categorized features into three distinct groups: Must-haves, Nice-to-haves, and Will-not-haves. This framework played a pivotal role in shaping my design decisions, as directed by my Senior Designer.
+              From the research, I sorted features into must-haves, nice-to-haves, and will-not-haves. My senior designer had me use this list to guide every design decision after it.
             </p>
             <div className="flex flex-col gap-1" style={{ marginBottom: "32px" }}>
               <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted }}><strong style={{ color: "#f2f2ef", fontWeight: 500 }}>Must-have:</strong> Essential features for basic functionality.</p>
@@ -164,7 +162,7 @@ export default function MarketeqPage() {
 
       <Section title="Concepts and Iterations">
         <Body last>
-          I wireframed iteratively and being able to bounce back with my senior designer, I was able to hone down on features that will best suit the product. I would wireframe each feature separately and focus on each microfeature within. Once finalized I would add this to the end screen.
+          I wireframed one feature at a time, down to its smallest interactions, and went back and forth with my senior designer to narrow in on what suited the product. Once a feature was settled, I added it to the full screen.
         </Body>
         <Spacer />
         <Figure src="/marketeq/concepting.jpg" width={2500} height={3924} alt="Concepting" />
@@ -172,10 +170,10 @@ export default function MarketeqPage() {
 
       <Section title="Synthesis" layout="stack">
         <Body>
-          From the three screenshot categories, I conducted a heuristic evaluation to understand how each platform organizes content, emphasizing usability. I also identified superior functions in other platforms. Recognizing patterns in headless CMS functionality, I drew inspiration from out-of-category and best-in-class examples, integrating features to enhance the overall user experience.
+          Across all three groups, I ran a heuristic evaluation of how each platform organizes content, and noted where some did things better than others. The patterns came from headless CMSs, but a lot of the best ideas came from best-in-class and out-of-category products.
         </Body>
         <Body last>
-          With the research and guiding force of my mentor, I established to create 4 main features to produce a functioning admin panel while taking a look into each feature’s microfeatures to create a cohesive product.
+          With my mentor’s guidance, I landed on four main features for a working admin panel, and worked through the smaller interactions inside each one so they fit together.
         </Body>
         <Spacer />
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4">
@@ -195,16 +193,16 @@ export default function MarketeqPage() {
 
       <Section title="Outcome">
         <Body last>
-          After completing all the prior phases and creating the research and wireframes, I began moving toward Final High Fidelity designs. Being able to establish a strong foundation transitioning into this phase happened seamlessly and the outcome was the final product of the Admin Panel. Of course, during this process, I would meet up with my senior designer to ensure industry-standard designs.
+          With the research and wireframes done, I moved into high-fidelity designs. Because the foundation was solid, this part went smoothly. I checked in with my senior designer throughout to keep the work up to standard.
         </Body>
       </Section>
 
       <Section title="Content Management">
         <Body>
-          Once I established a functional version of content managing I began to create the features that was established prior. We wanted to create a product that eliminated the necessity of a editing version where users can go in at anytime to either edit the content or add data sets to the model.
+          Once the basic content management worked, I built out the features from the list. We wanted editors to be able to jump in at any time to edit content or add data to the model, without a separate editing version.
         </Body>
         <Body last>
-          My approach was to take each Headless CMS platform and take it through a heuristic evaluation gaining the best aspects of each. While doing so I used other inspiration from other platforms to enhance the system.
+          I took the best parts of each headless CMS from the heuristic evaluation, and pulled in ideas from other kinds of platforms too.
         </Body>
         <Spacer />
         <Figure src="/marketeq/liveview_video.mp4" alt="Content management walkthrough" caption="Walkthrough: editing content fields, rearranging sections, and managing columns in the admin panel." video />
@@ -214,7 +212,7 @@ export default function MarketeqPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, marginBottom: "28px" }}>
-              These pieces are critical components of content management. After doing extensive research listing microfeatures that would help create a better experience, I began to create these components that would provide flexibility.
+              These are the core pieces of content management. I listed the small interactions that would make editing easier, then designed components flexible enough to handle them.
             </p>
             <List items={["Active states", "Moving between rows and columns", "Quick/Bulk Actions", "Drag and Drop", "Hover States"]} />
           </div>
@@ -226,7 +224,7 @@ export default function MarketeqPage() {
 
       <Section title="Sidebar">
         <Body last>
-          I had to make separate components of the admin panel as tools to make the entirety of the panel interactive. By focusing on each platform and grabbing what was functional and experience-enhancing, I was able to produce these sidebars. This sidebar enables the user to interact with the document.
+          The sidebar is where editors work with a document’s details. I looked at how other platforms handle it, kept what actually helped, and designed it as its own set of components.
         </Body>
         <Spacer />
         <Figure src="/marketeq/sidebar_video.mp4" alt="Sidebar walkthrough" caption="Walkthrough: using the sidebar to set status, invite users, add tags and categories, and view versions." video />
@@ -236,7 +234,7 @@ export default function MarketeqPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, marginBottom: "28px" }}>
-              After making a feature list, I was able to cement the most important features. I went ahead and created userflows and dissected each feature to create an interactive experience. Looking through, I was able to distinguish what makes an optimal sidebar.
+              The feature list told me what mattered most. I mapped a user flow for each feature and broke it down until I knew what a good sidebar needed.
             </p>
             <List items={["Badges", "Autofill", "Publish Status", "Invite Users", "Create Tags", "Add Categories", "View Versions"]} />
           </div>
@@ -248,7 +246,7 @@ export default function MarketeqPage() {
 
       <Section title="Live-View Mode">
         <Body last>
-          Gaining inspiration from other CMS’s and collaboration with my senior designer, I created a live-view mode. With this, the users are able to see the results of their work in real-time. This would give the users the ease of managing their content with a reference.
+          Inspired by other CMSs, and working with my senior designer, I designed a live-view mode so editors can see their changes on the page in real time while they work.
         </Body>
         <Spacer />
         <Figure src="/marketeq/emptystate_video.mp4" alt="Live-view mode walkthrough" caption="Walkthrough: editing content in live-view mode and seeing changes on the page in real time." video />
@@ -258,15 +256,15 @@ export default function MarketeqPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, marginBottom: "16px" }}>
-              To remove any form of repetitiveness and optimize the use of space, I consolidated the 2 sidebars while in live-view mode. This would reduce clutter and provide a workable digital environment.
+              In live-view mode, I merged the two sidebars into one to save space and cut down on clutter.
             </p>
             <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, marginBottom: "28px" }}>
-              Users are able to edit content within the sidebar and bounce back between other tabs within.
+              Editors can change content right in the sidebar and switch between its tabs.
             </p>
             <p style={{ fontSize: "0.875rem", fontWeight: 500, marginBottom: "4px" }}>Popup field bar</p>
-            <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: faint, marginBottom: "16px" }}>Due to the lack of digital work space, clicking on add field will prompt a popup window so users can use it accordingly.</p>
+            <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: faint, marginBottom: "16px" }}>Space is tight in live view, so adding a field opens a popup instead.</p>
             <p style={{ fontSize: "0.875rem", fontWeight: 500, marginBottom: "4px" }}>Single Column View</p>
-            <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: faint }}>Columns will be condensed into single columns while in live-view mode.</p>
+            <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: faint }}>Columns collapse into a single column in live view.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-8">
             <Figure src="/marketeq/Empty-statessss-2.png" width={1244} height={1864} alt="Empty states" from="left" />
@@ -277,7 +275,7 @@ export default function MarketeqPage() {
 
       <Section title="Top Navigation Bar">
         <Body last>
-          After researching other platforms’ navigation bars, I compiled a list of features that would work well with our current product. I categorized each feature into the usual must-haves, nice-to-haves, and will-not-haves. Upon multiple ideations, I was able to solidify my design decision with the help of my senior designer.
+          I studied other platforms’ navigation bars and sorted their features into must-haves, nice-to-haves, and will-not-haves. After a few rounds, my senior designer and I settled on the final design.
         </Body>
         <Spacer />
         <Figure src="/marketeq/topbar.png" width={2500} height={175} alt="Top navigation bar" />
@@ -291,9 +289,9 @@ export default function MarketeqPage() {
       <Section title="Takeaways" layout="stack">
         <CardGrid
           items={[
-            { name: "Back Every Decision with Research", body: "Forms of research must back up all decisions. If you are designing solely based on assumption only, you have no basis of foundation. Don’t try to reinvent the wheel. When setting the design base, set a solid foundation that is user-friendly then it is deemed appropriate to add bells and whistles." },
-            { name: "Look Outside the Category", body: "Don’t dismiss other platforms just because they don’t fall within the same category. Being able to understand how the product differs from a headless CMS and a regular CMS gives space for innovation. I was able to gain inspiration from out-of-category platforms which gave our product a better user-experience." },
-            { name: "One Step at a Time", body: "It’s easy to feel overwhelmed especially when your sprint is extensive but I learned that organizing your goals and features one step at a time helps narrow down the focus letting me notice the fine details of each work that goes into each component. Once establishing the each step I was able to knock out each step one by one." },
+            { name: "Back Every Decision with Research", body: "Design based only on assumptions has nothing to stand on. Don’t reinvent the wheel: get a solid, easy-to-use foundation in place first, then add the extras." },
+            { name: "Look Outside the Category", body: "Some of my best ideas came from products that had nothing to do with CMSs. Understanding how a headless CMS differs from a regular one is where the room for new ideas is." },
+            { name: "One Step at a Time", body: "A big sprint is easy to get overwhelmed by. Breaking it into steps let me notice the small details in each component, then knock them out one by one." },
           ]}
         />
       </Section>
@@ -301,8 +299,8 @@ export default function MarketeqPage() {
       <Section title="Looking Ahead" layout="stack" last>
         <CardGrid
           items={[
-            { name: "Future Opportunities", body: "If my internship hadn’t ended, I would have dove deeper into the nice-to-have feature list to fully create a better interactive experience. The foundation of the design was created and is structurally sound but as a designer I was always looking for opportunities to enhance the product. Another realm I would like to explore would be seeing the user react with the admin panel and look at the impact the new designs had." },
-            { name: "Conclusion", body: "This project has given Marketeq a strong starting point for building an awesome content management system for projects. Combining thorough research, best practices, and industry-standard features allowed me to develop a content management page that truly stands out and exceeds industry norms. It’s a cutting-edge solution that boosts Marketeqs competitiveness and offers users a seamless experience for new users moving from other headless CMS platforms." },
+            { name: "Future Opportunities", body: "With more time on the project, I would have worked through the nice-to-have list. The foundation was solid, but there was more to make better. I also would have loved to watch real editors use the panel and see what the new designs changed for them." },
+            { name: "Where It Landed", body: "The project gave Marketeq a strong starting point for its admin panel, grounded in research and familiar patterns, so editors coming from other headless CMSs would feel at home." },
           ]}
         />
         <Spacer />

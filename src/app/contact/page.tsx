@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 // Add each profile URL to show it. Links without a URL stay hidden instead of going nowhere.
 const LINKS = [
   { label: "LinkedIn", href: "" },
-  { label: "Read.cv", href: "" },
   { label: "Dribbble", href: "" },
 ].filter((link) => link.href);
 
@@ -31,7 +30,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 gap-12 border-t border-border lg:grid-cols-12 lg:gap-8" style={{ paddingTop: "40px" }}>
           <div className="lg:col-span-7">
             <p className="text-muted-foreground" style={{ fontSize: "1.0625rem", lineHeight: 1.7, maxWidth: "46ch", marginBottom: "32px" }}>
-              I’m open to new opportunities, collaborations, and conversations. Reach out and let’s talk about what you’re building.
+              Whether it’s a role, a project, or just talking shop about design and art, my inbox is open.
             </p>
             <a
               href="mailto:phunguyendesign@gmail.com"

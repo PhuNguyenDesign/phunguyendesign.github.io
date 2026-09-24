@@ -45,9 +45,10 @@ export default function SchemaPage() {
           for data-heavy B2B products.
         </Body>
         <Body last>
-          Most of my work sits where design meets systems. I design the states and patterns a product is built from, keep
-          shared design files trustworthy for the teams that rely on them, and, more recently, design directly in code
-          with AI agents.
+          My work covers a lot of ground: product thinking and client conversations, interaction design, design systems,
+          keeping shared design files people can trust, and more recently designing directly in code with AI agents.
+          Whatever the project, I bring a visual eye to it, with type, color, and hierarchy that make dense screens feel
+          coherent.
         </Body>
       </Section>
 

@@ -24,12 +24,12 @@ const experience = [
   {
     company: "Schema Education",
     role: "Product Designer",
-    description: "Designed and shipped product experiences across edtech, enterprise, and platform work, partnering cross-functionally on UX strategy, interaction design, visual design, and design systems.",
+    description: "Designing for Open edX, ClearDemand, and Factor AE: the Open edX mobile learning experience, design systems for data-heavy products, and AI-assisted prototypes built in code.",
   },
   {
     company: "Marketeq Digital",
-    role: "UX Research / Design",
-    description: "Researched and designed enterprise SaaS experiences, focusing on usability, information architecture, admin workflows, and competitive product analysis.",
+    role: "UX Designer",
+    description: "Researched and designed the admin panel for a headless CMS, from competitive analysis and card sorting to user flows, wireframes, and high-fidelity screens.",
   },
   {
     company: "Prazenta LLC",

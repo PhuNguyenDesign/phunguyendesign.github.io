@@ -16,6 +16,7 @@ const SKILLS = [
   "Figma",
   "User Research",
   "Design Tokens",
+  "Prototyping in Code",
 ];
 
 // Set to "/resume.pdf" once the file is added to public/. Until then the download link is hidden.
@@ -73,7 +74,7 @@ export default function ResumePage() {
                     Schema
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "0.9375rem", lineHeight: 1.7, maxWidth: "58ch" }}>
-                    Led end-to-end product design across multiple client engagements. Responsibilities include UX strategy, interaction design, visual design, and design system development for Factor AE, Open edX, and ClearDemand.
+                    Design products for Schema’s clients, including Open edX, ClearDemand, and Factor AE. My work covers visual design, interaction design, and design systems, and more recently prototyping in code with Claude Code.
                   </p>
                 </div>
               </div>
