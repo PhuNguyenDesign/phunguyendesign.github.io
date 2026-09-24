@@ -19,6 +19,27 @@ const SKILLS = [
   "Prototyping in Code",
 ];
 
+const EXPERIENCE = [
+  {
+    dates: "2024 - Present",
+    role: "Product Designer",
+    company: "Schema",
+    description: "Design products for Schema’s clients, including Open edX, ClearDemand, and Factor AE. My work covers visual design, interaction design, and design systems, and more recently prototyping in code with Claude Code.",
+  },
+  {
+    dates: "2023",
+    role: "UX Designer",
+    company: "Marketeq Digital",
+    description: "Researched and designed the admin panel for a headless CMS, from competitive analysis and card sorting to user flows, wireframes, and high-fidelity screens.",
+  },
+  {
+    dates: "2021 - 2022",
+    role: "Graphic / Presentation Designer",
+    company: "Prazenta LLC",
+    description: "Created branded presentations, templates, and visual communication systems for client-facing business content across PowerPoint and Adobe tools.",
+  },
+];
+
 // Set to "/resume.pdf" once the file is added to public/. Until then the download link is hidden.
 const RESUME_PDF = "";
 
@@ -62,21 +83,25 @@ export default function ResumePage() {
               <div style={{ marginBottom: "32px" }}>
                 <PageSectionTitle>Experience</PageSectionTitle>
               </div>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-12 sm:gap-6">
-                <p className="text-muted-foreground sm:col-span-3" style={{ fontSize: "0.875rem", fontVariantNumeric: "tabular-nums" }}>
-                  2024 - Present
-                </p>
-                <div className="sm:col-span-9">
-                  <p className="text-foreground" style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 500, letterSpacing: "-0.01em", marginBottom: "4px" }}>
-                    Product Designer
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "0.875rem", marginBottom: "12px" }}>
-                    Schema
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "0.9375rem", lineHeight: 1.7, maxWidth: "58ch" }}>
-                    Design products for Schema’s clients, including Open edX, ClearDemand, and Factor AE. My work covers visual design, interaction design, and design systems, and more recently prototyping in code with Claude Code.
-                  </p>
-                </div>
+              <div className="flex flex-col gap-10">
+                {EXPERIENCE.map(({ dates, role, company, description }) => (
+                  <div key={company} className="grid grid-cols-1 gap-2 sm:grid-cols-12 sm:gap-6">
+                    <p className="text-muted-foreground sm:col-span-3" style={{ fontSize: "0.875rem", fontVariantNumeric: "tabular-nums" }}>
+                      {dates}
+                    </p>
+                    <div className="sm:col-span-9">
+                      <p className="text-foreground" style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 500, letterSpacing: "-0.01em", marginBottom: "4px" }}>
+                        {role}
+                      </p>
+                      <p className="text-muted-foreground" style={{ fontSize: "0.875rem", marginBottom: "12px" }}>
+                        {company}
+                      </p>
+                      <p className="text-muted-foreground" style={{ fontSize: "0.9375rem", lineHeight: 1.7, maxWidth: "58ch" }}>
+                        {description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
           </Reveal>
