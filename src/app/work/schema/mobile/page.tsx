@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, Section, Spacer, Statement } from "@/components/CaseStudy";
+import MarqueeColumns, { type MarqueeCard } from "@/components/MarqueeColumns";
 
 export const metadata: Metadata = {
   title: "Mobile Work — Schema — Phu Nguyen",
@@ -21,6 +22,34 @@ const progressWork = [
   { tag: "Next action", name: "CTA Cards", body: "Cards that send learners to the assignment, video, or grade they need next, with variants like due soon, past due, continue watching, and all caught up. I dropped an expand/collapse version to avoid cognitive overload." },
   { tag: "Video", name: "Video Progress Cards", body: "Building on the team’s course content cards, I explored thumbnail orientation, border treatments, completion icons, and duration labels so learners can see where they left off." },
   { tag: "Modes", name: "Progress That Fits the Goal", body: "Completion, weighted grade, assignments, and video progress, so the view can follow what a learner is actually trying to achieve." },
+];
+
+// Progress card designs, light and dark. All cards are 1308px wide at 2x.
+const card = (file: string, alt: string, height: number): MarqueeCard => ({ src: `/schema/mobile/${file}`, alt, width: 1308, height });
+
+const progressCards: MarqueeCard[][] = [
+  [
+    card("completion-25-light.png", "Course completion card at 25%, light theme", 1496),
+    card("videos-continue-dark.webp", "Videos card with a continue-watching video, dark theme", 1752),
+    card("assignments-caught-up-light.png", "Assignments card showing all 19 completed, light theme", 1440),
+    card("grades-dark.png", "Grades card with weighted grade and category breakdown, dark theme", 1856),
+  ],
+  [
+    card("assignments-past-due-dark.png", "Assignments card with a past-due assignment, dark theme", 1440),
+    card("grades-light.png", "Grades card with weighted grade and category breakdown, light theme", 1856),
+    card("videos-caught-up-dark.png", "Videos card showing all 18 watched, dark theme", 1440),
+  ],
+  [
+    card("videos-next-light.webp", "Videos card with the next video to watch, light theme", 1752),
+    card("completion-25-dark.png", "Course completion card at 25%, dark theme", 1496),
+    card("assignments-past-due-light.png", "Assignments card with a past-due assignment, light theme", 1440),
+  ],
+  [
+    card("videos-caught-up-light.png", "Videos card showing all 18 watched, light theme", 1440),
+    card("completion-50-dark.png", "Course completion card at 50% with section progress, dark theme", 1496),
+    card("videos-next-dark.webp", "Videos card with the next video to watch, dark theme", 1752),
+    card("videos-continue-light.webp", "Videos card with a continue-watching video, light theme", 1752),
+  ],
 ];
 
 const fileWork = [
@@ -73,11 +102,9 @@ export default function SchemaMobilePage() {
           teammate at the community mobile design meeting.
         </Body>
         <Spacer />
-        <ImageSlot label="Hero: course home with progress widget and CTA cards" />
+        <MarqueeColumns columns={progressCards} height="min(85vh, 820px)" duration={48} />
         <Spacer />
         <CardGrid items={progressWork} />
-        <Spacer />
-        <ImagePair labels={["Progress states: completed, in progress, upcoming, zero", "Video cards with partial-watch progress"]} />
       </Section>
 
       <Statement>A progress bar is only useful if it helps learners decide what to do next.</Statement>

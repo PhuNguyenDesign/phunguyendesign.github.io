@@ -209,3 +209,27 @@
     outline: none;
   }
 }
+
+/* Perpetual vertical marquee (MarqueeColumns). Cards carry their own bottom margin
+   so translating by exactly -50% lands on the duplicate set with no seam. */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-col { overflow: hidden; height: 100%; }
+.marquee-track { animation: marquee-up linear infinite; will-change: transform; }
+.marquee-col[data-dir="down"] .marquee-track { animation-direction: reverse; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-card {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+@keyframes marquee-up {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
