@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const subProjects = [
   { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", year: "2024 - 2026", image: "/schema/mobile.svg", preview: "/schema/mobile/collage-still.jpg", blurb: "Visual course progress, and the shared design file behind the Open edX app." },
   { href: "/work/schema/agentic-design", label: "Agentic Design", category: "Product Design · AI", year: "2026", image: "/schema/agentic.svg", blurb: "Designing through AI agents, and designing the AI interfaces themselves." },
-  { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", year: "2025 - 2026", image: "/schema/designsystem.svg", blurb: "Components and modules for ClearDemand, plus Paragon, Factor AE, and more." },
+  { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", year: "2025 - 2026", image: "/schema/designsystem.svg", preview: "/schema/design-system/collage-still.jpg", blurb: "Components and modules for ClearDemand, plus Paragon, Factor AE, and more." },
 ];
 
 export default function SchemaPage() {
