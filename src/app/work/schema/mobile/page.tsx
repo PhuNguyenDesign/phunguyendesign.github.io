@@ -100,7 +100,31 @@ export default function SchemaMobilePage() {
           teammate at the community mobile design meeting.
         </Body>
         <Spacer />
-        <ImageSlot label="Hero: course home with progress widget and CTA cards" />
+        {/* Course home, light and dark, from the v2.5 community Figma file (Component Archive) */}
+        <div className="flex items-start justify-center gap-[5%]">
+          <FloatIn from="left">
+            <img
+              src="/schema/mobile/course-home-light.png"
+              alt="Course home in the light theme: continue button, course completion card at 25%, and the progress carousel"
+              width={750}
+              height={1922}
+              loading="lazy"
+              className="block w-[42vw] max-w-[340px] md:w-[28vw]"
+              style={{ height: "auto", borderRadius: "28px", boxShadow: "0 40px 80px rgba(0,0,0,0.55)" }}
+            />
+          </FloatIn>
+          <FloatIn from="right" delay={0.08}>
+            <img
+              src="/schema/mobile/course-home-dark.png"
+              alt="Course home in the dark theme: continue button, course completion card at 25%, and the progress carousel"
+              width={750}
+              height={1932}
+              loading="lazy"
+              className="block w-[42vw] max-w-[340px] md:w-[28vw]"
+              style={{ height: "auto", borderRadius: "28px", boxShadow: "0 40px 80px rgba(0,0,0,0.55)", marginTop: "clamp(40px, 8vw, 120px)" }}
+            />
+          </FloatIn>
+        </div>
         <Spacer />
         <CardGrid items={progressWork} />
         <Spacer size={112} />
