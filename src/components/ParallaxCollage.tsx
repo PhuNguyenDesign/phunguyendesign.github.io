@@ -25,10 +25,11 @@ export type CollagePiece = {
   z?: number;
 };
 
-const DRIFT = 320; // px of travel per unit of speed across the section's full scroll
+// Default px of travel per unit of speed across the section's full scroll
+const DRIFT = 320;
 
-function Piece({ piece, progress, still }: { piece: CollagePiece; progress: MotionValue<number>; still: boolean }) {
-  const y = useTransform(progress, [0, 1], [piece.speed * DRIFT, -piece.speed * DRIFT]);
+function Piece({ piece, progress, still, drift }: { piece: CollagePiece; progress: MotionValue<number>; still: boolean; drift: number }) {
+  const y = useTransform(progress, [0, 1], [piece.speed * drift, -piece.speed * drift]);
   return (
     <motion.img
       src={piece.src}
@@ -51,14 +52,14 @@ function Piece({ piece, progress, still }: { piece: CollagePiece; progress: Moti
   );
 }
 
-export default function ParallaxCollage({ pieces, aspectRatio = "1200 / 1150" }: { pieces: CollagePiece[]; aspectRatio?: string }) {
+export default function ParallaxCollage({ pieces, aspectRatio = "1200 / 1150", drift = DRIFT }: { pieces: CollagePiece[]; aspectRatio?: string; drift?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const still = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   return (
     <div ref={ref} className="relative mx-auto w-full max-w-[1200px]" style={{ aspectRatio }}>
       {pieces.map((p) => (
-        <Piece key={p.src} piece={p} progress={scrollYProgress} still={still} />
+        <Piece key={p.src} piece={p} progress={scrollYProgress} still={still} drift={drift} />
       ))}
     </div>
   );

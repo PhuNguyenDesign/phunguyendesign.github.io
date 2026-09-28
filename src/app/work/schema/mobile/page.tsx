@@ -70,6 +70,27 @@ const collage: CollagePiece[] = [
   c("collage/bottom-nav-dark.png", "App-level bottom navigation, dark theme", 750, 172, 38, 88, 30, 1.4, 3),
 ];
 
+// Mockup boards for the notifications and offline work, built from the v2.5 community Figma file.
+const notificationsBoard: CollagePiece[] = [
+  c("notifications/inbox-light.jpg", "Notification inbox for active courses, light theme", 750, 1624, 5, 9, 21, 0.25),
+  c("notifications/settings-light.jpg", "Notification settings by category, with mobile, web, and email tabs", 750, 2162, 29, 4, 20, 0.5),
+  c("notifications/inbox-dark.jpg", "Notification inbox for active courses, dark theme", 750, 1648, 53, 13, 21, 0.35),
+  c("notifications/course-inbox-light.jpg", "Inbox filtered to a single course", 750, 1624, 77, 6, 19, 0.6),
+  c("parts/notif-row-announcement.jpg", "Announcement notification row", 750, 231, 1, 60, 29, 1.1, 2),
+  c("parts/channel-toggles.jpg", "Date notification toggles per channel", 660, 675, 38, 50, 19, 1.3, 3),
+  c("parts/notif-row-reminder.jpg", "Course ending reminder notification row", 750, 179, 64, 66, 29, 1.5, 2),
+];
+
+const offlineBoard: CollagePiece[] = [
+  c("offline/downloads-status-a.jpg", "Downloads with a learning-offline status and per-course download states", 750, 2244, 5, 7, 21, 0.3),
+  c("offline/stale-content.jpg", "Course content with sync status on each section", 750, 2044, 29, 13, 21, 0.55),
+  c("offline/download-icons.jpg", "Course home showing download icons in context", 750, 2390, 53, 5, 21, 0.4),
+  c("offline/downloads-manage.jpg", "Managing course downloads", 750, 2760, 77, 10, 19, 0.65),
+  c("parts/offline-pill.jpg", "Learning offline status pill", 618, 54, 34, 4, 26, 1.5, 4),
+  c("parts/course-not-offline.jpg", "Course card marked not available offline", 668, 394, 6, 60, 22, 1.0, 3),
+  c("parts/course-partial-download.jpg", "Course card with a partial download", 668, 464, 60, 56, 24, 1.25, 3),
+];
+
 const fileWork = [
   { tag: "Current vs. proposed", name: "Level Pages Show What Ships", body: "Each level page (app, course, account) documents only the screens in the live app. Proposals moved to their own project pages." },
   { tag: "Validation", name: "Checked Against Real Builds", body: "I reviewed the current app builds and updated Figma to match, including a course level that now reflects the new content view." },
@@ -204,7 +225,19 @@ export default function SchemaMobilePage() {
         <Spacer />
         <CardGrid items={ecosystem} />
         <Spacer />
-        <ImagePair labels={["Notification settings and read-state explorations", "Offline status and sync messaging"]} />
+        <div className="flex flex-col gap-6">
+          {[
+            { label: "Notifications: inbox, settings, and read states", pieces: notificationsBoard, bg: "radial-gradient(ellipse 80% 70% at 30% 20%, rgba(124,108,255,0.45), transparent 70%), linear-gradient(160deg, #1a1740 0%, #0f0e24 100%)" },
+            { label: "Offline: status, sync, and download states", pieces: offlineBoard, bg: "radial-gradient(ellipse 80% 70% at 70% 20%, rgba(38,166,120,0.4), transparent 70%), linear-gradient(160deg, #0f2a24 0%, #0a1714 100%)" },
+          ].map(({ label, pieces, bg }) => (
+            <figure key={label} className="m-0">
+              <div className="relative overflow-hidden" style={{ background: bg, borderRadius: "clamp(12px, 2vw, 24px)", padding: "clamp(24px, 5vw, 64px) clamp(12px, 3vw, 40px) 0" }}>
+                <ParallaxCollage pieces={pieces} aspectRatio="1200 / 820" drift={90} />
+              </div>
+              <figcaption style={{ fontSize: "0.8125rem", color: "rgba(242,242,239,0.5)", marginTop: "12px" }}>{label}</figcaption>
+            </figure>
+          ))}
+        </div>
       </Section>
 
       <Section title="Helping Run a Distributed Design Practice">
