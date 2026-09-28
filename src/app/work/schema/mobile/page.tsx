@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
 import FloatIn from "@/components/FloatIn";
 import LoopVideo from "@/components/LoopVideo";
 import ParallaxCollage, { type CollagePiece } from "@/components/ParallaxCollage";
@@ -214,7 +214,18 @@ export default function SchemaMobilePage() {
         <Spacer />
         <CardGrid items={fileWork} />
         <Spacer />
-        <ImagePair labels={["Before: a level page mixing live and proposed screens", "After: current screens only, proposals moved to projects"]} />
+        {/* Before: the v2.3 Course Level page from the archived community file, author credit covered */}
+        <div className="flex flex-col gap-6">
+          <Figure
+            src="/schema/mobile/level-page-before.jpg"
+            alt="The old Course Level page in Figma: the current Course Dates screens sit beside presentation boards of proposed calendar and schedule CTAs, including pages marked under construction"
+            width={3362}
+            height={1308}
+            caption="Before: the Course Level page mixed live screens with proposals, so it was hard to tell what actually shipped."
+            from="left"
+          />
+          <ImageSlot label="After: current screens only, proposals moved to projects" ratio="21/9" from="right" />
+        </div>
       </Section>
 
       <Section title="Designing the System Around the Screens" layout="stack">
