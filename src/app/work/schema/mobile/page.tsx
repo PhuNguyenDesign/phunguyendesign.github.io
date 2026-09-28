@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
 import FloatIn from "@/components/FloatIn";
 import LoopVideo from "@/components/LoopVideo";
+import ParallaxCollage, { type CollagePiece } from "@/components/ParallaxCollage";
 import MarqueeColumns, { type MarqueeCard } from "@/components/MarqueeColumns";
 
 export const metadata: Metadata = {
@@ -50,6 +51,25 @@ const progressCards: MarqueeCard[][] = [
   ],
 ];
 
+// Clean screens and components from the v2.5 community Figma file, layered for the intro collage.
+const c = (file: string, alt: string, width: number, height: number, x: number, y: number, w: number, speed: number, radius = 9): CollagePiece =>
+  ({ src: `/schema/mobile/${file}`, alt, width, height, x, y, w, speed, radius });
+
+const collage: CollagePiece[] = [
+  c("collage/learn-home-light.png", "Learn home, light theme", 750, 1624, 2, 10, 21, 0.5),
+  c("collage/course-scrolled-dark.png", "Course home scrolled, dark theme", 750, 2113, 26, 2, 23, 1.1),
+  c("collage/grades-light.png", "Course home with grade status, light theme", 750, 2120, 53, 12, 21, 0.7),
+  c("collage/search-dark.png", "Course search results, dark theme", 750, 1624, 78, 4, 20, 1.3),
+  c("collage/completed-dark.png", "Course completed state, dark theme", 750, 1624, 10, 50, 19, 1.5),
+  c("collage/offline-dark.png", "No internet connection state, dark theme", 750, 1624, 66, 50, 19, 0.9),
+  c("completion-50-dark.png", "Course completion card at 50%", 1308, 1496, 46, 30, 15, 2.8, 3),
+  c("collage/search-field.png", "Search field component", 538, 96, 70, 40, 22, 2.4, 2),
+  c("collage/button.png", "Filled button component", 261, 126, 5, 42, 9, 2.6, 8),
+  c("collage/dialog-light.png", "Due dates shifted dialog component", 652, 340, 37, 60, 23, 2.1, 3),
+  c("assignments-caught-up-light.png", "Assignments caught-up card", 1308, 1440, 84, 70, 14, 2.2, 3),
+  c("collage/bottom-nav-dark.png", "App-level bottom navigation, dark theme", 750, 172, 38, 88, 30, 1.8, 3),
+];
+
 const fileWork = [
   { tag: "Current vs. proposed", name: "Level Pages Show What Ships", body: "Each level page (app, course, account) documents only the screens in the live app. Proposals moved to their own project pages." },
   { tag: "Validation", name: "Checked Against Real Builds", body: "I reviewed the current app builds and updated Figma to match, including a course level that now reflects the new content view." },
@@ -72,6 +92,10 @@ export default function SchemaMobilePage() {
         summary="Designing the native Open edX learning experience, and keeping the design source of truth behind it trustworthy."
         meta={meta}
       />
+
+      <section aria-label="Screens and components from the Open edX mobile app" style={{ padding: "clamp(48px, 8vw, 120px) var(--page-pad-x) clamp(96px, 14vw, 200px)" }}>
+        <ParallaxCollage pieces={collage} aspectRatio="1200 / 1060" />
+      </section>
 
       <Section title="The Open edX Mobile App">
         <Body>
