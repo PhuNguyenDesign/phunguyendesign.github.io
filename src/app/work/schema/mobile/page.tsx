@@ -204,7 +204,7 @@ export default function SchemaMobilePage() {
 
       <Statement>A progress bar is only useful if it helps learners decide what to do next.</Statement>
 
-      <Section title="Keeping the Design File Trustworthy">
+      <Section title="Keeping the Design File Trustworthy" layout="stack">
         <Body last>
           All contributors share one community Figma file, but it had drifted from the app. Shipped screens sat next to
           abandoned proposals, and staging builds, released builds, and partner implementations didn’t always match.
@@ -214,17 +214,35 @@ export default function SchemaMobilePage() {
         <Spacer />
         <CardGrid items={fileWork} />
         <Spacer />
-        {/* Before: the v2.3 Course Level page from the archived community file, author credit covered */}
-        <div className="flex flex-col gap-6">
-          <Figure
-            src="/schema/mobile/level-page-before.jpg"
-            alt="The old Course Level page in Figma: the current Course Dates screens sit beside presentation boards of proposed calendar and schedule CTAs, including pages marked under construction"
-            width={3362}
-            height={1308}
-            caption="Before: the Course Level page mixed live screens with proposals, so it was hard to tell what actually shipped."
-            from="left"
-          />
-          <ImageSlot label="After: current screens only, proposals moved to projects" ratio="21/9" from="right" />
+        {/* Before and after, full width so the difference reads at a glance.
+            Before: v2.3 Course Level page from the archived community file, author credit covered.
+            After: v2.5 Account Level page, recreated at its real canvas layout. */}
+        <div className="flex flex-col" style={{ gap: "clamp(48px, 7vw, 96px)" }}>
+          {[
+            {
+              tag: "Before",
+              src: "/schema/mobile/level-page-before.jpg",
+              width: 3362,
+              height: 1308,
+              alt: "The old Course Level page in Figma: the current Course Dates screens sit beside presentation boards of proposed calendar and schedule CTAs, including pages marked under construction",
+              caption: "The Course Level page mixed live screens with proposals, so it was hard to tell what actually shipped.",
+              from: "left" as const,
+            },
+            {
+              tag: "After",
+              src: "/schema/mobile/level-page-after.jpg",
+              width: 3626,
+              height: 3218,
+              alt: "The reorganized Account Level page in Figma: color-coded columns for base components, screen components, current app screens, and current workflows, each group in a labeled, versioned frame",
+              caption: "The Account Level page today: base components, screen components, current app screens, and workflows, each in its own labeled, versioned frame.",
+              from: "right" as const,
+            },
+          ].map(({ tag, ...img }) => (
+            <div key={tag}>
+              <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: 600, letterSpacing: "-0.02em", marginBottom: "16px" }}>{tag}</p>
+              <Figure {...img} />
+            </div>
+          ))}
         </div>
       </Section>
 
