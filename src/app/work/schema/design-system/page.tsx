@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, ImageSlot, Section, Spacer, Statement, faint, muted, rule } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, ImageSlot, Section, Spacer, Statement, faint, muted, rule } from "@/components/CaseStudy";
+import FloatIn from "@/components/FloatIn";
 
 export const metadata: Metadata = {
   title: "Design System Work — Schema — Phu Nguyen",
@@ -78,7 +79,14 @@ export default function SchemaDesignSystemPage() {
           that system, working in code through AI-assisted design-to-code workflows instead of handing off Figma files.
         </Body>
         <Spacer />
-        <ImageSlot label="Hero: a module I built, running on the design system (synthetic data)" />
+        {/* Captured from the ClearDemand prototype's fixture data; client branding hidden */}
+        <Figure
+          src="/schema/design-system/performance-summary.jpg"
+          alt="Performance Summary module: a filter bar, a grid of KPI cards for revenue, profit, units, margin, promo lift, and CPI, and trend charts comparing this year to last"
+          width={2880}
+          height={1800}
+          caption="Performance Summary, one of the modules I built on the system. All data is synthetic."
+        />
       </Section>
 
       <Section title="Designing by Prompting">
@@ -106,7 +114,22 @@ export default function SchemaDesignSystemPage() {
             </span>
           ))}
         </div>
-        <ImagePair labels={["MultiSelect: the four trigger variants", "ChatBubble and AgenticSearchBar in the assistant chat"]} />
+        {/* Two equal panels on the showcase grey so the pair ends on one clean edge */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {[
+            { src: "/schema/design-system/multiselect.jpg", w: 1740, h: 1832, alt: "MultiSelect variants: empty, preselected, grouped, field composition with an error state, hug, field, and tag-chip triggers, and disabled", caption: "MultiSelect: hug, field, and tag triggers, plus states", from: "left" as const },
+            { src: "/schema/design-system/chat-and-search.jpg", w: 1772, h: 2174, alt: "ChatBubble conversation with sent, sending, and failed messages, a chart reply, and follow-up chips, above the AgenticSearchBar with its suggestion popover open", caption: "ChatBubble and AgenticSearchBar, with the suggestion popover open", from: "right" as const },
+          ].map(({ src, w, h, alt, caption, from }) => (
+            <FloatIn key={src} from={from} delay={from === "right" ? 0.08 : 0}>
+              <figure className="m-0">
+                <div className="flex items-center justify-center" style={{ aspectRatio: "4/5", backgroundColor: "#f6f6f7", padding: "clamp(12px, 2vw, 24px)" }}>
+                  <img src={src} alt={alt} width={w} height={h} loading="lazy" decoding="async" style={{ maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", display: "block" }} />
+                </div>
+                <figcaption style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>{caption}</figcaption>
+              </figure>
+            </FloatIn>
+          ))}
+        </div>
       </Section>
 
       <Section title="From Paper Sketch to AI Chat Components">
@@ -136,7 +159,24 @@ export default function SchemaDesignSystemPage() {
         <Spacer />
         <CardGrid items={modules} />
         <Spacer />
-        <ImagePair labels={["Pricing: review table with detail panel open", "Performance: summary with bubble charts"]} />
+        <div className="flex flex-col gap-10">
+          <Figure
+            src="/schema/design-system/price-review-panel.jpg"
+            alt="Price Review module: a price table with the detail panel open, showing rule cards marked fulfilled and impactful for the selected price family"
+            width={2880}
+            height={1800}
+            caption="Pricing: the review table with the detail panel open."
+            from="left"
+          />
+          <Figure
+            src="/schema/design-system/performance-bubbles.jpg"
+            alt="Two bubble charts plotting performance against CPI by subcategory, with quadrants for well positioned, outperforming, reprice opportunity, and at risk"
+            width={2304}
+            height={906}
+            caption="Performance: CPI-versus-performance bubble charts by subcategory."
+            from="right"
+          />
+        </div>
       </Section>
 
       <Section title="Quality and Outcome">
