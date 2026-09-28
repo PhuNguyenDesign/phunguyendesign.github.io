@@ -43,16 +43,19 @@ const otherWork = [
   {
     client: "Open edX · Paragon",
     title: "Shared Design Collateral",
+    image: { src: "/schema/design-system/paragon-color.jpg", width: 4640, height: 2703, alt: "Paragon's Color System in the shared Figma library: brand colors, core scales for primary, brand, gray, light, and dark, and utility scales for info, success, danger, and warning" },
     body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
   },
   {
     client: "Factor AE",
     title: "Figma System for A&E Software",
+    image: { src: "/schema/design-system/factor-ae-color.jpg", width: 2572, height: 1930, alt: "Color System foundation from the Factor AE Figma file: main, secondary, and additional color swatches with names and hex values" },
     body: "Contributed early foundation components and navigation explorations to a Figma design system for an architecture and engineering project-management tool. A senior designer led it. Their feedback on this project taught me to cut unnecessary variants and layers from a component system.",
   },
   {
     client: "Spending Spotlight",
     title: "Visual Language & Card System",
+    image: { src: "/schema/design-system/spending-spotlight-tokens.jpg", width: 1278, height: 960, alt: "Spending Spotlight color tokens: brand navy, orange, and teal, separate rating colors for green, yellow, and red, semantic colors, and action colors" },
     body: "As the designer on an early-stage product, I explored three color palettes. The one we chose separates brand from action colors, keeps semantic rating colors, and adds chart colors. I also paired an editorial serif with a sans-serif, and standardized the card system with a type taxonomy, content toggles, fixed padding, and line caps.",
   },
 ];
@@ -193,9 +196,10 @@ export default function SchemaDesignSystemPage() {
 
       <Section title="Across Schema" layout="stack">
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:[&>*:first-child]:col-span-2">
-          {otherWork.map(({ client, title, body }, i) => (
+          {otherWork.map(({ client, title, body, image }, i) => (
             <div key={title}>
-              <ImageSlot label={`${title} visual`} ratio={i === 0 ? "21/9" : "4/3"} />
+              {/* Client logos and names are kept out of these images */}
+              <Figure {...image} from={i === 2 ? "right" : i === 1 ? "left" : "up"} />
               <p style={{ fontSize: "0.8125rem", color: faint, marginTop: "20px", marginBottom: "4px" }}>{client}</p>
               <p style={{ fontSize: "1.25rem", fontFamily: "var(--font-display)", fontWeight: 500, letterSpacing: "-0.01em", marginBottom: "10px" }}>{title}</p>
               <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, maxWidth: "58ch" }}>{body}</p>
