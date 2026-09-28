@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const subProjects = [
-  { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", year: "2024 - 2026", image: "/schema/mobile.svg", blurb: "Visual course progress, and the shared design file behind the Open edX app." },
+  { href: "/work/schema/mobile", label: "Mobile Work", category: "Product Design · Mobile", year: "2024 - 2026", image: "/schema/mobile.svg", preview: "/schema/mobile/collage-still.jpg", blurb: "Visual course progress, and the shared design file behind the Open edX app." },
   { href: "/work/schema/agentic-design", label: "Agentic Design", category: "Product Design · AI", year: "2026", image: "/schema/agentic.svg", blurb: "Designing through AI agents, and designing the AI interfaces themselves." },
   { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", year: "2025 - 2026", image: "/schema/designsystem.svg", blurb: "Components and modules for ClearDemand, plus Paragon, Factor AE, and more." },
 ];
@@ -54,9 +54,17 @@ export default function SchemaPage() {
 
       <section style={{ padding: "0 var(--page-pad-x) 144px" }}>
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2">
-          {subProjects.map(({ href, label, category, year, image, blurb }, i) => (
+          {subProjects.map(({ href, label, category, year, image, preview, blurb }, i) => (
             <Reveal key={href} delay={i === 0 ? 0 : (i % 2) * 0.08} className={i === 0 ? "md:col-span-2" : ""}>
               <Link href={href} className="group block" style={{ textDecoration: "none", color: "inherit" }}>
+                {preview ? (
+                  // Tall preview that pans from top to bottom on hover, like scrolling the page
+                  <div
+                    aria-hidden
+                    className="w-full mb-5 bg-top transition-[background-position] duration-[6000ms] ease-in-out group-hover:bg-bottom group-focus-visible:bg-bottom motion-reduce:transition-none motion-reduce:group-hover:bg-top"
+                    style={{ aspectRatio: i === 0 ? "21/9" : "4/3", backgroundColor: "#0a0a0a", backgroundImage: `url('${preview}')`, backgroundSize: "100% auto", backgroundRepeat: "no-repeat" }}
+                  />
+                ) : (
                 <div
                   className="w-full overflow-hidden mb-5"
                   style={{ aspectRatio: i === 0 ? "21/9" : "4/3", backgroundColor: "#141414", display: "flex", alignItems: "center", justifyContent: "center" }}
@@ -71,6 +79,7 @@ export default function SchemaPage() {
                     style={{ width: i === 0 ? "28%" : "48%", height: "auto", objectFit: "contain" }}
                   />
                 </div>
+                )}
                 <div className="flex items-baseline justify-between gap-4">
                   <p className="transition-opacity group-hover:opacity-70" style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 500, letterSpacing: "-0.01em" }}>
                     {label}
