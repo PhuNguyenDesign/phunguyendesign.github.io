@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, ImageSlot, Section, Spacer, Statement, faint, muted, rule } from "@/components/CaseStudy";
 import FloatIn from "@/components/FloatIn";
+import ParallaxCollage, { type CollagePiece } from "@/components/ParallaxCollage";
 
 export const metadata: Metadata = {
   title: "Design System Work — Schema — Phu Nguyen",
@@ -39,23 +40,63 @@ const modules = [
   { tag: "Performance", name: "Performance Summary", body: "KPI grids, CPI-vs-performance bubble charts, a price-compliance view, and grouped project cards, with the shared filter bar placed across the module." },
 ];
 
+// Mockup boards for the Across Schema cards: palette, type, and components from each Figma file.
+// Factor AE pieces were checked for logos and brand text before export.
+const b = (file: string, alt: string, width: number, height: number, x: number, y: number, w: number, speed: number, radius = 2): CollagePiece =>
+  ({ src: `/schema/design-system/boards/${file}`, alt, width, height, x, y, w, speed, radius });
+
+const paragonBoard: CollagePiece[] = [
+  b("pg-palette.jpg", "Paragon brand and core color scales", 2200, 2150, 2, 6, 30, 0.2, 1),
+  b("pg-type.jpg", "Paragon display type scale in bold and regular", 1440, 620, 34, 4, 34, 0.35, 1),
+  b("pg-card.png", "Paragon card component", 816, 1082, 70, 8, 20, 0.5),
+  b("pg-alert.png", "Paragon success alert", 1446, 390, 33, 40, 34, 0.8),
+  b("pg-toast.png", "Paragon toast with an action", 576, 202, 60, 58, 18, 1.1, 3),
+  b("pg-search.png", "Paragon search field", 1056, 88, 5, 66, 30, 1.2),
+  b("pg-button.png", "Paragon primary button", 237, 132, 87, 72, 8, 1.4, 8),
+  b("pg-badge.png", "Paragon success badge", 156, 75, 8, 78, 5, 1.3, 10),
+  b("pg-progress.png", "Paragon progress bar", 800, 32, 36, 76, 22, 1.0, 20),
+];
+
+const factorBoard: CollagePiece[] = [
+  b("fae-palette.jpg", "Factor AE color system: main and secondary swatches", 2572, 1930, 3, 5, 44, 0.2, 1),
+  b("fae-type.jpg", "Factor AE heading type scale", 1574, 520, 50, 4, 46, 0.35, 1),
+  b("fae-toast.png", "Factor AE toast notification", 742, 256, 54, 26, 36, 0.8),
+  b("fae-table.png", "Factor AE data table with row actions", 2514, 496, 18, 54, 72, 0.6, 1),
+  b("fae-button.png", "Factor AE primary button", 372, 144, 8, 80, 16, 1.3, 6),
+  b("fae-pill.png", "Factor AE status pill", 243, 96, 30, 82, 11, 1.4, 20),
+  b("fae-chip.png", "Factor AE chip", 309, 72, 46, 84, 13, 1.2, 20),
+  b("fae-progress.png", "Factor AE progress bar", 808, 48, 64, 86, 30, 1.0, 10),
+];
+
+const spotlightBoard: CollagePiece[] = [
+  b("ss-palette.jpg", "Spending Spotlight color tokens: brand, rating, semantic, and action colors", 1278, 960, 3, 4, 40, 0.2, 1),
+  b("ss-type.jpg", "Spending Spotlight type scale", 1278, 560, 3, 50, 40, 0.3, 1),
+  b("ss-card-red.png", "Company card with a red rating", 720, 746, 46, 6, 25, 0.6, 3),
+  b("ss-card-green.png", "Company card with a green rating", 720, 702, 73, 14, 24, 0.8, 3),
+  b("ss-modal.png", "Onboarding modal, step one", 960, 1040, 48, 46, 26, 1.0, 3),
+  b("ss-donut.png", "Spending impact donut chart", 560, 480, 76, 52, 20, 1.2, 3),
+  b("ss-stat.png", "Monthly impact stat card", 324, 226, 26, 76, 14, 1.4, 6),
+  b("ss-badge-green.png", "Green rating badge", 432, 84, 5, 80, 16, 1.3, 20),
+  b("ss-badge-red.png", "Red rating badge", 384, 84, 5, 88, 14, 1.1, 20),
+];
+
 const otherWork = [
   {
     client: "Open edX · Paragon",
     title: "Shared Design Collateral",
-    image: { src: "/schema/design-system/paragon-color.jpg", width: 4640, height: 2703, alt: "Paragon's Color System in the shared Figma library: brand colors, core scales for primary, brand, gray, light, and dark, and utility scales for info, success, danger, and warning" },
+    board: { pieces: paragonBoard, aspect: "1200 / 500", bg: "radial-gradient(ellipse 70% 80% at 25% 20%, rgba(80,160,110,0.35), transparent 70%), linear-gradient(160deg, #1d3a2b 0%, #0f1f17 100%)" },
     body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
   },
   {
     client: "Factor AE",
     title: "Figma System for A&E Software",
-    image: { src: "/schema/design-system/factor-ae-color.jpg", width: 2572, height: 1930, alt: "Color System foundation from the Factor AE Figma file: main, secondary, and additional color swatches with names and hex values" },
+    board: { pieces: factorBoard, aspect: "1200 / 900", bg: "radial-gradient(ellipse 80% 80% at 30% 20%, rgba(43,88,180,0.5), transparent 70%), linear-gradient(160deg, #14254d 0%, #0b1428 100%)" },
     body: "Contributed early foundation components and navigation explorations to a Figma design system for an architecture and engineering project-management tool. A senior designer led it. Their feedback on this project taught me to cut unnecessary variants and layers from a component system.",
   },
   {
     client: "Spending Spotlight",
     title: "Visual Language & Card System",
-    image: { src: "/schema/design-system/spending-spotlight-tokens.jpg", width: 1278, height: 960, alt: "Spending Spotlight color tokens: brand navy, orange, and teal, separate rating colors for green, yellow, and red, semantic colors, and action colors" },
+    board: { pieces: spotlightBoard, aspect: "1200 / 900", bg: "radial-gradient(ellipse 80% 80% at 70% 20%, rgba(212,83,26,0.35), transparent 70%), linear-gradient(160deg, #13244a 0%, #0a1226 100%)" },
     body: "As the designer on an early-stage product, I explored three color palettes. The one we chose separates brand from action colors, keeps semantic rating colors, and adds chart colors. I also paired an editorial serif with a sans-serif, and standardized the card system with a type taxonomy, content toggles, fixed padding, and line caps.",
   },
 ];
@@ -196,10 +237,11 @@ export default function SchemaDesignSystemPage() {
 
       <Section title="Across Schema" layout="stack">
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:[&>*:first-child]:col-span-2">
-          {otherWork.map(({ client, title, body, image }, i) => (
+          {otherWork.map(({ client, title, body, board }) => (
             <div key={title}>
-              {/* Client logos and names are kept out of these images */}
-              <Figure {...image} from={i === 2 ? "right" : i === 1 ? "left" : "up"} />
+              <div className="relative overflow-hidden" style={{ background: board.bg, borderRadius: "clamp(10px, 1.6vw, 20px)", padding: "clamp(16px, 3vw, 36px)" }}>
+                <ParallaxCollage pieces={board.pieces} aspectRatio={board.aspect} drift={22} />
+              </div>
               <p style={{ fontSize: "0.8125rem", color: faint, marginTop: "20px", marginBottom: "4px" }}>{client}</p>
               <p style={{ fontSize: "1.25rem", fontFamily: "var(--font-display)", fontWeight: 500, letterSpacing: "-0.01em", marginBottom: "10px" }}>{title}</p>
               <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, maxWidth: "58ch" }}>{body}</p>
