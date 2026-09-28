@@ -78,6 +78,29 @@ const spotlightBoard: CollagePiece[] = [
   b("ss-badge-red.png", "Red rating badge", 384, 84, 5, 88, 10.5, 1.1, 20),
 ];
 
+// Cover collage: screens, tokens, and components from the ClearDemand prototype,
+// captured from its synthetic fixtures with client branding hidden.
+const cd = (file: string, alt: string, width: number, height: number, x: number, y: number, w: number, speed: number, radius = 1.5): CollagePiece =>
+  ({ src: `/schema/design-system/${file}`, alt, width, height, x, y, w, speed, radius });
+
+const coverCollage: CollagePiece[] = [
+  cd("performance-summary.jpg", "Performance Summary module", 2880, 1800, 2, 6, 47, 0.25, 0.8),
+  cd("price-review-panel.jpg", "Price Review module with the detail panel open", 2880, 1800, 51, 1, 47, 0.45, 0.8),
+  cd("collage/brand.jpg", "Brand color ramp tokens", 1808, 738, 1, 44, 31, 0.7),
+  cd("collage/categorical.jpg", "Categorical chart color tokens", 1808, 590, 66, 38, 32, 0.8),
+  cd("collage/radii.jpg", "Radius tokens", 1808, 678, 33, 62, 28, 0.6),
+  cd("collage/elevation.jpg", "Elevation tokens", 1808, 682, 68, 70, 30, 0.55),
+  cd("collage/type.jpg", "Sans type token with sample text", 586, 388, 4, 74, 15, 1.1, 3),
+  cd("chatbubble.jpg", "ChatBubble conversation", 1740, 1478, 36, 28, 25, 1.3),
+  cd("collage/alert.jpg", "Alert variants", 1220, 492, 71, 18, 22, 1.5),
+  cd("collage/button.jpg", "Button variants and sizes", 1150, 238, 5, 64, 26, 1.8, 2),
+  cd("collage/togglegroup.jpg", "Toggle group variants", 636, 504, 88, 52, 10, 2.1),
+  cd("collage/calendar.jpg", "Calendar", 1424, 742, 45, 81, 21, 1.4),
+  cd("collage/stepper.jpg", "Stepper", 1412, 594, 73, 89, 22, 1.2),
+  cd("agentic-search.jpg", "AgenticSearchBar with its suggestion popover", 1772, 648, 18, 88, 28, 1.6),
+  cd("collage/badge.jpg", "Badge variants", 876, 114, 58, 58, 17, 2.0, 20),
+];
+
 const otherWork = [
   {
     client: "Open edX · Paragon",
@@ -108,18 +131,17 @@ export default function SchemaDesignSystemPage() {
         meta={meta}
       />
 
-      {/* Cover: the module on a stage, captured from the prototype's synthetic fixture data; client branding hidden */}
-      <section style={{ padding: "0 var(--page-pad-x)" }}>
-        <div className="mx-auto max-w-[1200px]">
-          <Showcase
-            src="/schema/design-system/performance-summary.jpg"
-            alt="Performance Summary module: a filter bar, a grid of KPI cards for revenue, profit, units, margin, promo lift, and CPI, and trend charts comparing this year to last"
-            width={2880}
-            height={1800}
-            caption="Performance Summary, one of the modules I built on the system. All data is synthetic."
-            bare
-          />
-        </div>
+      {/* Cover: tokens, components, and screens drift at different speeds as you scroll */}
+      <section
+        aria-label="Screens, tokens, and components from the ClearDemand design system"
+        className="overflow-hidden"
+        style={{
+          padding: "clamp(24px, 4vw, 64px) var(--page-pad-x) clamp(64px, 8vw, 120px)",
+          background:
+            "radial-gradient(ellipse 70% 55% at 50% 30%, rgba(70,110,255,0.26), transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #0f1a33 40%, #0c1426 75%, #0a0a0a 100%)",
+        }}
+      >
+        <ParallaxCollage pieces={coverCollage} aspectRatio="1200 / 1000" drift={170} />
       </section>
 
       <Section title="ClearDemand">
@@ -216,6 +238,14 @@ export default function SchemaDesignSystemPage() {
         <CardGrid items={modules} />
         <Spacer />
         <div className="flex flex-col gap-10">
+          <Showcase
+            src="/schema/design-system/performance-summary.jpg"
+            alt="Performance Summary module: a filter bar, a grid of KPI cards for revenue, profit, units, margin, promo lift, and CPI, and trend charts comparing this year to last"
+            width={2880}
+            height={1800}
+            caption="Performance Summary: KPI grid and trend charts. All data is synthetic."
+            bare
+          />
           <Showcase
             src="/schema/design-system/price-review-panel.jpg"
             alt="Price Review module: a price table with the detail panel open, showing rule cards marked fulfilled and impactful for the selected price family"
