@@ -97,7 +97,7 @@ const otherWork = [
     client: "Spending Spotlight",
     title: "Visual Language & Card System",
     board: { pieces: spotlightBoard, aspect: "1200 / 900", bg: "radial-gradient(ellipse 80% 80% at 70% 20%, rgba(212,83,26,0.35), transparent 70%), linear-gradient(160deg, #13244a 0%, #0a1226 100%)" },
-    body: "As the designer on an early-stage product, I explored three color palettes. The one we chose separates brand from action colors, keeps semantic rating colors, and adds chart colors. I also paired an editorial serif with a sans-serif, and standardized the card system with a type taxonomy, content toggles, fixed padding, and line caps.",
+    body: "As the designer on an early-stage product, I explored three color palettes. The one we chose separates brand from action colors, keeps semantic rating colors, and adds chart colors. I also set a clean sans-serif type scale, and standardized the card system with a type taxonomy, content toggles, fixed padding, and line caps.",
   },
 ];
 
