@@ -56,18 +56,18 @@ const c = (file: string, alt: string, width: number, height: number, x: number, 
   ({ src: `/schema/mobile/${file}`, alt, width, height, x, y, w, speed, radius });
 
 const collage: CollagePiece[] = [
-  c("collage/learn-home-light.png", "Learn home, light theme", 750, 1624, 2, 10, 21, 0.5),
-  c("collage/course-scrolled-dark.png", "Course home scrolled, dark theme", 750, 2113, 26, 2, 23, 1.1),
-  c("collage/grades-light.png", "Course home with grade status, light theme", 750, 2120, 53, 12, 21, 0.7),
-  c("collage/search-dark.png", "Course search results, dark theme", 750, 1624, 78, 4, 20, 1.3),
-  c("collage/completed-dark.png", "Course completed state, dark theme", 750, 1624, 10, 50, 19, 1.5),
-  c("collage/offline-dark.png", "No internet connection state, dark theme", 750, 1624, 66, 50, 19, 0.9),
-  c("completion-50-dark.png", "Course completion card at 50%", 1308, 1496, 46, 30, 15, 2.8, 3),
-  c("collage/search-field.png", "Search field component", 538, 96, 70, 40, 22, 2.4, 2),
-  c("collage/button.png", "Filled button component", 261, 126, 5, 42, 9, 2.6, 8),
-  c("collage/dialog-light.png", "Due dates shifted dialog component", 652, 340, 37, 60, 23, 2.1, 3),
-  c("assignments-caught-up-light.png", "Assignments caught-up card", 1308, 1440, 84, 70, 14, 2.2, 3),
-  c("collage/bottom-nav-dark.png", "App-level bottom navigation, dark theme", 750, 172, 38, 88, 30, 1.8, 3),
+  c("collage/learn-home-light.png", "Learn home, light theme", 750, 1624, 2, 10, 21, 0.3),
+  c("collage/course-scrolled-dark.png", "Course home scrolled, dark theme", 750, 2113, 26, 2, 23, 0.7),
+  c("collage/grades-light.png", "Course home with grade status, light theme", 750, 2120, 53, 12, 21, 0.45),
+  c("collage/search-dark.png", "Course search results, dark theme", 750, 1624, 78, 4, 20, 0.85),
+  c("collage/completed-dark.png", "Course completed state, dark theme", 750, 1624, 10, 50, 19, 1.0),
+  c("collage/offline-dark.png", "No internet connection state, dark theme", 750, 1624, 66, 50, 19, 0.6),
+  c("completion-50-dark.png", "Course completion card at 50%", 1308, 1496, 46, 30, 15, 2.0, 3),
+  c("collage/search-field.png", "Search field component", 538, 96, 70, 40, 22, 1.8, 2),
+  c("collage/button.png", "Filled button component", 261, 126, 5, 42, 9, 2.2, 8),
+  c("collage/dialog-light.png", "Due dates shifted dialog component", 652, 340, 37, 60, 23, 1.6, 3),
+  c("assignments-caught-up-light.png", "Assignments caught-up card", 1308, 1440, 84, 70, 14, 1.7, 3),
+  c("collage/bottom-nav-dark.png", "App-level bottom navigation, dark theme", 750, 172, 38, 88, 30, 1.4, 3),
 ];
 
 const fileWork = [
@@ -93,7 +93,16 @@ export default function SchemaMobilePage() {
         meta={meta}
       />
 
-      <section aria-label="Screens and components from the Open edX mobile app" style={{ padding: "clamp(48px, 8vw, 120px) var(--page-pad-x) clamp(96px, 14vw, 200px)" }}>
+      {/* Full-bleed backdrop; overflow is clipped so pieces slide in and out at the edges */}
+      <section
+        aria-label="Screens and components from the Open edX mobile app"
+        className="overflow-hidden"
+        style={{
+          padding: "clamp(120px, 16vw, 240px) var(--page-pad-x)",
+          background:
+            "radial-gradient(ellipse 70% 55% at 50% 35%, rgba(84,110,255,0.28), transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #101a33 45%, #0c1222 75%, #0a0a0a 100%)",
+        }}
+      >
         <ParallaxCollage pieces={collage} aspectRatio="1200 / 1060" />
       </section>
 

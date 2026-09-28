@@ -25,7 +25,7 @@ export type CollagePiece = {
   z?: number;
 };
 
-const DRIFT = 100; // px of travel per unit of speed across the section's full scroll
+const DRIFT = 320; // px of travel per unit of speed across the section's full scroll
 
 function Piece({ piece, progress, still }: { piece: CollagePiece; progress: MotionValue<number>; still: boolean }) {
   const y = useTransform(progress, [0, 1], [piece.speed * DRIFT, -piece.speed * DRIFT]);
