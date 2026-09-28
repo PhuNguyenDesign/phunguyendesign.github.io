@@ -52,12 +52,12 @@ function Piece({ piece, progress, still, drift }: { piece: CollagePiece; progres
   );
 }
 
-export default function ParallaxCollage({ pieces, aspectRatio = "1200 / 1150", drift = DRIFT }: { pieces: CollagePiece[]; aspectRatio?: string; drift?: number }) {
+export default function ParallaxCollage({ pieces, aspectRatio = "1200 / 1150", drift = DRIFT, fill = false }: { pieces: CollagePiece[]; aspectRatio?: string; drift?: number; /** Use the full container width instead of capping at 1200px */ fill?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const still = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-[1200px]" style={{ aspectRatio }}>
+    <div ref={ref} className={`relative mx-auto w-full ${fill ? "" : "max-w-[1200px]"}`} style={{ aspectRatio }}>
       {pieces.map((p) => (
         <Piece key={p.src} piece={p} progress={scrollYProgress} still={still} drift={drift} />
       ))}

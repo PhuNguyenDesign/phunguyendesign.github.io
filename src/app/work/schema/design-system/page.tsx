@@ -60,10 +60,10 @@ const factorBoard: CollagePiece[] = [
   b("fae-type.jpg", "Factor AE heading type scale", 1574, 520, 50, 4, 46, 0.35, 1),
   b("fae-toast.png", "Factor AE toast notification", 742, 256, 54, 26, 36, 0.8),
   b("fae-table.png", "Factor AE data table with row actions", 2514, 496, 18, 54, 72, 0.6, 1),
-  b("fae-button.png", "Factor AE primary button", 372, 144, 8, 80, 16, 1.3, 6),
-  b("fae-pill.png", "Factor AE status pill", 243, 96, 30, 82, 11, 1.4, 20),
-  b("fae-chip.png", "Factor AE chip", 309, 72, 46, 84, 13, 1.2, 20),
-  b("fae-progress.png", "Factor AE progress bar", 808, 48, 64, 86, 30, 1.0, 10),
+  b("fae-button.png", "Factor AE primary button", 372, 144, 8, 82, 11, 1.3, 6),
+  b("fae-pill.png", "Factor AE status pill", 243, 96, 26, 84, 8, 1.4, 20),
+  b("fae-chip.png", "Factor AE chip", 309, 72, 42, 85, 10, 1.2, 20),
+  b("fae-progress.png", "Factor AE progress bar", 808, 48, 60, 87, 24, 1.0, 10),
 ];
 
 const spotlightBoard: CollagePiece[] = [
@@ -73,43 +73,28 @@ const spotlightBoard: CollagePiece[] = [
   b("ss-card-green.png", "Company card with a green rating", 720, 702, 73, 14, 24, 0.8, 3),
   b("ss-modal.png", "Onboarding modal, step one", 960, 1040, 48, 46, 26, 1.0, 3),
   b("ss-donut.png", "Spending impact donut chart", 560, 480, 76, 52, 20, 1.2, 3),
-  b("ss-stat.png", "Monthly impact stat card", 324, 226, 26, 76, 14, 1.4, 6),
-  b("ss-badge-green.png", "Green rating badge", 432, 84, 5, 80, 16, 1.3, 20),
-  b("ss-badge-red.png", "Red rating badge", 384, 84, 5, 88, 14, 1.1, 20),
+  b("ss-stat.png", "Monthly impact stat card", 324, 226, 24, 76, 12, 1.4, 6),
+  b("ss-badge-green.png", "Green rating badge", 432, 84, 5, 80, 12, 1.3, 20),
+  b("ss-badge-red.png", "Red rating badge", 384, 84, 5, 88, 10.5, 1.1, 20),
 ];
 
 const otherWork = [
   {
     client: "Open edX · Paragon",
     title: "Shared Design Collateral",
-    tiles: [
-      { label: "Color", file: "pg-palette.jpg", w: 2200, h: 2150, alt: "Paragon brand and core color scales" },
-      { label: "Type", file: "pg-type.jpg", w: 1440, h: 620, alt: "Paragon display type scale in bold and regular" },
-      { label: "Card", file: "pg-card.png", w: 816, h: 1082, alt: "Paragon card component with actions and a warning footer" },
-    ],
-    board: { pieces: paragonBoard, aspect: "1200 / 500", bg: "radial-gradient(ellipse 70% 80% at 25% 20%, rgba(80,160,110,0.35), transparent 70%), linear-gradient(160deg, #1d3a2b 0%, #0f1f17 100%)" },
+    board: { pieces: paragonBoard, aspect: "1200 / 440", bg: "radial-gradient(ellipse 70% 80% at 25% 20%, rgba(80,160,110,0.35), transparent 70%), linear-gradient(160deg, #1d3a2b 0%, #0f1f17 100%)" },
     body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
   },
   {
     client: "Factor AE",
     title: "Figma System for A&E Software",
-    tiles: [
-      { label: "Color", file: "fae-palette.jpg", w: 2572, h: 1930, alt: "Factor AE main and secondary color swatches" },
-      { label: "Type", file: "fae-type.jpg", w: 1574, h: 520, alt: "Factor AE heading type scale" },
-      { label: "Data table", file: "fae-table.png", w: 2514, h: 496, alt: "Factor AE data table with row actions" },
-    ],
-    board: { pieces: factorBoard, aspect: "1200 / 900", bg: "radial-gradient(ellipse 80% 80% at 30% 20%, rgba(43,88,180,0.5), transparent 70%), linear-gradient(160deg, #14254d 0%, #0b1428 100%)" },
+    board: { pieces: factorBoard, aspect: "1200 / 820", bg: "radial-gradient(ellipse 80% 80% at 30% 20%, rgba(43,88,180,0.5), transparent 70%), linear-gradient(160deg, #14254d 0%, #0b1428 100%)" },
     body: "Contributed early foundation components and navigation explorations to a Figma design system for an architecture and engineering project-management tool. A senior designer led it. Their feedback on this project taught me to cut unnecessary variants and layers from a component system.",
   },
   {
     client: "Spending Spotlight",
     title: "Visual Language & Card System",
-    tiles: [
-      { label: "Color tokens", file: "ss-palette.jpg", w: 1278, h: 960, alt: "Spending Spotlight brand, rating, semantic, and action colors" },
-      { label: "Company card", file: "ss-card-red.png", w: 720, h: 746, alt: "Company card with a red rating" },
-      { label: "Impact chart", file: "ss-donut.png", w: 560, h: 480, alt: "Spending impact donut chart" },
-    ],
-    board: { pieces: spotlightBoard, aspect: "1200 / 900", bg: "radial-gradient(ellipse 80% 80% at 70% 20%, rgba(212,83,26,0.35), transparent 70%), linear-gradient(160deg, #13244a 0%, #0a1226 100%)" },
+    board: { pieces: spotlightBoard, aspect: "1200 / 820", bg: "radial-gradient(ellipse 80% 80% at 70% 20%, rgba(212,83,26,0.35), transparent 70%), linear-gradient(160deg, #13244a 0%, #0a1226 100%)" },
     body: "As the designer on an early-stage product, I explored three color palettes. The one we chose separates brand from action colors, keeps semantic rating colors, and adds chart colors. I also set a clean sans-serif type scale, and standardized the card system with a type taxonomy, content toggles, fixed padding, and line caps.",
   },
 ];
@@ -261,7 +246,7 @@ export default function SchemaDesignSystemPage() {
 
       <Section title="Across Schema" layout="stack">
         <div className="flex flex-col" style={{ gap: "clamp(72px, 10vw, 128px)" }}>
-          {otherWork.map(({ client, title, body, board, tiles }, i) => (
+          {otherWork.map(({ client, title, body, board }, i) => (
             <article key={title}>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8" style={{ marginBottom: "32px" }}>
                 <div className="md:col-span-5">
@@ -270,13 +255,9 @@ export default function SchemaDesignSystemPage() {
                 </div>
                 <p className="md:col-span-7" style={{ fontSize: "1rem", lineHeight: 1.7, color: muted, maxWidth: "60ch", textWrap: "pretty" }}>{body}</p>
               </div>
-              <div className="relative overflow-hidden" style={{ background: board.bg, borderRadius: "clamp(10px, 1.6vw, 20px)", padding: "clamp(16px, 3vw, 36px)" }}>
-                <ParallaxCollage pieces={board.pieces} aspectRatio={board.aspect} drift={22} />
-              </div>
-              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {tiles.map((t, j) => (
-                  <Tile key={t.file} label={t.label} src={`/schema/design-system/boards/${t.file}`} width={t.w} height={t.h} alt={t.alt} ratio="4/3" delay={j * 0.06} />
-                ))}
+              {/* Board breaks out of the text column, up to 1440px, so the pieces read at a large size */}
+              <div className="relative left-1/2 w-[min(calc(100vw-32px),1440px)] -translate-x-1/2 overflow-hidden" style={{ background: board.bg, borderRadius: "clamp(10px, 1.6vw, 20px)", padding: "clamp(12px, 2vw, 28px)" }}>
+                <ParallaxCollage pieces={board.pieces} aspectRatio={board.aspect} drift={16} fill />
               </div>
             </article>
           ))}
