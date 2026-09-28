@@ -78,27 +78,38 @@ const spotlightBoard: CollagePiece[] = [
   b("ss-badge-red.png", "Red rating badge", 384, 84, 5, 88, 10.5, 1.1, 20),
 ];
 
-// Cover collage: screens, tokens, and components from the ClearDemand prototype,
-// captured from its synthetic fixtures with client branding hidden.
+// Cover collage: pieces from all four systems (ClearDemand, Paragon, Factor AE, Spending Spotlight).
+// ClearDemand pieces come from the prototype's synthetic fixtures; client logos and names are kept out.
 const cd = (file: string, alt: string, width: number, height: number, x: number, y: number, w: number, speed: number, radius = 1.5): CollagePiece =>
   ({ src: `/schema/design-system/${file}`, alt, width, height, x, y, w, speed, radius });
+const bd = (file: string, alt: string, width: number, height: number, x: number, y: number, w: number, speed: number, radius = 1.5): CollagePiece =>
+  cd(`boards/${file}`, alt, width, height, x, y, w, speed, radius);
 
 const coverCollage: CollagePiece[] = [
-  cd("performance-summary.jpg", "Performance Summary module", 2880, 1800, 2, 6, 47, 0.25, 0.8),
-  cd("price-review-panel.jpg", "Price Review module with the detail panel open", 2880, 1800, 51, 1, 47, 0.45, 0.8),
-  cd("collage/brand.jpg", "Brand color ramp tokens", 1808, 738, 1, 44, 31, 0.7),
-  cd("collage/categorical.jpg", "Categorical chart color tokens", 1808, 590, 66, 38, 32, 0.8),
-  cd("collage/radii.jpg", "Radius tokens", 1808, 678, 33, 62, 28, 0.6),
-  cd("collage/elevation.jpg", "Elevation tokens", 1808, 682, 68, 70, 30, 0.55),
-  cd("collage/type.jpg", "Sans type token with sample text", 586, 388, 4, 74, 15, 1.1, 3),
-  cd("chatbubble.jpg", "ChatBubble conversation", 1740, 1478, 36, 28, 25, 1.3),
-  cd("collage/alert.jpg", "Alert variants", 1220, 492, 71, 18, 22, 1.5),
-  cd("collage/button.jpg", "Button variants and sizes", 1150, 238, 5, 64, 26, 1.8, 2),
-  cd("collage/togglegroup.jpg", "Toggle group variants", 636, 504, 88, 52, 10, 2.1),
-  cd("collage/calendar.jpg", "Calendar", 1424, 742, 45, 81, 21, 1.4),
-  cd("collage/stepper.jpg", "Stepper", 1412, 594, 73, 89, 22, 1.2),
-  cd("agentic-search.jpg", "AgenticSearchBar with its suggestion popover", 1772, 648, 18, 88, 28, 1.6),
-  cd("collage/badge.jpg", "Badge variants", 876, 114, 58, 58, 17, 2.0, 20),
+  // back: screens and palettes
+  cd("performance-summary.jpg", "ClearDemand Performance Summary module", 2880, 1800, 2, 4, 40, 0.25, 0.8),
+  cd("price-review-panel.jpg", "ClearDemand Price Review module with the detail panel open", 2880, 1800, 58, 2, 40, 0.4, 0.8),
+  bd("pg-palette.jpg", "Paragon brand and core color scales", 2200, 2150, 43, 5, 14, 0.3, 1),
+  bd("ss-palette.jpg", "Spending Spotlight color tokens", 1278, 960, 2, 38, 24, 0.7, 1),
+  bd("fae-palette.jpg", "Factor AE color system", 2572, 1930, 74, 34, 24, 0.8, 1),
+  // middle: type and data
+  bd("pg-type.jpg", "Paragon display type scale", 1440, 620, 28, 30, 22, 0.6, 1),
+  bd("fae-table.png", "Factor AE data table", 2514, 496, 30, 52, 40, 0.55, 1),
+  cd("collage/categorical.jpg", "ClearDemand categorical chart color tokens", 1808, 590, 4, 64, 26, 0.8),
+  bd("ss-type.jpg", "Spending Spotlight type scale", 1278, 560, 70, 60, 26, 0.65, 1),
+  // front: components
+  bd("ss-card-red.png", "Spending Spotlight company card", 720, 746, 52, 20, 16, 1.3, 3),
+  cd("chatbubble.jpg", "ClearDemand ChatBubble conversation", 1740, 1478, 30, 66, 20, 1.1),
+  bd("pg-card.png", "Paragon card component", 816, 1082, 88, 12, 11, 1.5),
+  bd("ss-donut.png", "Spending Spotlight impact donut chart", 560, 480, 52, 70, 14, 1.4, 3),
+  bd("fae-toast.png", "Factor AE toast notification", 742, 256, 60, 44, 18, 1.7),
+  bd("pg-toast.png", "Paragon toast with an action", 576, 202, 10, 28, 14, 1.8, 3),
+  cd("collage/button.jpg", "ClearDemand button variants", 1150, 238, 67, 84, 22, 1.6, 2),
+  bd("ss-stat.png", "Spending Spotlight monthly impact stat card", 324, 226, 88, 74, 10, 2.0, 6),
+  bd("fae-pill.png", "Factor AE status pill", 243, 96, 3, 86, 7, 2.2, 20),
+  bd("pg-button.png", "Paragon primary button", 237, 132, 43, 90, 6, 2.1, 8),
+  bd("ss-badge-green.png", "Spending Spotlight green rating badge", 432, 84, 13, 90, 12, 1.9, 20),
+  cd("collage/alert.jpg", "ClearDemand alert variants", 1220, 492, 4, 12, 20, 1.2),
 ];
 
 const otherWork = [
@@ -133,7 +144,7 @@ export default function SchemaDesignSystemPage() {
 
       {/* Cover: tokens, components, and screens drift at different speeds as you scroll */}
       <section
-        aria-label="Screens, tokens, and components from the ClearDemand design system"
+        aria-label="Tokens, components, and screens from the ClearDemand, Paragon, Factor AE, and Spending Spotlight design systems"
         className="overflow-hidden"
         style={{
           padding: "clamp(24px, 4vw, 64px) var(--page-pad-x) clamp(64px, 8vw, 120px)",
@@ -141,7 +152,7 @@ export default function SchemaDesignSystemPage() {
             "radial-gradient(ellipse 70% 55% at 50% 30%, rgba(70,110,255,0.26), transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #0f1a33 40%, #0c1426 75%, #0a0a0a 100%)",
         }}
       >
-        <ParallaxCollage pieces={coverCollage} aspectRatio="1200 / 1000" drift={170} />
+        <ParallaxCollage pieces={coverCollage} aspectRatio="1200 / 920" drift={170} />
       </section>
 
       <Section title="ClearDemand">
