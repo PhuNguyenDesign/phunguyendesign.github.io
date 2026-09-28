@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
 import FloatIn from "@/components/FloatIn";
+import LoopVideo from "@/components/LoopVideo";
 import MarqueeColumns, { type MarqueeCard } from "@/components/MarqueeColumns";
 
 export const metadata: Metadata = {
@@ -107,7 +108,18 @@ export default function SchemaMobilePage() {
           <FloatIn from="left">
             <MarqueeColumns columns={progressCards} aspectRatio="4/5" duration={70} />
           </FloatIn>
-          <ImageSlot label="Video cards with partial-watch progress" ratio="4/5" from="right" delay={0.08} />
+          <FloatIn from="right" delay={0.08}>
+            {/* Background matches the video's own backdrop so the phone floats with no visible edge */}
+            <div className="flex items-center justify-center" style={{ aspectRatio: "4/5", backgroundColor: "#1b1b1b", border: "1px solid rgba(242,242,239,0.08)", padding: "clamp(20px, 4vw, 48px)" }}>
+              <LoopVideo
+                src="/schema/mobile/visual-progress.mp4"
+                poster="/schema/mobile/visual-progress-poster.jpg"
+                label="Course home walkthrough, clicking through the carousel of progress cards"
+                width={376}
+                height={776}
+              />
+            </div>
+          </FloatIn>
         </div>
       </Section>
 
