@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImageSlot, Section, Showcase, Spacer, Stage, Statement, Stats, Tile, faint, muted, rule } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImageSlot, Section, Showcase, Spacer, Statement, Stats, Tile, faint, muted, rule } from "@/components/CaseStudy";
 import ParallaxCollage, { type CollagePiece } from "@/components/ParallaxCollage";
 
 export const metadata: Metadata = {
@@ -117,6 +117,7 @@ export default function SchemaDesignSystemPage() {
             width={2880}
             height={1800}
             caption="Performance Summary, one of the modules I built on the system. All data is synthetic."
+            bare
           />
         </div>
       </section>
@@ -222,13 +223,10 @@ export default function SchemaDesignSystemPage() {
             height={1800}
             caption="Pricing: the review table with the detail panel open."
             from="left"
-            tint="#1b2230"
-            glow="rgba(70,120,255,0.18)"
+            bare
           />
-          <Stage tint="#1b2230" glow="rgba(40,170,120,0.16)">
-            <Tile label="Performance · CPI vs. performance by subcategory" src="/schema/design-system/performance-bubbles.jpg" width={2304} height={906} surface="#ffffff" contain={false} from="right"
-              alt="Two bubble charts plotting performance against CPI by subcategory, with quadrants for well positioned, outperforming, reprice opportunity, and at risk" />
-          </Stage>
+          <Tile label="Performance · CPI vs. performance by subcategory" src="/schema/design-system/performance-bubbles.jpg" width={2304} height={906} surface="#ffffff" contain={false} from="right"
+            alt="Two bubble charts plotting performance against CPI by subcategory, with quadrants for well positioned, outperforming, reprice opportunity, and at risk" />
         </div>
       </Section>
 

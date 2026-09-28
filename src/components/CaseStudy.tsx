@@ -252,13 +252,17 @@ export function BrowserFrame({ src, alt, width, height, shadow = "rgba(4,10,30,0
 }
 
 // A framed screen on a stage, with a caption underneath.
-export function Showcase({ caption, from = "up", tint, glow, ...frame }: { src: string; alt: string; width: number; height: number; caption?: string; from?: FloatFrom; tint?: string; glow?: string }) {
+export function Showcase({ caption, from = "up", tint, glow, bare, ...frame }: { src: string; alt: string; width: number; height: number; caption?: string; from?: FloatFrom; tint?: string; glow?: string; /** Frame only, no stage behind it */ bare?: boolean }) {
   return (
     <FloatIn from={from}>
       <figure style={{ margin: 0 }}>
-        <Stage tint={tint} glow={glow}>
-          <BrowserFrame {...frame} />
-        </Stage>
+        {bare ? (
+          <BrowserFrame {...frame} shadow="rgba(0,0,0,0.6)" />
+        ) : (
+          <Stage tint={tint} glow={glow}>
+            <BrowserFrame {...frame} />
+          </Stage>
+        )}
         {caption && <figcaption style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>{caption}</figcaption>}
       </figure>
     </FloatIn>
