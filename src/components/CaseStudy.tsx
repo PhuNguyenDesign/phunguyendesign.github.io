@@ -215,3 +215,80 @@ export function Statement({ children }: { children: React.ReactNode }) {
 export function Spacer({ size = 48 }: { size?: number }) {
   return <div style={{ height: `${size}px` }} />;
 }
+
+// Fine grain laid over tinted panels so large gradients don't feel flat.
+const grain =
+  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
+// A tinted stage with grain. Light product screens sit on it instead of floating on black.
+export function Stage({ children, tint = "#18233a", glow = "rgba(84,110,255,0.22)", pad = "clamp(20px, 5vw, 72px)" }: { children: React.ReactNode; tint?: string; glow?: string; pad?: string }) {
+  return (
+    <div
+      className="relative overflow-hidden"
+      style={{
+        borderRadius: "clamp(10px, 1.4vw, 18px)",
+        padding: pad,
+        backgroundColor: tint,
+        backgroundImage: `${grain}, radial-gradient(ellipse 75% 65% at 50% 0%, ${glow}, transparent 70%)`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Browser chrome around a product screenshot, with a shadow tinted to the stage.
+export function BrowserFrame({ src, alt, width, height, shadow = "rgba(4,10,30,0.55)" }: { src: string; alt: string; width: number; height: number; shadow?: string }) {
+  return (
+    <div style={{ borderRadius: "10px", overflow: "hidden", backgroundColor: "#fff", boxShadow: `0 40px 90px -20px ${shadow}, 0 0 0 1px rgba(255,255,255,0.06)` }}>
+      <div className="flex items-center gap-1.5" style={{ height: "clamp(22px, 2.4vw, 32px)", padding: "0 12px", backgroundColor: "#eceef1", borderBottom: "1px solid #dfe2e6" }}>
+        {["#ff5f57", "#febc2e", "#28c840"].map((c) => (
+          <span key={c} aria-hidden style={{ width: "9px", height: "9px", borderRadius: "50%", backgroundColor: c }} />
+        ))}
+      </div>
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" style={{ display: "block", width: "100%", height: "auto" }} />
+    </div>
+  );
+}
+
+// A framed screen on a stage, with a caption underneath.
+export function Showcase({ caption, from = "up", tint, glow, ...frame }: { src: string; alt: string; width: number; height: number; caption?: string; from?: FloatFrom; tint?: string; glow?: string }) {
+  return (
+    <FloatIn from={from}>
+      <figure style={{ margin: 0 }}>
+        <Stage tint={tint} glow={glow}>
+          <BrowserFrame {...frame} />
+        </Stage>
+        {caption && <figcaption style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>{caption}</figcaption>}
+      </figure>
+    </FloatIn>
+  );
+}
+
+// Key numbers in one row. Values are set in tabular figures so they line up.
+export function Stats({ items }: { items: { value: string; label: string }[] }) {
+  return (
+    <dl className="grid grid-cols-2 md:grid-cols-4" style={{ borderTop: rule, borderBottom: rule }}>
+      {items.map(({ value, label }, i) => (
+        <div key={label} className={`flex flex-col-reverse py-7 ${i % 2 ? "pl-6" : ""} md:pl-6 md:first:pl-0 ${i > 0 ? "md:border-l" : ""}`} style={{ borderColor: "rgba(242,242,239,0.14)" }}>
+          <dt style={{ fontSize: "0.8125rem", color: faint, marginTop: "6px" }}>{label}</dt>
+          <dd style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem, 4.5vw, 3.25rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1, fontVariantNumeric: "tabular-nums", margin: 0 }}>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+// A labeled tile holding one component or style on a light surface.
+export function Tile({ label, src, alt, width, height, surface = "#f6f6f7", ratio, contain = true, className, from = "up", delay }: { label: string; src: string; alt: string; width: number; height: number; surface?: string; ratio?: string; contain?: boolean; className?: string; from?: FloatFrom; delay?: number }) {
+  return (
+    <FloatIn from={from} delay={delay}>
+      <figure className={`m-0 flex h-full flex-col ${className ?? ""}`} style={{ backgroundColor: surface, borderRadius: "clamp(8px, 1vw, 14px)", overflow: "hidden" }}>
+        <figcaption style={{ fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.02em", color: "rgba(20,24,32,0.55)", padding: "14px 18px 0" }}>{label}</figcaption>
+        <div className="flex flex-1 items-center justify-center" style={{ padding: "clamp(14px, 2.4vw, 32px)", aspectRatio: ratio }}>
+          <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" style={{ display: "block", maxWidth: "100%", maxHeight: "100%", width: contain ? "auto" : "100%", height: "auto", objectFit: "contain" }} />
+        </div>
+      </figure>
+    </FloatIn>
+  );
+}

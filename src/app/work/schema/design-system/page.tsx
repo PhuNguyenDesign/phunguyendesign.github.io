@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, ImageSlot, Section, Spacer, Statement, faint, muted, rule } from "@/components/CaseStudy";
-import FloatIn from "@/components/FloatIn";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImageSlot, Section, Showcase, Spacer, Stage, Statement, Stats, Tile, faint, muted, rule } from "@/components/CaseStudy";
 import ParallaxCollage, { type CollagePiece } from "@/components/ParallaxCollage";
 
 export const metadata: Metadata = {
@@ -9,7 +8,6 @@ export const metadata: Metadata = {
 
 // Draft copy sourced from ~/Desktop/tcc/contexts/schema-portfolio/, verified against
 // Notion meeting notes and the cleardemand-design-system GitHub history.
-// ImageSlot frames are placeholders until cleared visuals are exported.
 
 const meta = [
   { label: "Role", value: "Product Designer" },
@@ -84,18 +82,33 @@ const otherWork = [
   {
     client: "Open edX · Paragon",
     title: "Shared Design Collateral",
+    tiles: [
+      { label: "Color", file: "pg-palette.jpg", w: 2200, h: 2150, alt: "Paragon brand and core color scales" },
+      { label: "Type", file: "pg-type.jpg", w: 1440, h: 620, alt: "Paragon display type scale in bold and regular" },
+      { label: "Card", file: "pg-card.png", w: 816, h: 1082, alt: "Paragon card component with actions and a warning footer" },
+    ],
     board: { pieces: paragonBoard, aspect: "1200 / 500", bg: "radial-gradient(ellipse 70% 80% at 25% 20%, rgba(80,160,110,0.35), transparent 70%), linear-gradient(160deg, #1d3a2b 0%, #0f1f17 100%)" },
     body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
   },
   {
     client: "Factor AE",
     title: "Figma System for A&E Software",
+    tiles: [
+      { label: "Color", file: "fae-palette.jpg", w: 2572, h: 1930, alt: "Factor AE main and secondary color swatches" },
+      { label: "Type", file: "fae-type.jpg", w: 1574, h: 520, alt: "Factor AE heading type scale" },
+      { label: "Data table", file: "fae-table.png", w: 2514, h: 496, alt: "Factor AE data table with row actions" },
+    ],
     board: { pieces: factorBoard, aspect: "1200 / 900", bg: "radial-gradient(ellipse 80% 80% at 30% 20%, rgba(43,88,180,0.5), transparent 70%), linear-gradient(160deg, #14254d 0%, #0b1428 100%)" },
     body: "Contributed early foundation components and navigation explorations to a Figma design system for an architecture and engineering project-management tool. A senior designer led it. Their feedback on this project taught me to cut unnecessary variants and layers from a component system.",
   },
   {
     client: "Spending Spotlight",
     title: "Visual Language & Card System",
+    tiles: [
+      { label: "Color tokens", file: "ss-palette.jpg", w: 1278, h: 960, alt: "Spending Spotlight brand, rating, semantic, and action colors" },
+      { label: "Company card", file: "ss-card-red.png", w: 720, h: 746, alt: "Company card with a red rating" },
+      { label: "Impact chart", file: "ss-donut.png", w: 560, h: 480, alt: "Spending impact donut chart" },
+    ],
     board: { pieces: spotlightBoard, aspect: "1200 / 900", bg: "radial-gradient(ellipse 80% 80% at 70% 20%, rgba(212,83,26,0.35), transparent 70%), linear-gradient(160deg, #13244a 0%, #0a1226 100%)" },
     body: "As the designer on an early-stage product, I explored three color palettes. The one we chose separates brand from action colors, keeps semantic rating colors, and adds chart colors. I also set a clean sans-serif type scale, and standardized the card system with a type taxonomy, content toggles, fixed padding, and line caps.",
   },
@@ -110,7 +123,20 @@ export default function SchemaDesignSystemPage() {
         meta={meta}
       />
 
-      <Section title="ClearDemand" layout="stack">
+      {/* Cover: the module on a stage, captured from the prototype's synthetic fixture data; client branding hidden */}
+      <section style={{ padding: "0 var(--page-pad-x)" }}>
+        <div className="mx-auto max-w-[1200px]">
+          <Showcase
+            src="/schema/design-system/performance-summary.jpg"
+            alt="Performance Summary module: a filter bar, a grid of KPI cards for revenue, profit, units, margin, promo lift, and CPI, and trend charts comparing this year to last"
+            width={2880}
+            height={1800}
+            caption="Performance Summary, one of the modules I built on the system. All data is synthetic."
+          />
+        </div>
+      </section>
+
+      <Section title="ClearDemand">
         <Body>
           ClearDemand is a retail pricing and promotions analytics platform. Its modules had been built by different
           teams at different times, so filters, tables, and layouts behaved differently from screen to screen. In 2026,
@@ -122,14 +148,15 @@ export default function SchemaDesignSystemPage() {
           designer built the data table and filter bar. I designed and built components and product modules inside
           that system, working in code through AI-assisted design-to-code workflows instead of handing off Figma files.
         </Body>
-        <Spacer />
-        {/* Captured from the ClearDemand prototype's fixture data; client branding hidden */}
-        <Figure
-          src="/schema/design-system/performance-summary.jpg"
-          alt="Performance Summary module: a filter bar, a grid of KPI cards for revenue, profit, units, margin, promo lift, and CPI, and trend charts comparing this year to last"
-          width={2880}
-          height={1800}
-          caption="Performance Summary, one of the modules I built on the system. All data is synthetic."
+        <Spacer size={56} />
+        {/* Team outcomes, plus my own PR count; all from the Quality and Outcome section */}
+        <Stats
+          items={[
+            { value: "12", label: "Weeks, three-person team" },
+            { value: "~55", label: "Components in the system" },
+            { value: "9", label: "Prototyped product modules" },
+            { value: "20", label: "Pull requests I merged" },
+          ]}
         />
       </Section>
 
@@ -158,21 +185,20 @@ export default function SchemaDesignSystemPage() {
             </span>
           ))}
         </div>
-        {/* Two equal panels on the showcase grey so the pair ends on one clean edge */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {[
-            { src: "/schema/design-system/multiselect.jpg", w: 1740, h: 1832, alt: "MultiSelect variants: empty, preselected, grouped, field composition with an error state, hug, field, and tag-chip triggers, and disabled", caption: "MultiSelect: hug, field, and tag triggers, plus states", from: "left" as const },
-            { src: "/schema/design-system/chat-and-search.jpg", w: 1772, h: 2174, alt: "ChatBubble conversation with sent, sending, and failed messages, a chart reply, and follow-up chips, above the AgenticSearchBar with its suggestion popover open", caption: "ChatBubble and AgenticSearchBar, with the suggestion popover open", from: "right" as const },
-          ].map(({ src, w, h, alt, caption, from }) => (
-            <FloatIn key={src} from={from} delay={from === "right" ? 0.08 : 0}>
-              <figure className="m-0">
-                <div className="flex items-center justify-center" style={{ aspectRatio: "4/5", backgroundColor: "#f6f6f7", padding: "clamp(12px, 2vw, 24px)" }}>
-                  <img src={src} alt={alt} width={w} height={h} loading="lazy" decoding="async" style={{ maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", display: "block" }} />
-                </div>
-                <figcaption style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>{caption}</figcaption>
-              </figure>
-            </FloatIn>
-          ))}
+        {/* Bento: each component on its own tile, as it appears in the system's showcase */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+          <div className="md:col-span-5 md:row-span-2">
+            <Tile label="MultiSelect" src="/schema/design-system/multiselect.jpg" width={1740} height={1832} from="left"
+              alt="MultiSelect variants: empty, preselected, grouped, field composition with an error state, hug, field, and tag-chip triggers, and disabled" />
+          </div>
+          <div className="md:col-span-7">
+            <Tile label="ChatBubble" src="/schema/design-system/chatbubble.jpg" width={1740} height={1478} from="right" delay={0.06}
+              alt="ChatBubble conversation with sent, sending, and failed messages, a chart reply, a typing indicator, and follow-up chips" />
+          </div>
+          <div className="md:col-span-7">
+            <Tile label="AgenticSearchBar" src="/schema/design-system/agentic-search.jpg" width={1772} height={648} from="right" delay={0.12}
+              alt="AgenticSearchBar idle, and focused with its popover of suggested questions" />
+          </div>
         </div>
       </Section>
 
@@ -204,22 +230,20 @@ export default function SchemaDesignSystemPage() {
         <CardGrid items={modules} />
         <Spacer />
         <div className="flex flex-col gap-10">
-          <Figure
+          <Showcase
             src="/schema/design-system/price-review-panel.jpg"
             alt="Price Review module: a price table with the detail panel open, showing rule cards marked fulfilled and impactful for the selected price family"
             width={2880}
             height={1800}
             caption="Pricing: the review table with the detail panel open."
             from="left"
+            tint="#1b2230"
+            glow="rgba(70,120,255,0.18)"
           />
-          <Figure
-            src="/schema/design-system/performance-bubbles.jpg"
-            alt="Two bubble charts plotting performance against CPI by subcategory, with quadrants for well positioned, outperforming, reprice opportunity, and at risk"
-            width={2304}
-            height={906}
-            caption="Performance: CPI-versus-performance bubble charts by subcategory."
-            from="right"
-          />
+          <Stage tint="#1b2230" glow="rgba(40,170,120,0.16)">
+            <Tile label="Performance · CPI vs. performance by subcategory" src="/schema/design-system/performance-bubbles.jpg" width={2304} height={906} surface="#ffffff" contain={false} from="right"
+              alt="Two bubble charts plotting performance against CPI by subcategory, with quadrants for well positioned, outperforming, reprice opportunity, and at risk" />
+          </Stage>
         </div>
       </Section>
 
@@ -236,16 +260,25 @@ export default function SchemaDesignSystemPage() {
       </Section>
 
       <Section title="Across Schema" layout="stack">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:[&>*:first-child]:col-span-2">
-          {otherWork.map(({ client, title, body, board }) => (
-            <div key={title}>
+        <div className="flex flex-col" style={{ gap: "clamp(72px, 10vw, 128px)" }}>
+          {otherWork.map(({ client, title, body, board, tiles }, i) => (
+            <article key={title}>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8" style={{ marginBottom: "32px" }}>
+                <div className="md:col-span-5">
+                  <p style={{ fontSize: "0.8125rem", color: faint, marginBottom: "8px", fontVariantNumeric: "tabular-nums" }}>0{i + 1} · {client}</p>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 2.6vw, 2rem)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.1, textWrap: "balance" }}>{title}</h3>
+                </div>
+                <p className="md:col-span-7" style={{ fontSize: "1rem", lineHeight: 1.7, color: muted, maxWidth: "60ch", textWrap: "pretty" }}>{body}</p>
+              </div>
               <div className="relative overflow-hidden" style={{ background: board.bg, borderRadius: "clamp(10px, 1.6vw, 20px)", padding: "clamp(16px, 3vw, 36px)" }}>
                 <ParallaxCollage pieces={board.pieces} aspectRatio={board.aspect} drift={22} />
               </div>
-              <p style={{ fontSize: "0.8125rem", color: faint, marginTop: "20px", marginBottom: "4px" }}>{client}</p>
-              <p style={{ fontSize: "1.25rem", fontFamily: "var(--font-display)", fontWeight: 500, letterSpacing: "-0.01em", marginBottom: "10px" }}>{title}</p>
-              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted, maxWidth: "58ch" }}>{body}</p>
-            </div>
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {tiles.map((t, j) => (
+                  <Tile key={t.file} label={t.label} src={`/schema/design-system/boards/${t.file}`} width={t.w} height={t.h} alt={t.alt} ratio="4/3" delay={j * 0.06} />
+                ))}
+              </div>
+            </article>
           ))}
         </div>
       </Section>
