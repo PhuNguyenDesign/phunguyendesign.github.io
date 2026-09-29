@@ -224,8 +224,8 @@ export default function SchemaMobilePage() {
             label: "Before",
             src: "/schema/mobile/level-page-before.jpg",
             width: 3362,
-            height: 1308,
-            alt: "The old Course Level page in Figma: the current Course Dates screens sit beside presentation boards of proposed calendar and schedule CTAs, including pages marked under construction",
+            height: 2318,
+            alt: "The old Course Level page in Figma: the current Course Dates screens sit beside presentation boards of proposed calendar and schedule CTAs, pages marked under construction, loose working notes, and a Videos section below",
             caption: "Before: the Course Level page mixed live screens with proposals, so it was hard to tell what actually shipped.",
           }}
           after={{
