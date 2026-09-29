@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, Section, Spacer, Statement, Tile, faint } from "@/components/CaseStudy";
 import FloatIn from "@/components/FloatIn";
+import LoopVideo from "@/components/LoopVideo";
 
 export const metadata: Metadata = {
   title: "Agentic Design — Schema — Phu Nguyen",
@@ -132,7 +133,26 @@ export default function SchemaAgenticPage() {
         </Body>
         <Spacer />
         <CardGrid items={process} />
-        <Spacer />
+        <Spacer size={64} />
+        {/* A real session (Jun 12, 2026) replayed as a scroll. Prompts are verbatim; replies trimmed; preview and debugging steps left out. */}
+        <FloatIn>
+          <figure className="m-0">
+            <div style={{ aspectRatio: "1280 / 800", backgroundColor: "#1d1d1f", boxShadow: "0 0 0 1px rgba(56,56,59,0.14)" }}>
+              <LoopVideo
+                src="/schema/agentic/claude-session.mp4"
+                poster="/schema/agentic/claude-session-poster.jpg"
+                label="A Claude Code session scrolling by: I prompt the ToggleGroup atom from heavy borders to a subtle style, then add a border, rounder corners, straight dividers, a darker active fill, and a blue-dot variant"
+                width={1280}
+                height={800}
+              />
+            </div>
+            <figcaption style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px", maxWidth: "70ch" }}>
+              One of my Claude Code sessions on the ToggleGroup atom, from “make them more subtle” to “the dot looks good.”
+              My prompts are verbatim; Claude’s replies are trimmed and the preview-server steps are left out.
+            </figcaption>
+          </figure>
+        </FloatIn>
+        <Spacer size={64} />
         {/* Real PR text, set as a document rather than a screenshot of GitHub */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {prExcerpts.map((pr, i) => (
