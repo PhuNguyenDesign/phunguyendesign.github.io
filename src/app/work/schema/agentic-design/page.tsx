@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, Section, Spacer, Statement, Tile, faint } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, Section, Spacer, Statement, faint } from "@/components/CaseStudy";
 import FloatIn from "@/components/FloatIn";
 import LoopVideo from "@/components/LoopVideo";
 import { built } from "@/lib/built";
+import BuiltCarousel from "@/components/BuiltCarousel";
 
 export const metadata: Metadata = {
   title: "Agentic Design — Schema — Phu Nguyen",
@@ -183,12 +184,9 @@ export default function SchemaAgenticPage() {
         <CardGrid items={aiUi} />
         <Spacer />
         {/* Everything I shipped to the system, from my merged pull requests. Captured from the prototype's showcase. */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-12">
-          {built.map((b, i) => (
-            <div key={b.name} className={b.span}>
-              <Tile label={`#${b.pr} · ${b.name}`} src={b.src} width={b.w} height={b.h} alt={b.alt} ratio={b.ratio} delay={(i % 3) * 0.05} />
-            </div>
-          ))}
+        {/* Full-bleed: breaks out of the column so the rows run edge to edge */}
+        <div className="relative left-1/2 w-screen -translate-x-1/2">
+          <BuiltCarousel items={built} />
         </div>
         <p style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>
           Components from my merged pull requests, captured from the design system’s showcase with synthetic data.
