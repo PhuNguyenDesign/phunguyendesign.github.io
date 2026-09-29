@@ -4,6 +4,9 @@ import HeroImage from "@/components/HeroImage";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
 
+// Flip to true once real photos replace the placeholders below.
+const SHOW_MOMENTS = false;
+
 // A narrow strip of personal work between professional sections. Placeholders until the photos are added.
 const moments = [
   { label: "Painting, detail", ratio: "3/4" },
@@ -99,7 +102,8 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* Moments of me: narrow, irregular strip between work and the footer */}
+      {/* Moments of me: narrow, irregular strip between work and the footer. Hidden until the photos are added. */}
+      {SHOW_MOMENTS && (
       <section aria-label="Outside of work" style={{ padding: "0 0 clamp(6rem, 10vw, 9rem)" }}>
         <div className="flex items-end gap-3 overflow-x-auto px-[var(--page-pad-x)] md:gap-4" style={{ scrollbarWidth: "none" }}>
           {moments.map(({ label, ratio }, i) => (
@@ -118,6 +122,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      )}
     </>
   );
 }
