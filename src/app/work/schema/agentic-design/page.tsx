@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImagePair, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, ImageSlot, Section, Spacer, Statement, Tile, faint } from "@/components/CaseStudy";
+import FloatIn from "@/components/FloatIn";
 
 export const metadata: Metadata = {
   title: "Agentic Design — Schema — Phu Nguyen",
@@ -8,7 +9,6 @@ export const metadata: Metadata = {
 
 // Draft copy verified against GitHub (cleardemand-design-system, schema-website #119),
 // Notion 1:1s and ClearDemand meetings (Apr–Jul 2026), and Drive notes (Jul 2026).
-// ImageSlot frames are placeholders until visuals are exported.
 
 const meta = [
   { label: "Role", value: "Product Designer" },
@@ -29,6 +29,48 @@ const process = [
   { name: "Jump in When It Drifts", body: "The agent handles most of the build. When spacing, states, or tokens go off-system, I step in and correct it." },
   { name: "Hand It to Review", body: "Every change lands as a pull request with a live preview and a note on the design decisions reviewers should check." },
 ];
+
+// Excerpts from my own pull request descriptions (cleardemand-design-system #203 and #115),
+// trimmed for length. The client's assistant name is replaced with "the assistant".
+const prExcerpts = [
+  {
+    number: "#203",
+    title: "Add ChatBubble Molecule",
+    meta: "Merged Jul 8, 2026 · +332 −0 · 6 files",
+    heading: "For Reviewers",
+    lines: [
+      "`suggestions` is intentionally a flat `string[]`. The callback stays dumb; conversation state belongs in the future assistant molecule.",
+      "Tail corner is `0px`; bubble radius is `--cd-radius-xl` (12px), matching dialog corners.",
+      "`role=\"log\"` + `aria-live=\"polite\"` go on the parent message list, not on individual bubbles.",
+    ],
+  },
+  {
+    number: "#115",
+    title: "Add AgenticSearchBar molecule",
+    meta: "Merged Jun 5, 2026 · +310 −1 · 6 files",
+    heading: "Tokens",
+    lines: [
+      "13 new component tokens (`--agenticsearch-*`), all mapped to semantic tokens.",
+      "No primitive `--cd-*` references in TSX.",
+      "Accessibility: role=combobox, aria-haspopup=listbox, aria-expanded. No aria-live region yet, noted in the showcase.",
+    ],
+  },
+];
+
+// Render `code` spans inside a line.
+function Code({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(`[^`]+`)/).map((part, i) =>
+        part.startsWith("`") ? (
+          <code key={i} style={{ backgroundColor: "rgba(15,107,109,0.1)", color: "#0F6B6D", padding: "1px 5px" }}>{part.slice(1, -1)}</code>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
+  );
+}
 
 const aiUi = [
   { tag: "ChatBubble", name: "The Conversation Itself", body: "User and assistant bubbles with sending, sent, and error states, a typing indicator, and suggested follow-up chips. All of it is styled through the chat’s own component tokens." },
@@ -66,13 +108,32 @@ export default function SchemaAgenticPage() {
           three product modules by describing them to Claude Code, then reviewing and correcting what it built.
         </Body>
         <Body last>
-          Over three months I opened 28 pull requests this way. Most of them were generated with Claude Code and then
+          Over two months I opened 27 pull requests this way. Most of them were generated with Claude Code and then
           shaped by hand.
         </Body>
         <Spacer />
         <CardGrid items={process} />
         <Spacer />
-        <ImageSlot label="A pull request: prompt, preview, and design notes for reviewers" />
+        {/* Real PR text, set as a document rather than a screenshot of GitHub */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {prExcerpts.map((pr, i) => (
+            <FloatIn key={pr.number} from={i ? "right" : "left"} delay={i * 0.06}>
+              <article className="h-full" style={{ backgroundColor: "#FFFFFF", boxShadow: "0 0 0 1px rgba(56,56,59,0.14)", padding: "clamp(20px, 3vw, 36px)", fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+                <p style={{ fontSize: "0.75rem", color: faint, letterSpacing: "0.04em" }}>{pr.number} · {pr.meta}</p>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "1.375rem", fontWeight: 600, letterSpacing: "-0.015em", margin: "10px 0 22px" }}>{pr.title}</p>
+                <p style={{ fontSize: "0.8125rem", fontWeight: 600, marginBottom: "12px" }}>## {pr.heading}</p>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {pr.lines.map((line) => (
+                    <li key={line} style={{ fontSize: "0.8125rem", lineHeight: 1.65, color: "#38383B", paddingLeft: "16px", textIndent: "-16px" }}>
+                      – <Code text={line} />
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </FloatIn>
+          ))}
+        </div>
+        <p style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px" }}>Excerpts from my pull request descriptions, trimmed for length.</p>
       </Section>
 
       <Section title="The Lesson That Stuck: Say What You Mean">
@@ -99,7 +160,11 @@ export default function SchemaAgenticPage() {
         <Spacer />
         <CardGrid items={aiUi} />
         <Spacer />
-        <ImagePair labels={["Paper sketch of the chat components", "The built ChatBubble and AgenticSearchBar"]} />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <ImageSlot label="Paper sketch of the chat components" ratio="4/5" from="left" />
+          <Tile label="Built · ChatBubble" src="/schema/design-system/chatbubble.jpg" width={1740} height={1478} ratio="4/5" from="right" delay={0.06}
+            alt="The built ChatBubble conversation with sent, sending, and failed messages, a chart reply, a typing indicator, and follow-up chips" />
+        </div>
       </Section>
 
       <Section title="Beyond One Project">
@@ -112,7 +177,24 @@ export default function SchemaAgenticPage() {
           I also built this portfolio the same way, working with Claude Code from the first commit.
         </Body>
         <Spacer />
-        <ImageSlot label="Schema Insights article: confetti strip filling as you scroll" />
+        <div className="flex flex-col gap-10">
+          <Figure
+            src="/schema/agentic/insights-article.jpg"
+            alt="A Schema Insights article halfway through: the confetti strip under the sticky header is colored on the left half and gray on the right"
+            width={2880}
+            height={1800}
+            caption="An Insights article, halfway through. The strip under the sticky header tracks reading progress."
+            from="left"
+          />
+          <Figure
+            src="/schema/agentic/confetti-progress.jpg"
+            alt="The confetti strip at three points: all gray at the top of the article, half colored halfway through, fully colored at the end"
+            width={2850}
+            height={800}
+            caption="The same strip at the start, middle, and end of an article."
+            from="right"
+          />
+        </div>
       </Section>
 
       <Section title="What Didn’t Work">
