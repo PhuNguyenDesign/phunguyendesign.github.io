@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Figure, ImageSlot, Section, Spacer, Statement } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Section, Spacer, Statement } from "@/components/CaseStudy";
 import FloatIn from "@/components/FloatIn";
 import LoopVideo from "@/components/LoopVideo";
+import BeforeAfter from "@/components/BeforeAfter";
 import ParallaxCollage, { type CollagePiece } from "@/components/ParallaxCollage";
 import MarqueeColumns, { type MarqueeCard } from "@/components/MarqueeColumns";
 
@@ -217,33 +218,25 @@ export default function SchemaMobilePage() {
         {/* Before and after, full width so the difference reads at a glance.
             Before: v2.3 Course Level page from the archived community file, author credit covered.
             After: v2.5 Account Level page, recreated at its real canvas layout. */}
-        <div className="flex flex-col" style={{ gap: "clamp(48px, 7vw, 96px)" }}>
-          {[
-            {
-              tag: "Before",
-              src: "/schema/mobile/level-page-before.jpg",
-              width: 3362,
-              height: 1308,
-              alt: "The old Course Level page in Figma: the current Course Dates screens sit beside presentation boards of proposed calendar and schedule CTAs, including pages marked under construction",
-              caption: "The Course Level page mixed live screens with proposals, so it was hard to tell what actually shipped.",
-              from: "left" as const,
-            },
-            {
-              tag: "After",
-              src: "/schema/mobile/level-page-after.jpg",
-              width: 3626,
-              height: 3218,
-              alt: "The reorganized Account Level page in Figma: color-coded columns for base components, screen components, current app screens, and current workflows, each group in a labeled, versioned frame",
-              caption: "The Account Level page today: base components, screen components, current app screens, and workflows, each in its own labeled, versioned frame.",
-              from: "right" as const,
-            },
-          ].map(({ tag, ...img }) => (
-            <div key={tag}>
-              <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: 600, letterSpacing: "-0.02em", marginBottom: "16px" }}>{tag}</p>
-              <Figure {...img} />
-            </div>
-          ))}
-        </div>
+        <BeforeAfter
+          ratio="3626 / 2500"
+          before={{
+            label: "Before",
+            src: "/schema/mobile/level-page-before.jpg",
+            width: 3362,
+            height: 1308,
+            alt: "The old Course Level page in Figma: the current Course Dates screens sit beside presentation boards of proposed calendar and schedule CTAs, including pages marked under construction",
+            caption: "Before: the Course Level page mixed live screens with proposals, so it was hard to tell what actually shipped.",
+          }}
+          after={{
+            label: "After",
+            src: "/schema/mobile/level-page-after.jpg",
+            width: 3626,
+            height: 3218,
+            alt: "The reorganized Account Level page in Figma: color-coded columns for base components, screen components, current app screens, and current workflows, each group in a labeled, versioned frame",
+            caption: "After: the Account Level page today, with base components, screen components, current app screens, and workflows, each in its own labeled, versioned frame.",
+          }}
+        />
       </Section>
 
       <Section title="Designing the System Around the Screens" layout="stack">
