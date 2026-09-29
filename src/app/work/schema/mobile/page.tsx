@@ -121,7 +121,7 @@ export default function SchemaMobilePage() {
         style={{
           padding: "clamp(120px, 16vw, 240px) var(--page-pad-x)",
           background:
-            "radial-gradient(ellipse 70% 55% at 50% 35%, rgba(84,110,255,0.28), transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #101a33 45%, #0c1222 75%, #0a0a0a 100%)",
+            "linear-gradient(180deg, #FAFAF8 0%, #DFE0E1 30%, #DFE0E1 70%, #FAFAF8 100%)",
         }}
       >
         <ParallaxCollage pieces={collage} aspectRatio="1200 / 1060" />
@@ -164,7 +164,7 @@ export default function SchemaMobilePage() {
               height={1922}
               loading="lazy"
               className="block w-[42vw] max-w-[340px] md:w-[28vw]"
-              style={{ height: "auto", borderRadius: "28px", boxShadow: "0 40px 80px rgba(0,0,0,0.55)" }}
+              style={{ height: "auto", borderRadius: "28px", boxShadow: "0 24px 48px rgba(56,56,59,0.2)" }}
             />
           </FloatIn>
           <FloatIn from="right" delay={0.08}>
@@ -175,7 +175,7 @@ export default function SchemaMobilePage() {
               height={1932}
               loading="lazy"
               className="block w-[42vw] max-w-[340px] md:w-[28vw]"
-              style={{ height: "auto", borderRadius: "28px", boxShadow: "0 40px 80px rgba(0,0,0,0.55)", marginTop: "clamp(40px, 8vw, 120px)" }}
+              style={{ height: "auto", borderRadius: "28px", boxShadow: "0 24px 48px rgba(56,56,59,0.2)", marginTop: "clamp(40px, 8vw, 120px)" }}
             />
           </FloatIn>
         </div>
@@ -256,14 +256,14 @@ export default function SchemaMobilePage() {
         <Spacer />
         <div className="flex flex-col gap-6">
           {[
-            { label: "Notifications: inbox, settings, and read states", pieces: notificationsBoard, bg: "radial-gradient(ellipse 80% 70% at 30% 20%, rgba(124,108,255,0.45), transparent 70%), linear-gradient(160deg, #1a1740 0%, #0f0e24 100%)" },
-            { label: "Offline: status, sync, and download states", pieces: offlineBoard, bg: "radial-gradient(ellipse 80% 70% at 70% 20%, rgba(38,166,120,0.4), transparent 70%), linear-gradient(160deg, #0f2a24 0%, #0a1714 100%)" },
+            { label: "Notifications: inbox, settings, and read states", pieces: notificationsBoard, bg: "#0F6B6D" },
+            { label: "Offline: status, sync, and download states", pieces: offlineBoard, bg: "#38383B" },
           ].map(({ label, pieces, bg }) => (
             <figure key={label} className="m-0">
-              <div className="relative overflow-hidden" style={{ background: bg, borderRadius: "clamp(12px, 2vw, 24px)", padding: "clamp(24px, 5vw, 64px) clamp(12px, 3vw, 40px) 0" }}>
+              <div className="relative overflow-hidden" style={{ background: bg, padding: "clamp(24px, 5vw, 64px) clamp(12px, 3vw, 40px) 0" }}>
                 <ParallaxCollage pieces={pieces} aspectRatio="1200 / 820" drift={90} />
               </div>
-              <figcaption style={{ fontSize: "0.8125rem", color: "rgba(242,242,239,0.5)", marginTop: "12px" }}>{label}</figcaption>
+              <figcaption style={{ fontSize: "0.8125rem", color: "rgba(56,56,59,0.72)", marginTop: "12px" }}>{label}</figcaption>
             </figure>
           ))}
         </div>

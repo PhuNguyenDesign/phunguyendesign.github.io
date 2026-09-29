@@ -22,13 +22,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
-  colorScheme: "dark",
+  themeColor: "#FAFAF8",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={instrumentSerif.variable} style={{ colorScheme: "dark" }}>
+    <html lang="en" className={instrumentSerif.variable} style={{ colorScheme: "light" }}>
       <body className="antialiased min-h-dvh flex flex-col">
         <a href="#main" className="skip-link">
           Skip to content

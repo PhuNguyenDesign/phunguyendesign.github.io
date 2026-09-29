@@ -45,7 +45,7 @@ function Piece({ piece, progress, still, drift }: { piece: CollagePiece; progres
         height: "auto",
         zIndex: piece.z ?? Math.round(piece.speed * 10),
         borderRadius: `${piece.radius ?? 0}% / ${((piece.radius ?? 0) * piece.width) / piece.height}%`,
-        boxShadow: "0 30px 60px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.35)",
+        boxShadow: "0 18px 40px rgba(56,56,59,0.18), 0 2px 6px rgba(56,56,59,0.12)",
         y: still ? 0 : y,
       }}
     />

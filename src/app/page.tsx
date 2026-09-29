@@ -4,129 +4,118 @@ import HeroImage from "@/components/HeroImage";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
 
+// A narrow strip of personal work between professional sections. Placeholders until the photos are added.
+const moments = [
+  { label: "Painting, detail", ratio: "3/4" },
+  { label: "Pacific Beach, morning surf", ratio: "4/3" },
+  { label: "Sketchbook page", ratio: "1/1" },
+  { label: "Type study", ratio: "3/4" },
+];
+
 export default function Home() {
   const featured = projects.filter((p) => p.featured);
 
   return (
     <>
-      {/* Full-bleed hero */}
-      <div style={{ paddingTop: "var(--nav-height)" }}>
-        <HeroImage src="/homepicture.jpg">
-          {/* Light → dark gradient so text stays legible */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.62) 100%)",
-            }}
-          />
-          {/* Text: max-width centered with page gutter */}
-          <div className="absolute inset-0 flex flex-col">
-            <div
-              className="flex flex-col justify-between flex-1"
-              style={{
-                maxWidth: "var(--max-w)",
-                width: "100%",
-                margin: "0 auto",
-                padding: "clamp(20px, 3vw, 48px) var(--page-pad-x)",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "0.6875rem",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "rgba(250,250,248,0.85)",
-                  textShadow: "0 1px 12px rgba(0,0,0,0.6)",
-                }}
-              >
-                Product Designer, San Diego
-              </p>
-              <h1
-                className="text-foreground leading-[0.95] tracking-tight"
-                style={{
-                  fontSize: "clamp(3rem, 8vw, 8rem)",
-                  fontFamily: "var(--font-display)",
-                }}
-              >
-                <span className="font-instrument-serif italic">Translating</span>{" "}
-                complexity into clarity.
-              </h1>
-            </div>
-          </div>
-        </HeroImage>
-      </div>
-
-      {/* Intro */}
-      <section
-        className="mx-auto"
-        style={{
-          padding: "clamp(4rem, 8vw, 7rem) var(--page-pad-x) clamp(3rem, 6vw, 5rem)",
-          maxWidth: "var(--max-w)",
-        }}
-      >
-        <Reveal>
-          <p
-            className="text-foreground"
+      {/* Poster hero: the headline runs full width; the portrait is cropped hard and bleeds off the right edge.
+          Text over the photo inverts via mix-blend-mode so it stays readable on both paper and image. */}
+      <section className="relative overflow-hidden" style={{ minHeight: "100dvh", paddingTop: "var(--nav-height)" }}>
+        <div className="absolute right-0 top-0 h-full w-full md:w-[58vw]">
+          <HeroImage src="/homepicture.jpg" fill />
+        </div>
+        <div
+          className="relative mx-auto flex flex-col justify-end pointer-events-none"
+          style={{ minHeight: "calc(100dvh - var(--nav-height))", maxWidth: "var(--max-w)", padding: "0 var(--page-pad-x) clamp(32px, 6vw, 72px)" }}
+        >
+          <p style={{ fontSize: "0.75rem", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "clamp(16px, 3vw, 32px)", color: "#FAFAF8", mixBlendMode: "difference" }}>
+            Product Designer, San Diego
+          </p>
+          <h1
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(1.375rem, 2.4vw, 2rem)",
-              fontWeight: 500,
-              lineHeight: 1.3,
-              letterSpacing: "-0.015em",
-              maxWidth: "36ch",
+              fontSize: "clamp(4rem, 13.5vw, 15rem)",
+              fontWeight: 600,
+              lineHeight: 0.86,
+              letterSpacing: "-0.055em",
+              color: "#FAFAF8",
+              mixBlendMode: "difference",
             }}
           >
-            I design products at{" "}
-            <a
-              href="https://schema.education"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            <span className="font-instrument-serif italic" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>Translating</span>
+            <br />
+            complexity
+            <br />
+            into clarity.
+          </h1>
+        </div>
+      </section>
+
+      {/* Intro */}
+      <section className="mx-auto" style={{ padding: "clamp(5rem, 10vw, 9rem) var(--page-pad-x) clamp(3rem, 6vw, 5rem)", maxWidth: "var(--max-w)" }}>
+        <Reveal>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+            <p className="md:col-span-2" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#A8A6A1" }}>
+              01 · About
+            </p>
+            <p
+              className="md:col-span-9"
+              style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 2.8vw, 2.5rem)", fontWeight: 500, lineHeight: 1.22, letterSpacing: "-0.02em", maxWidth: "34ch" }}
             >
-              Schema
-            </a>
-            {" "}for clients like Open edX, ClearDemand, and Factor AE, from research and interaction design to
-            design systems, and lately building my designs in code with AI. I start on paper, and I care a lot about
-            how things look and feel.
+              I design products at{" "}
+              <a href="https://schema.education" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 decoration-1 hover:text-[#0F6B6D] transition-colors">
+                Schema
+              </a>{" "}
+              for clients like Open&nbsp;edX, ClearDemand, and Factor AE, from research and interaction design to
+              design systems, and lately building my designs in code with AI. I start on paper, and I care a lot about
+              how things look and feel.
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Selected work: broken grid, irregular proportions, the second project offset down */}
+      <section className="mx-auto" style={{ padding: "clamp(2rem, 5vw, 4rem) var(--page-pad-x) 0", maxWidth: "var(--max-w)" }}>
+        <div className="flex items-baseline justify-between" style={{ borderTop: "1px solid rgba(56,56,59,0.16)", paddingTop: "20px", marginBottom: "clamp(40px, 6vw, 72px)" }}>
+          <h2 style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500 }}>02 · Selected Work</h2>
+          <Link href="/work" className="text-[#0F6B6D] hover:underline underline-offset-4" style={{ fontSize: "0.875rem" }}>View all work →</Link>
+        </div>
+        <div className="grid grid-cols-1 gap-y-16 md:grid-cols-12 md:gap-x-8">
+          {featured[0] && <ProjectCard project={featured[0]} ratio="16/11" className="md:col-span-7 md:-ml-[4vw]" />}
+          {featured[1] && <ProjectCard project={featured[1]} ratio="4/5" delay={0.08} className="md:col-span-4 md:col-start-9 md:mt-48" />}
+          {featured.slice(2).map((p, i) => (
+            <ProjectCard key={p.id} project={p} ratio="21/9" delay={i * 0.08} className="md:col-span-10 md:col-start-2" />
+          ))}
+        </div>
+      </section>
+
+      {/* Editorial interruption */}
+      <section className="mx-auto" style={{ padding: "clamp(6rem, 12vw, 11rem) var(--page-pad-x)", maxWidth: "var(--max-w)" }}>
+        <Reveal>
+          <p className="font-instrument-serif" style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)", lineHeight: 0.98, letterSpacing: "-0.02em" }}>
+            Same eye.
+            <br />
+            <span className="italic" style={{ paddingLeft: "clamp(2rem, 12vw, 12rem)" }}>Different mediums.</span>
           </p>
         </Reveal>
       </section>
 
-      {/* Selected Work */}
-      <section
-        className="mx-auto"
-        style={{
-          padding: "0 var(--page-pad-x) clamp(6rem, 10vw, 9rem)",
-          maxWidth: "var(--max-w)",
-        }}
-      >
-        <h2
-          className="text-foreground"
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)",
-            fontWeight: 600,
-            letterSpacing: "-0.025em",
-            lineHeight: 1.08,
-            paddingTop: "32px",
-            borderTop: "1px solid rgba(250,250,248,0.14)",
-            marginBottom: "40px",
-          }}
-        >
-          Selected Work
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14">
-          {featured.map((project, i) => (
-            <ProjectCard key={project.id} project={project} wide={i === 2} delay={(i % 2) * 0.08} />
+      {/* Moments of me: narrow, irregular strip between work and the footer */}
+      <section aria-label="Outside of work" style={{ padding: "0 0 clamp(6rem, 10vw, 9rem)" }}>
+        <div className="flex items-end gap-3 overflow-x-auto px-[var(--page-pad-x)] md:gap-4" style={{ scrollbarWidth: "none" }}>
+          {moments.map(({ label, ratio }, i) => (
+            <figure
+              key={label}
+              className="m-0 shrink-0"
+              style={{ width: `clamp(160px, ${[18, 26, 16, 14][i]}vw, 420px)`, marginBottom: i % 2 ? "clamp(24px, 4vw, 56px)" : 0 }}
+            >
+              <div
+                role="img"
+                aria-label={`Placeholder: ${label}`}
+                style={{ aspectRatio: ratio, backgroundColor: i % 2 ? "#A8A6A1" : "#DFE0E1" }}
+              />
+              <figcaption className="font-instrument-serif italic" style={{ fontSize: "1rem", color: "#38383B", marginTop: "10px" }}>{label}</figcaption>
+            </figure>
           ))}
-        </div>
-
-        <div className="mt-20 flex justify-center">
-          <Link href="/work" className="btn-teal">
-            View All Work
-          </Link>
         </div>
       </section>
     </>

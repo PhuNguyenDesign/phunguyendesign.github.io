@@ -116,19 +116,19 @@ const otherWork = [
   {
     client: "Open edX · Paragon",
     title: "Shared Design Collateral",
-    board: { pieces: paragonBoard, aspect: "1200 / 440", bg: "radial-gradient(ellipse 70% 80% at 25% 20%, rgba(80,160,110,0.35), transparent 70%), linear-gradient(160deg, #1d3a2b 0%, #0f1f17 100%)" },
+    board: { pieces: paragonBoard, aspect: "1200 / 440", bg: "#38383B" },
     body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
   },
   {
     client: "Factor AE",
     title: "Figma System for A&E Software",
-    board: { pieces: factorBoard, aspect: "1200 / 820", bg: "radial-gradient(ellipse 80% 80% at 30% 20%, rgba(43,88,180,0.5), transparent 70%), linear-gradient(160deg, #14254d 0%, #0b1428 100%)" },
+    board: { pieces: factorBoard, aspect: "1200 / 820", bg: "#0F6B6D" },
     body: "Contributed early foundation components and navigation explorations to a Figma design system for an architecture and engineering project-management tool. A senior designer led it. Their feedback on this project taught me to cut unnecessary variants and layers from a component system.",
   },
   {
     client: "Spending Spotlight",
     title: "Visual Language & Card System",
-    board: { pieces: spotlightBoard, aspect: "1200 / 820", bg: "radial-gradient(ellipse 80% 80% at 70% 20%, rgba(212,83,26,0.35), transparent 70%), linear-gradient(160deg, #13244a 0%, #0a1226 100%)" },
+    board: { pieces: spotlightBoard, aspect: "1200 / 820", bg: "#A8A6A1" },
     body: "As the designer on an early-stage product, I explored three color palettes. The one we chose separates brand from action colors, keeps semantic rating colors, and adds chart colors. I also set a clean sans-serif type scale, and standardized the card system with a type taxonomy, content toggles, fixed padding, and line caps.",
   },
 ];
@@ -149,7 +149,7 @@ export default function SchemaDesignSystemPage() {
         style={{
           padding: "clamp(24px, 4vw, 64px) var(--page-pad-x) clamp(64px, 8vw, 120px)",
           background:
-            "radial-gradient(ellipse 70% 55% at 50% 30%, rgba(70,110,255,0.26), transparent 70%), linear-gradient(180deg, #0a0a0a 0%, #0f1a33 40%, #0c1426 75%, #0a0a0a 100%)",
+            "linear-gradient(180deg, #FAFAF8 0%, #DFE0E1 30%, #DFE0E1 70%, #FAFAF8 100%)",
         }}
       >
         <ParallaxCollage pieces={coverCollage} aspectRatio="1200 / 920" drift={170} />
@@ -295,7 +295,7 @@ export default function SchemaDesignSystemPage() {
                 <p className="md:col-span-7" style={{ fontSize: "1rem", lineHeight: 1.7, color: muted, maxWidth: "60ch", textWrap: "pretty" }}>{body}</p>
               </div>
               {/* Board breaks out of the text column, up to 1440px, so the pieces read at a large size */}
-              <div className="relative left-1/2 w-[min(calc(100vw-32px),1440px)] -translate-x-1/2 overflow-hidden" style={{ background: board.bg, borderRadius: "clamp(10px, 1.6vw, 20px)", padding: "clamp(12px, 2vw, 28px)" }}>
+              <div className="relative left-1/2 w-[min(calc(100vw-32px),1440px)] -translate-x-1/2 overflow-hidden" style={{ background: board.bg, padding: "clamp(12px, 2vw, 28px)" }}>
                 <ParallaxCollage pieces={board.pieces} aspectRatio={board.aspect} drift={16} fill />
               </div>
             </article>

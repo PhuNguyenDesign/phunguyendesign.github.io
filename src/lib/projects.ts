@@ -25,9 +25,8 @@ export const projects: Project[] = [
     featured: true,
     role: "Product Designer",
     tags: ["Product Design", "EdTech"],
-    placeholderBg: "#FAFAF8",
+    placeholderBg: "#0F6B6D",
     logo: "/schema/logo.svg",
-    cover: "/schema/background.png",
   },
   {
     id: "marketeq",

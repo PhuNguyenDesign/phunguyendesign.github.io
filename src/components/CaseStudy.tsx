@@ -5,11 +5,11 @@ import FloatIn, { type FloatFrom } from "@/components/FloatIn";
 // Shared building blocks for the dark Schema case-study pages.
 // Sharp corners throughout; one neutral palette on an off-black base.
 
-export const ink = "#f2f2ef";
-export const muted = "rgba(242,242,239,0.62)";
-export const faint = "rgba(242,242,239,0.42)";
-export const rule = "1px solid rgba(242,242,239,0.14)";
-const base = "#0a0a0a";
+export const ink = "#000000";
+export const muted = "#38383B";
+export const faint = "rgba(56,56,59,0.72)";
+export const rule = "1px solid rgba(56,56,59,0.16)";
+const base = "#FAFAF8";
 
 export function CaseStudyPage({ children }: { children: React.ReactNode }) {
   return (
@@ -121,9 +121,8 @@ export function ImageSlot({ label, ratio = "16/9", from = "up", delay }: { label
         aria-label={`Image placeholder: ${label}`}
         style={{
           aspectRatio: ratio,
-          backgroundColor: "#141414",
-          backgroundImage: "linear-gradient(135deg, rgba(242,242,239,0.035), rgba(242,242,239,0))",
-          border: "1px solid rgba(242,242,239,0.08)",
+          backgroundColor: "#DFE0E1",
+          border: "1px solid rgba(56,56,59,0.08)",
           display: "flex",
           alignItems: "flex-end",
           padding: "20px",
@@ -159,7 +158,7 @@ export function Figure({
   from?: FloatFrom;
   delay?: number;
 }) {
-  const media: React.CSSProperties = { width: "100%", display: "block", aspectRatio: ratio, objectFit: ratio ? "cover" : undefined, backgroundColor: "#141414" };
+  const media: React.CSSProperties = { width: "100%", display: "block", aspectRatio: ratio, objectFit: ratio ? "cover" : undefined, backgroundColor: "#DFE0E1" };
   return (
     <FloatIn from={from} delay={delay}>
       <figure style={{ margin: 0 }}>
@@ -226,8 +225,7 @@ export function Stage({ children, tint = "#18233a", glow = "rgba(84,110,255,0.22
     <div
       className="relative overflow-hidden"
       style={{
-        borderRadius: "clamp(10px, 1.4vw, 18px)",
-        padding: pad,
+                padding: pad,
         backgroundColor: tint,
         backgroundImage: `${grain}, radial-gradient(ellipse 75% 65% at 50% 0%, ${glow}, transparent 70%)`,
       }}
@@ -237,15 +235,10 @@ export function Stage({ children, tint = "#18233a", glow = "rgba(84,110,255,0.22
   );
 }
 
-// Browser chrome around a product screenshot, with a shadow tinted to the stage.
-export function BrowserFrame({ src, alt, width, height, shadow = "rgba(4,10,30,0.55)" }: { src: string; alt: string; width: number; height: number; shadow?: string }) {
+// A direct product screenshot with a hairline edge. No browser chrome or device frame.
+export function BrowserFrame({ src, alt, width, height }: { src: string; alt: string; width: number; height: number; shadow?: string }) {
   return (
-    <div style={{ borderRadius: "10px", overflow: "hidden", backgroundColor: "#fff", boxShadow: `0 40px 90px -20px ${shadow}, 0 0 0 1px rgba(255,255,255,0.06)` }}>
-      <div className="flex items-center gap-1.5" style={{ height: "clamp(22px, 2.4vw, 32px)", padding: "0 12px", backgroundColor: "#eceef1", borderBottom: "1px solid #dfe2e6" }}>
-        {["#ff5f57", "#febc2e", "#28c840"].map((c) => (
-          <span key={c} aria-hidden style={{ width: "9px", height: "9px", borderRadius: "50%", backgroundColor: c }} />
-        ))}
-      </div>
+    <div style={{ backgroundColor: "#fff", boxShadow: "0 0 0 1px rgba(56,56,59,0.14)" }}>
       <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" style={{ display: "block", width: "100%", height: "auto" }} />
     </div>
   );
@@ -257,7 +250,7 @@ export function Showcase({ caption, from = "up", tint, glow, bare, ...frame }: {
     <FloatIn from={from}>
       <figure style={{ margin: 0 }}>
         {bare ? (
-          <BrowserFrame {...frame} shadow="rgba(0,0,0,0.6)" />
+          <BrowserFrame {...frame} />
         ) : (
           <Stage tint={tint} glow={glow}>
             <BrowserFrame {...frame} />
@@ -274,7 +267,7 @@ export function Stats({ items }: { items: { value: string; label: string }[] }) 
   return (
     <dl className="grid grid-cols-2 md:grid-cols-4" style={{ borderTop: rule, borderBottom: rule }}>
       {items.map(({ value, label }, i) => (
-        <div key={label} className={`flex flex-col-reverse py-7 ${i % 2 ? "pl-6" : ""} md:pl-6 md:first:pl-0 ${i > 0 ? "md:border-l" : ""}`} style={{ borderColor: "rgba(242,242,239,0.14)" }}>
+        <div key={label} className={`flex flex-col-reverse py-7 ${i % 2 ? "pl-6" : ""} md:pl-6 md:first:pl-0 ${i > 0 ? "md:border-l" : ""}`} style={{ borderColor: "rgba(56,56,59,0.16)" }}>
           <dt style={{ fontSize: "0.8125rem", color: faint, marginTop: "6px" }}>{label}</dt>
           <dd style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem, 4.5vw, 3.25rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1, fontVariantNumeric: "tabular-nums", margin: 0 }}>{value}</dd>
         </div>
@@ -287,8 +280,8 @@ export function Stats({ items }: { items: { value: string; label: string }[] }) 
 export function Tile({ label, src, alt, width, height, surface = "#f6f6f7", ratio, contain = true, className, from = "up", delay }: { label: string; src: string; alt: string; width: number; height: number; surface?: string; ratio?: string; contain?: boolean; className?: string; from?: FloatFrom; delay?: number }) {
   return (
     <FloatIn from={from} delay={delay}>
-      <figure className={`m-0 flex h-full flex-col ${className ?? ""}`} style={{ backgroundColor: surface, borderRadius: "clamp(8px, 1vw, 14px)", overflow: "hidden" }}>
-        <figcaption style={{ fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.02em", color: "rgba(20,24,32,0.55)", padding: "14px 18px 0" }}>{label}</figcaption>
+      <figure className={`m-0 flex h-full flex-col ${className ?? ""}`} style={{ backgroundColor: surface, overflow: "hidden" }}>
+        <figcaption style={{ fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.02em", color: "rgba(56,56,59,0.72)", padding: "14px 18px 0" }}>{label}</figcaption>
         <div className="flex flex-1 items-center justify-center" style={{ padding: "clamp(14px, 2.4vw, 32px)", aspectRatio: ratio }}>
           <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" style={{ display: "block", maxWidth: "100%", maxHeight: "100%", width: contain ? "auto" : "100%", height: "auto", objectFit: "contain" }} />
         </div>

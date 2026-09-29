@@ -14,7 +14,7 @@ function isTeal(gx: number, gy: number): boolean {
   return h % TEAL_EVERY === 0;
 }
 
-export default function HeroImage({ src, children }: { src: string; children?: ReactNode }) {
+export default function HeroImage({ src, children, fill }: { src: string; children?: ReactNode; /** Fill the parent box instead of a fixed 88vh band */ fill?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const offscreenRef = useRef<HTMLCanvasElement | null>(null);
@@ -182,13 +182,13 @@ export default function HeroImage({ src, children }: { src: string; children?: R
   return (
     <div
       ref={containerRef}
-      className="relative w-full"
+      className={`relative w-full ${fill ? "h-full" : ""}`}
       style={{ cursor: "none" }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <img src={src} alt="" width={1125} height={751} fetchPriority="high" decoding="async" className="w-full block" style={{ objectFit: "cover", height: "88vh", objectPosition: "72% center" }} />
+      <img src={src} alt="" width={1125} height={751} fetchPriority="high" decoding="async" className="w-full block" style={{ objectFit: "cover", height: fill ? "100%" : "88vh", objectPosition: fill ? "80% 40%" : "72% center" }} />
       {children}
       <canvas
         ref={canvasRef}

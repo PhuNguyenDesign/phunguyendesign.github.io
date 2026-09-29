@@ -13,27 +13,33 @@ const subProjects = [
   { href: "/work/schema/design-system", label: "Design System Work", category: "Design Systems", year: "2025 - 2026", image: "/schema/designsystem.svg", preview: "/schema/design-system/collage-still.jpg", blurb: "Components and modules for ClearDemand, plus Paragon, Factor AE, and more." },
 ];
 
+const [mobile, agentic, system] = subProjects;
+
+// A tall still that pans from top to bottom on hover or focus, like scrolling the page.
+function Pan({ src, ratio }: { src: string; ratio: string }) {
+  return (
+    <div
+      aria-hidden
+      className="w-full bg-top transition-[background-position] duration-[6000ms] ease-in-out group-hover:bg-bottom group-focus-visible:bg-bottom motion-reduce:transition-none motion-reduce:group-hover:bg-top"
+      style={{ aspectRatio: ratio, backgroundColor: "#DFE0E1", backgroundImage: `url('${src}')`, backgroundSize: "100% auto", backgroundRepeat: "no-repeat" }}
+    />
+  );
+}
+
 export default function SchemaPage() {
   return (
     <CaseStudyPage>
-      {/* Hero band */}
-      <section
-        style={{
-          backgroundImage: "url('/schema/background.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          padding: "calc(var(--nav-height) + 96px) var(--page-pad-x) 96px",
-        }}
-      >
+      {/* Hero band in palette teal */}
+      <section style={{ backgroundColor: "#0F6B6D", padding: "calc(var(--nav-height) + 96px) var(--page-pad-x) 96px" }}>
         <div className="mx-auto max-w-[1200px]">
-          <Link href="/work" style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.75)", textDecoration: "none", display: "inline-block", marginBottom: "48px" }}>
+          <Link href="/work" style={{ fontSize: "0.8125rem", color: "rgba(250,250,248,0.75)", textDecoration: "none", display: "inline-block", marginBottom: "48px" }}>
             ← Work
           </Link>
-          <h1 style={{ color: "#fafaf8", fontFamily: "var(--font-display)", fontSize: "clamp(2.75rem, 7vw, 6rem)", fontWeight: 600, lineHeight: 1, letterSpacing: "-0.035em", marginBottom: "16px" }}>
+          <h1 style={{ color: "#FAFAF8", fontFamily: "var(--font-display)", fontSize: "clamp(3rem, 9vw, 8rem)", fontWeight: 600, lineHeight: 0.92, letterSpacing: "-0.045em", marginBottom: "20px" }}>
             Schema Education
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "clamp(1.125rem, 2vw, 1.5rem)" }}>
-            Product Design
+          <p className="font-instrument-serif italic" style={{ color: "rgba(250,250,248,0.9)", fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}>
+            Product design, 2024 to now.
           </p>
         </div>
       </section>
@@ -52,45 +58,56 @@ export default function SchemaPage() {
         </Body>
       </Section>
 
-      <section style={{ padding: "0 var(--page-pad-x) 144px" }}>
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2">
-          {subProjects.map(({ href, label, category, year, image, preview, blurb }, i) => (
-            <Reveal key={href} delay={i === 0 ? 0 : (i % 2) * 0.08} className={i === 0 ? "md:col-span-2" : ""}>
-              <Link href={href} className="group block" style={{ textDecoration: "none", color: "inherit" }}>
-                {preview ? (
-                  // Tall preview that pans from top to bottom on hover, like scrolling the page
-                  <div
-                    aria-hidden
-                    className="w-full mb-5 bg-top transition-[background-position] duration-[6000ms] ease-in-out group-hover:bg-bottom group-focus-visible:bg-bottom motion-reduce:transition-none motion-reduce:group-hover:bg-top"
-                    style={{ aspectRatio: i === 0 ? "21/9" : "4/3", backgroundColor: "#0a0a0a", backgroundImage: `url('${preview}')`, backgroundSize: "100% auto", backgroundRepeat: "no-repeat" }}
-                  />
-                ) : (
-                <div
-                  className="w-full overflow-hidden mb-5"
-                  style={{ aspectRatio: i === 0 ? "21/9" : "4/3", backgroundColor: "#141414", display: "flex", alignItems: "center", justifyContent: "center" }}
-                >
-                  <img
-                    src={image}
-                    alt=""
-                    width={24}
-                    height={24}
-                    loading="lazy"
-                    className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                    style={{ width: i === 0 ? "28%" : "48%", height: "auto", objectFit: "contain" }}
-                  />
+      {/* Three projects, three treatments: a full-bleed panorama, a type-led row, and an offset tall preview */}
+      <section style={{ padding: "0 var(--page-pad-x) 160px" }}>
+        <div className="mx-auto flex max-w-[1200px] flex-col" style={{ gap: "clamp(96px, 12vw, 160px)" }}>
+          {/* 01 Mobile: panorama that breaks out of the column */}
+          <Reveal>
+            <Link href={mobile.href} className="group block" style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="relative left-1/2 w-[min(calc(100vw-32px),1440px)] -translate-x-1/2">
+                <Pan src={mobile.preview!} ratio="21/8" />
+              </div>
+              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-12">
+                <p className="md:col-span-2" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: faint }}>01</p>
+                <div className="md:col-span-6">
+                  <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1 }} className="transition-colors group-hover:text-[#0F6B6D]">{mobile.label}</p>
+                  <p style={{ fontSize: "0.875rem", color: faint, marginTop: "8px" }}>{mobile.category} · {mobile.year}</p>
                 </div>
-                )}
-                <div className="flex items-baseline justify-between gap-4">
-                  <p className="transition-opacity group-hover:opacity-70" style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 500, letterSpacing: "-0.01em" }}>
-                    {label}
-                  </p>
-                  <span style={{ fontSize: "0.8125rem", color: faint, flexShrink: 0 }}>{year}</span>
-                </div>
-                <p style={{ fontSize: "0.875rem", color: faint, marginTop: "4px" }}>{category}</p>
-                <p style={{ fontSize: "0.9375rem", lineHeight: 1.6, color: muted, marginTop: "12px", maxWidth: "52ch" }}>{blurb}</p>
-              </Link>
-            </Reveal>
-          ))}
+                <p className="font-instrument-serif md:col-span-4" style={{ fontSize: "1.375rem", lineHeight: 1.3, color: muted }}>{mobile.blurb}</p>
+              </div>
+            </Link>
+          </Reveal>
+
+          {/* 02 Agentic: type-led, the serif does the work; small artifact on warm gray */}
+          <Reveal>
+            <Link href={agentic.href} className="group grid grid-cols-1 items-end gap-8 md:grid-cols-12" style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="md:col-span-7">
+                <p style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: faint, marginBottom: "20px" }}>02 · {agentic.category} · {agentic.year}</p>
+                <p className="font-instrument-serif transition-colors group-hover:text-[#0F6B6D]" style={{ fontSize: "clamp(2.75rem, 6.5vw, 6rem)", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
+                  <span className="italic">{agentic.label}.</span>
+                </p>
+                <p style={{ fontSize: "1rem", lineHeight: 1.6, color: muted, marginTop: "20px", maxWidth: "44ch" }}>{agentic.blurb}</p>
+              </div>
+              <div className="flex items-center justify-center md:col-span-4 md:col-start-9" style={{ aspectRatio: "4/5", backgroundColor: "#A8A6A1" }}>
+                <img src={agentic.image} alt="" width={24} height={24} loading="lazy" style={{ width: "46%", height: "auto" }} className="transition-transform duration-700 group-hover:scale-[1.04] motion-reduce:transition-none" />
+              </div>
+            </Link>
+          </Reveal>
+
+          {/* 03 Design System: tall preview offset right, text anchored low on the left */}
+          <Reveal>
+            <Link href={system.href} className="group grid grid-cols-1 items-end gap-8 md:grid-cols-12" style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="order-2 md:order-1 md:col-span-4">
+                <p style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: faint, marginBottom: "16px" }}>03</p>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1 }} className="transition-colors group-hover:text-[#0F6B6D]">{system.label}</p>
+                <p style={{ fontSize: "0.875rem", color: faint, marginTop: "8px" }}>{system.category} · {system.year}</p>
+                <p style={{ fontSize: "1rem", lineHeight: 1.6, color: muted, marginTop: "16px", maxWidth: "40ch" }}>{system.blurb}</p>
+              </div>
+              <div className="order-1 md:order-2 md:col-span-8 md:-mr-[4vw]">
+                <Pan src={system.preview!} ratio="5/4" />
+              </div>
+            </Link>
+          </Reveal>
         </div>
       </section>
     </CaseStudyPage>

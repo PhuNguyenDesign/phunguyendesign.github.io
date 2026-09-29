@@ -8,20 +8,25 @@ export default function ProjectCard({
   wide = false,
   delay = 0,
   headingLevel = "h3",
+  ratio,
+  className,
 }: {
   project: Project;
   wide?: boolean;
   delay?: number;
   headingLevel?: "h2" | "h3";
+  /** Override the image proportions, e.g. "4/5" for a portrait tile */
+  ratio?: string;
+  className?: string;
 }) {
   const Heading = headingLevel;
   return (
-    <Reveal delay={delay} className={wide ? "md:col-span-2" : ""}>
+    <Reveal delay={delay} className={className ?? (wide ? "md:col-span-2" : "")}>
       <Link href={`/work/${project.id}`} className="group block">
         <div
           className="w-full overflow-hidden mb-5 relative"
           style={{
-            aspectRatio: wide ? "21/9" : "4/3",
+            aspectRatio: ratio ?? (wide ? "21/9" : "4/3"),
             backgroundColor: project.placeholderBg,
             backgroundImage: project.cover ? `url('${project.cover}')` : undefined,
             backgroundSize: "cover",
@@ -33,7 +38,7 @@ export default function ProjectCard({
               <img src={project.thumbnail} alt={project.title} width={1600} height={1200} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             ) : project.logo ? (
               <div className="flex items-center justify-center w-full h-full p-8">
-                <img src={project.logo} alt={project.title} width={201} height={109} loading="lazy" decoding="async" style={{ maxWidth: "80%", maxHeight: "80%", width: project.cover ? "42%" : "auto", height: "auto", filter: project.cover ? "brightness(0) invert(1)" : undefined }} />
+                <img src={project.logo} alt={project.title} width={201} height={109} loading="lazy" decoding="async" style={{ maxWidth: "80%", maxHeight: "80%", width: "42%", height: "auto", filter: "brightness(0) invert(1)" }} />
               </div>
             ) : (
               <div className="flex items-end p-6 w-full h-full">

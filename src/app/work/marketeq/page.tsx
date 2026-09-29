@@ -138,9 +138,9 @@ export default function MarketeqPage() {
               From the research, I sorted features into must-haves, nice-to-haves, and will-not-haves. My senior designer had me use this list to guide every design decision after it.
             </p>
             <div className="flex flex-col gap-1" style={{ marginBottom: "32px" }}>
-              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted }}><strong style={{ color: "#f2f2ef", fontWeight: 500 }}>Must-have:</strong> Essential features for basic functionality.</p>
-              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted }}><strong style={{ color: "#f2f2ef", fontWeight: 500 }}>Nice-to-have:</strong> Enhancements that contribute to an improved user experience.</p>
-              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted }}><strong style={{ color: "#f2f2ef", fontWeight: 500 }}>Will-not-have:</strong> Features deemed confusing, harmful, or detrimental to the user experience.</p>
+              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted }}><strong style={{ color: "#000000", fontWeight: 500 }}>Must-have:</strong> Essential features for basic functionality.</p>
+              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted }}><strong style={{ color: "#000000", fontWeight: 500 }}>Nice-to-have:</strong> Enhancements that contribute to an improved user experience.</p>
+              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: muted }}><strong style={{ color: "#000000", fontWeight: 500 }}>Will-not-have:</strong> Features deemed confusing, harmful, or detrimental to the user experience.</p>
             </div>
             {/* Research sticky notes, kept in their original colors */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">

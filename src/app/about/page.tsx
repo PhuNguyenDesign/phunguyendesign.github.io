@@ -77,11 +77,9 @@ export default function AboutPage() {
       <div className="grid grid-cols-1 gap-12 border-t border-border lg:grid-cols-12 lg:gap-8" style={{ paddingTop: "40px" }}>
         {/* Bio */}
         <div className="lg:col-span-7">
-          <p
-            className="text-foreground"
-            style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 2.6vw, 2.125rem)", fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "32px" }}
-          >
-            I’ve always been a visual communicator.
+          {/* Serif used sparingly: one editorial line, not body copy */}
+          <p className="text-foreground font-instrument-serif" style={{ fontSize: "clamp(2.5rem, 5vw, 4.25rem)", lineHeight: 1, letterSpacing: "-0.015em", marginBottom: "40px", maxWidth: "14ch" }}>
+            I’ve always been a <span className="italic">visual communicator.</span>
           </p>
           <div className="space-y-5" style={{ maxWidth: "62ch" }}>
             {bio.map((paragraph) => (

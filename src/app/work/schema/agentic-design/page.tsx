@@ -132,7 +132,7 @@ export default function SchemaAgenticPage() {
           ]}
         />
         <Spacer />
-        <Link href="/work/schema/design-system" className="underline-offset-4 hover:underline" style={{ fontSize: "0.9375rem", color: "#f2f2ef" }}>
+        <Link href="/work/schema/design-system" className="underline-offset-4 hover:underline" style={{ fontSize: "0.9375rem", color: "#000000" }}>
           See the components and modules in Design System Work →
         </Link>
       </Section>
