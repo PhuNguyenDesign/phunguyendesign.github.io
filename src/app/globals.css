@@ -233,3 +233,11 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
 }
+
+/* Horizontal marquee (lab). Each track holds the row twice, so -50% lands on the copy with no seam. */
+.hmarquee { overflow: hidden; }
+.hmarquee-track { display: flex; width: max-content; animation: hmarquee-left linear infinite; will-change: transform; }
+.hmarquee[data-dir="right"] .hmarquee-track { animation-direction: reverse; }
+.hmarquee:hover .hmarquee-track { animation-play-state: paused; }
+@keyframes hmarquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .hmarquee-track { animation: none; } }
