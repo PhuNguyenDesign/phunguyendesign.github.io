@@ -3,6 +3,7 @@ import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 import Preloader from "@/components/Preloader";
 
 const instrumentSerif = Instrument_Serif({
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main id="main" tabIndex={-1} className="flex-1">{children}</main>
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );
