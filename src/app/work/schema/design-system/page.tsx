@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const meta = [
   { label: "Role", value: "Product Designer" },
-  { label: "Projects", value: "ClearDemand, Open edX Paragon, Factor AE, Spending Spotlight" },
+  { label: "Projects", value: "Retail analytics platform, Open edX Paragon, A&E project tool, Spending Spotlight" },
   { label: "Timeframe", value: "Dec 2025 - Aug 2026" },
   { label: "Tools", value: "Figma, Claude Code, React + shadcn/ui, GitHub" },
 ];
@@ -56,14 +56,14 @@ const paragonBoard: CollagePiece[] = [
 ];
 
 const factorBoard: CollagePiece[] = [
-  b("fae-palette.jpg", "Factor AE color system: main and secondary swatches", 2572, 1930, 3, 5, 44, 0.2, 1),
-  b("fae-type.jpg", "Factor AE heading type scale", 1574, 520, 50, 4, 46, 0.35, 1),
-  b("fae-toast.png", "Factor AE toast notification", 742, 256, 54, 26, 36, 0.8),
-  b("fae-table.png", "Factor AE data table with row actions", 2514, 496, 18, 54, 72, 0.6, 1),
-  b("fae-button.png", "Factor AE primary button", 372, 144, 8, 82, 11, 1.3, 6),
-  b("fae-pill.png", "Factor AE status pill", 243, 96, 26, 84, 8, 1.4, 20),
-  b("fae-chip.png", "Factor AE chip", 309, 72, 42, 85, 10, 1.2, 20),
-  b("fae-progress.png", "Factor AE progress bar", 808, 48, 60, 87, 24, 1.0, 10),
+  b("fae-palette.jpg", "A&E tool color system: main and secondary swatches", 2572, 1930, 3, 5, 44, 0.2, 1),
+  b("fae-type.jpg", "A&E tool heading type scale", 1574, 520, 50, 4, 46, 0.35, 1),
+  b("fae-toast.png", "A&E tool toast notification", 742, 256, 54, 26, 36, 0.8),
+  b("fae-table.png", "A&E tool data table with row actions", 2514, 496, 18, 54, 72, 0.6, 1),
+  b("fae-button.png", "A&E tool primary button", 372, 144, 8, 82, 11, 1.3, 6),
+  b("fae-pill.png", "A&E tool status pill", 243, 96, 26, 84, 8, 1.4, 20),
+  b("fae-chip.png", "A&E tool chip", 309, 72, 42, 85, 10, 1.2, 20),
+  b("fae-progress.png", "A&E tool progress bar", 808, 48, 60, 87, 24, 1.0, 10),
 ];
 
 const spotlightBoard: CollagePiece[] = [
@@ -87,29 +87,29 @@ const bd = (file: string, alt: string, width: number, height: number, x: number,
 
 const coverCollage: CollagePiece[] = [
   // back: screens and palettes
-  cd("performance-summary.jpg", "ClearDemand Performance Summary module", 2880, 1800, 2, 4, 40, 0.25, 0.8),
-  cd("price-review-panel.jpg", "ClearDemand Price Review module with the detail panel open", 2880, 1800, 58, 2, 40, 0.4, 0.8),
+  cd("performance-summary.jpg", "Performance Summary module", 2880, 1800, 2, 4, 40, 0.25, 0.8),
+  cd("price-review-panel.jpg", "Price Review module with the detail panel open", 2880, 1800, 58, 2, 40, 0.4, 0.8),
   bd("pg-palette.jpg", "Paragon brand and core color scales", 2200, 2150, 43, 5, 14, 0.3, 1),
   bd("ss-palette.jpg", "Spending Spotlight color tokens", 1278, 960, 2, 38, 24, 0.7, 1),
-  bd("fae-palette.jpg", "Factor AE color system", 2572, 1930, 74, 34, 24, 0.8, 1),
+  bd("fae-palette.jpg", "A&E tool color system", 2572, 1930, 74, 34, 24, 0.8, 1),
   // middle: type and data
   bd("pg-type.jpg", "Paragon display type scale", 1440, 620, 28, 30, 22, 0.6, 1),
-  bd("fae-table.png", "Factor AE data table", 2514, 496, 30, 52, 40, 0.55, 1),
-  cd("collage/categorical.jpg", "ClearDemand categorical chart color tokens", 1808, 590, 4, 64, 26, 0.8),
+  bd("fae-table.png", "A&E tool data table", 2514, 496, 30, 52, 40, 0.55, 1),
+  cd("collage/categorical.jpg", "Categorical chart color tokens", 1808, 590, 4, 64, 26, 0.8),
   bd("ss-type.jpg", "Spending Spotlight type scale", 1278, 560, 70, 60, 26, 0.65, 1),
   // front: components
   bd("ss-card-red.png", "Spending Spotlight company card", 720, 746, 52, 20, 16, 1.3, 3),
-  cd("chatbubble.jpg", "ClearDemand ChatBubble conversation", 1740, 1478, 30, 66, 20, 1.1),
+  cd("chatbubble.jpg", "ChatBubble conversation", 1740, 1478, 30, 66, 20, 1.1),
   bd("pg-card.png", "Paragon card component", 816, 1082, 88, 12, 11, 1.5),
   bd("ss-donut.png", "Spending Spotlight impact donut chart", 560, 480, 52, 70, 14, 1.4, 3),
-  bd("fae-toast.png", "Factor AE toast notification", 742, 256, 60, 44, 18, 1.7),
+  bd("fae-toast.png", "A&E tool toast notification", 742, 256, 60, 44, 18, 1.7),
   bd("pg-toast.png", "Paragon toast with an action", 576, 202, 10, 28, 14, 1.8, 3),
-  cd("collage/button.jpg", "ClearDemand button variants", 1150, 238, 67, 84, 22, 1.6, 2),
+  cd("collage/button.jpg", "Button variants", 1150, 238, 67, 84, 22, 1.6, 2),
   bd("ss-stat.png", "Spending Spotlight monthly impact stat card", 324, 226, 88, 74, 10, 2.0, 6),
-  bd("fae-pill.png", "Factor AE status pill", 243, 96, 3, 86, 7, 2.2, 20),
+  bd("fae-pill.png", "A&E tool status pill", 243, 96, 3, 86, 7, 2.2, 20),
   bd("pg-button.png", "Paragon primary button", 237, 132, 43, 90, 6, 2.1, 8),
   bd("ss-badge-green.png", "Spending Spotlight green rating badge", 432, 84, 13, 90, 12, 1.9, 20),
-  cd("collage/alert.jpg", "ClearDemand alert variants", 1220, 492, 4, 12, 20, 1.2),
+  cd("collage/alert.jpg", "Alert variants", 1220, 492, 4, 12, 20, 1.2),
 ];
 
 const otherWork = [
@@ -120,7 +120,7 @@ const otherWork = [
     body: "Part of the team that moved Open edX’s shared Figma libraries into one community-maintained instance. I remapped Paragon’s old color styles to variables, matching the live site exactly. I also migrated components into the new file, flagged React components missing from Figma, reported an accessibility issue upstream, and co-presented the project at the Open edX Conference.",
   },
   {
-    client: "Factor AE",
+    client: "A&E project-management tool",
     title: "Figma System for A&E Software",
     board: { pieces: factorBoard, aspect: "1200 / 820", bg: "#0F6B6D" },
     body: "Contributed early foundation components and navigation explorations to a Figma design system for an architecture and engineering project-management tool. A senior designer led it. Their feedback on this project taught me to cut unnecessary variants and layers from a component system.",
@@ -144,7 +144,7 @@ export default function SchemaDesignSystemPage() {
 
       {/* Cover: tokens, components, and screens drift at different speeds as you scroll */}
       <section
-        aria-label="Tokens, components, and screens from the ClearDemand, Paragon, Factor AE, and Spending Spotlight design systems"
+        aria-label="Tokens, components, and screens from four design systems I worked on"
         className="overflow-hidden"
         style={{
           padding: "clamp(24px, 4vw, 64px) var(--page-pad-x) clamp(64px, 8vw, 120px)",
@@ -155,9 +155,9 @@ export default function SchemaDesignSystemPage() {
         <ParallaxCollage pieces={coverCollage} aspectRatio="1200 / 920" drift={170} />
       </section>
 
-      <Section title="ClearDemand">
+      <Section title="A Retail Analytics Platform">
         <Body>
-          ClearDemand is a retail pricing and promotions analytics platform. Its modules had been built by different
+          The client is a retail pricing and promotions analytics platform. Its modules had been built by different
           teams at different times, so filters, tables, and layouts behaved differently from screen to screen. In 2026,
           a three-person Schema team spent twelve weeks building a design system and an interactive prototype on
           shadcn/ui and React.
@@ -223,7 +223,7 @@ export default function SchemaDesignSystemPage() {
 
       <Section title="From Paper Sketch to AI Chat Components">
         <Body>
-          ClearDemand wanted its assistant to feel built into the product, not bolted on as a separate chatbot. I
+          The client wanted its assistant to feel built into the product, not bolted on as a separate chatbot. I
           designed the conversation pieces for it: user and assistant bubbles, message states, agentic indicators, and
           follow-up prompt chips. I started from paper sketches and low-fidelity concepts, then used them to steer
           Claude as it built each component.
@@ -278,7 +278,7 @@ export default function SchemaDesignSystemPage() {
         </Body>
         <Body last>
           By the end, the team had delivered a system of about 55 components on a three-layer token architecture,
-          nine prototyped product modules, and a workflow ClearDemand’s product managers now use to build
+          nine prototyped product modules, and a workflow the client’s product managers now use to build
           prototypes on their own. I contributed 20 merged pull requests to that effort.
         </Body>
       </Section>

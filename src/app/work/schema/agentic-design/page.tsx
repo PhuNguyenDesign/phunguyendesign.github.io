@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const meta = [
   { label: "Role", value: "Product Designer" },
-  { label: "Projects", value: "ClearDemand, Schema website, this portfolio" },
+  { label: "Projects", value: "Retail analytics platform, Schema website, this portfolio" },
   { label: "Timeframe", value: "Apr - Sep 2026" },
   { label: "Tools", value: "Claude Code, Codex, GitHub, Figma" },
 ];
@@ -107,7 +107,7 @@ export default function SchemaAgenticPage() {
 
       <Section title="Designing by Prompting" layout="stack">
         <Body>
-          On ClearDemand, our technical lead set up a repository where the design system’s rules lived in
+          On a retail analytics platform for a client, our technical lead set up a repository where the design system’s rules lived in
           instruction files that AI agents follow by default. Inside that setup, I designed about twenty components and
           three product modules by describing them to Claude Code, then reviewing and correcting what it built.
         </Body>
@@ -176,7 +176,7 @@ export default function SchemaAgenticPage() {
 
       <Section title="Designing for AI, with AI" layout="stack">
         <Body last>
-          ClearDemand wanted an assistant that felt built into the product. From the specs and references our lead
+          The client wanted an assistant that felt built into the product. From the specs and references our lead
           provided, I designed and built its conversation components, starting from paper sketches and low-fidelity
           concepts that I used to steer Claude.
         </Body>

@@ -148,11 +148,13 @@ export default function SchemaMobilePage() {
           point learners toward what to do next.
         </Body>
         <Body last>
-          I was a key design contributor on a Schema team of four from late 2024 into early 2025. I took the progress
-          designs into high fidelity in light and dark themes, designed the states for zero, partial, and complete
-          progress, and designed the cards that connect progress to action. I raised the open questions along the way,
-          like whether a CTA should open a single assignment or the assignments view. Then I shared the work with a
-          teammate at the community mobile design meeting.
+          I was the primary designer on a Schema team of two from late 2024 into early 2025, with a teammate supporting
+          on design and product. I took the progress designs into high fidelity in light and dark themes, designed the
+          states for zero, partial, and complete progress, and designed the cards that connect progress to action.
+          As I designed each screen, I kept the full interaction workflow in mind, and flagged edge cases and gaps in
+          the proposed flows, like whether a CTA should open a single assignment or the whole assignments view.
+          I brought the work to internal Schema reviews and to the Open&nbsp;edX community’s mobile working group
+          regularly, and iterated on it from their feedback.
         </Body>
         <Spacer />
         {/* Course home, light and dark, from the v2.5 community Figma file (Component Archive) */}
