@@ -88,7 +88,7 @@ export default function AboutPage() {
               </p>
             ))}
           </div>
-          <a href="mailto:phunguyendesign@gmail.com" className="btn-teal" style={{ marginTop: "40px" }}>
+          <a href="mailto:phuvynguyendesign@gmail.com" className="btn-teal" style={{ marginTop: "40px" }}>
             Get in Contact!
           </a>
         </div>

@@ -33,7 +33,7 @@ const EXPERIENCE = [
     description: "Researched and designed the admin panel for a headless CMS, from competitive analysis and card sorting to user flows, wireframes, and high-fidelity screens.",
   },
   {
-    dates: "2021 - 2022",
+    dates: "2020 - 2021",
     role: "Graphic / Presentation Designer",
     company: "Prazenta LLC",
     description: "Created branded presentations, templates, and visual communication systems for client-facing business content across PowerPoint and Adobe tools.",
@@ -44,7 +44,7 @@ const EXPERIENCE = [
 const RESUME_PDF = "/phu-nguyen-resume.pdf";
 
 const facts = [
-  { label: "Contact", value: <a href="mailto:phunguyendesign@gmail.com" className="underline underline-offset-4 hover:text-muted-foreground transition-colors">phunguyendesign@gmail.com</a> },
+  { label: "Contact", value: <a href="mailto:phuvynguyendesign@gmail.com" className="underline underline-offset-4 hover:text-muted-foreground transition-colors">phuvynguyendesign@gmail.com</a> },
   { label: "Based in", value: "San Diego, CA" },
   { label: "Experience", value: "3 years" },
 ];

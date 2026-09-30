@@ -33,11 +33,11 @@ export default function ContactPage() {
               Whether it’s a role, a project, or just talking shop about design and art, my inbox is open.
             </p>
             <a
-              href="mailto:phunguyendesign@gmail.com"
+              href="mailto:phuvynguyendesign@gmail.com"
               className="text-foreground hover:text-muted-foreground transition-colors underline underline-offset-[6px] decoration-border hover:decoration-muted-foreground break-words"
               style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.375rem, 3vw, 2.25rem)", fontWeight: 500, letterSpacing: "-0.02em" }}
             >
-              phunguyendesign@gmail.com
+              phuvynguyendesign@gmail.com
             </a>
           </div>
 
