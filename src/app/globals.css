@@ -241,3 +241,9 @@
 .hmarquee:hover .hmarquee-track { animation-play-state: paused; }
 @keyframes hmarquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .hmarquee-track { animation: none; } }
+
+/* PR ticket columns: still at rest, scroll only while the card is hovered or focused. */
+.pr-track { animation: marquee-up linear infinite; animation-play-state: paused; will-change: transform; }
+.pr-track[data-dir="down"] { animation-direction: reverse; }
+.group:hover .pr-track, .group:focus-visible .pr-track { animation-play-state: running; }
+@media (prefers-reduced-motion: reduce) { .pr-track { animation: none; } }

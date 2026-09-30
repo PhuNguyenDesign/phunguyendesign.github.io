@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Body, CaseStudyPage, Section, faint, muted } from "@/components/CaseStudy";
 import Reveal from "@/components/Reveal";
+import PrTickets from "@/components/PrTickets";
 
 export const metadata: Metadata = {
   title: "Schema — Phu Nguyen",
@@ -88,8 +89,9 @@ export default function SchemaPage() {
                 </p>
                 <p style={{ fontSize: "1rem", lineHeight: 1.6, color: muted, marginTop: "20px", maxWidth: "44ch" }}>{agentic.blurb}</p>
               </div>
-              <div className="flex items-center justify-center md:col-span-4 md:col-start-9" style={{ aspectRatio: "4/5", backgroundColor: "#A8A6A1" }}>
-                <img src={agentic.image} alt="" width={24} height={24} loading="lazy" style={{ width: "46%", height: "auto" }} className="transition-transform duration-700 group-hover:scale-[1.04] motion-reduce:transition-none" />
+              {/* My merged PRs as tickets; they scroll only while this card is hovered */}
+              <div className="md:col-span-4 md:col-start-9" style={{ aspectRatio: "4/5", backgroundColor: "#A8A6A1", padding: "0 14px" }}>
+                <PrTickets columns={2} />
               </div>
             </Link>
           </Reveal>
