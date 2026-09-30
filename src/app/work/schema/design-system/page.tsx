@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, ImageSlot, Section, Showcase, Spacer, Statement, Stats, Tile, faint, muted, rule } from "@/components/CaseStudy";
+import { Body, CardGrid, CaseStudyHeader, CaseStudyPage, Section, Showcase, Spacer, Statement, Stats, Tile, faint, muted, rule } from "@/components/CaseStudy";
 import ParallaxCollage, { type CollagePiece } from "@/components/ParallaxCollage";
+import FloatIn from "@/components/FloatIn";
 
 export const metadata: Metadata = {
   title: "Design System Work — Schema — Phu Nguyen",
@@ -112,6 +113,14 @@ const coverCollage: CollagePiece[] = [
   cd("collage/alert.jpg", "Alert variants", 1220, 492, 4, 12, 20, 1.2),
 ];
 
+// Selected review comments on PR #203 (trimmed) and how the revision answered them.
+const chatReview = [
+  { note: "--chat-assistant-radius is dead on arrival… re-skinning the assistant bubble silently does nothing.", fix: "Both bubbles read their own radius token, so each can be re-skinned." },
+  { note: "Should almost never do styling using JS like this.", fix: "Replaced the JS hover styling on the suggestion chips with CSS." },
+  { note: "Pass null to suppress the avatar… there is no working suppress path.", fix: "Fixed the avatar guard so the avatar-less state actually renders." },
+  { note: "It embeds another atom (UserAvatar), so… classify it as a molecule?", fix: "Reclassified ChatBubble as a molecule." },
+];
+
 const otherWork = [
   {
     client: "Open edX · Paragon",
@@ -221,7 +230,7 @@ export default function SchemaDesignSystemPage() {
         </div>
       </Section>
 
-      <Section title="From Paper Sketch to AI Chat Components">
+      <Section title="From Brief to AI Chat Components" layout="stack">
         <Body>
           The client wanted its assistant to feel built into the product, not bolted on as a separate chatbot. I
           designed the conversation pieces for it: user and assistant bubbles, message states, agentic indicators, and
@@ -234,7 +243,33 @@ export default function SchemaDesignSystemPage() {
           that showed off agentic workflows across the product.
         </Body>
         <Spacer />
-        <ImageSlot label="Sketch → prototype: the chat components side by side" />
+        {/* From PR #203 on the design system repo: real review comments (trimmed), the commits that answered them, and the result. */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+          <FloatIn from="left" className="md:col-span-5">
+            <article className="h-full" style={{ backgroundColor: "#FFFFFF", boxShadow: "0 0 0 1px rgba(56,56,59,0.14)", padding: "clamp(20px, 3vw, 32px)", fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+              <p style={{ fontSize: "0.75rem", color: faint }}>#203 · Add ChatBubble · 3 review rounds · approved Jul 8, 2026</p>
+              <p style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 600, letterSpacing: "-0.015em", margin: "10px 0 20px" }}>What review caught</p>
+              <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "16px" }}>
+                {chatReview.map(({ note, fix }, i) => (
+                  <li key={note} style={{ fontSize: "0.8125rem", lineHeight: 1.6 }}>
+                    <p style={{ color: "#38383B" }}><span style={{ color: faint }}>0{i + 1} </span>“{note}”</p>
+                    <p style={{ color: "#0F6B6D", marginTop: "4px" }}>→ {fix}</p>
+                  </li>
+                ))}
+              </ol>
+              <p style={{ fontSize: "0.75rem", color: faint, marginTop: "22px", borderTop: rule, paddingTop: "14px" }}>
+                962af03 Address ChatBubble review feedback<br />a1346e2 Reclassify ChatBubble as a molecule
+              </p>
+            </article>
+          </FloatIn>
+          <div className="md:col-span-7">
+            <Tile label="The result · ChatBubble" src="/schema/design-system/chatbubble.jpg" width={1740} height={1478} from="right" delay={0.06}
+              alt="The merged ChatBubble: user and assistant bubbles with sent, sending, and failed states, a chart reply, a typing indicator, and follow-up chips" />
+          </div>
+        </div>
+        <p style={{ fontSize: "0.8125rem", color: faint, marginTop: "12px", maxWidth: "70ch" }}>
+          Review comments from our technical lead on my ChatBubble pull request, trimmed, next to the version that merged.
+        </p>
       </Section>
 
       <Statement>Prompting is still designing. The quality comes from clear intent, not from the tool.</Statement>

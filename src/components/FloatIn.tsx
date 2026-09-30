@@ -12,10 +12,11 @@ const start: Record<FloatFrom, { x?: number; y?: number; scale?: number }> = {
 
 // Drifts an image toward its resting place as it enters the viewport.
 // Pairs come in from their outer edges, so they meet in the middle.
-export default function FloatIn({ children, from = "up", delay = 0 }: { children: React.ReactNode; from?: FloatFrom; delay?: number }) {
+export default function FloatIn({ children, from = "up", delay = 0, className }: { children: React.ReactNode; from?: FloatFrom; delay?: number; className?: string }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
+      className={className}
       initial={reduce ? false : { opacity: 0, ...start[from] }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.25 }}
