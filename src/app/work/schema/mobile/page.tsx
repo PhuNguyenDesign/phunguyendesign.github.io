@@ -148,8 +148,8 @@ export default function SchemaMobilePage() {
           point learners toward what to do next.
         </Body>
         <Body last>
-          I was the primary designer on a Schema team of two from late 2024 into early 2025, with a teammate supporting
-          on design and product. I took the progress designs into high fidelity in light and dark themes, designed the
+          I designed the progress experience on a Schema team of two from late 2024 into early 2025, with a teammate
+          supporting on design and product. I took the progress designs into high fidelity in light and dark themes, designed the
           states for zero, partial, and complete progress, and designed the cards that connect progress to action.
           As I designed each screen, I kept the full interaction workflow in mind, and flagged edge cases and gaps in
           the proposed flows, like whether a CTA should open a single assignment or the whole assignments view.
