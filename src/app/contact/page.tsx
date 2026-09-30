@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 // Add each profile URL to show it. Links without a URL stay hidden instead of going nowhere.
 const LINKS = [
-  { label: "LinkedIn", href: "" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/phuvynguyen/" },
   { label: "Dribbble", href: "" },
 ].filter((link) => link.href);
 
@@ -47,6 +47,8 @@ export default function ContactPage() {
               <a
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center justify-between text-foreground hover:text-muted-foreground transition-colors border-b border-border py-4 first:pt-0"
                 style={{ fontSize: "1rem" }}
               >

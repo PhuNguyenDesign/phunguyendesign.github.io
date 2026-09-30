@@ -41,7 +41,7 @@ const EXPERIENCE = [
 ];
 
 // Set to "/resume.pdf" once the file is added to public/. Until then the download link is hidden.
-const RESUME_PDF = "";
+const RESUME_PDF = "/phu-nguyen-resume.pdf";
 
 const facts = [
   { label: "Contact", value: <a href="mailto:phunguyendesign@gmail.com" className="underline underline-offset-4 hover:text-muted-foreground transition-colors">phunguyendesign@gmail.com</a> },
@@ -66,6 +66,8 @@ export default function ResumePage() {
         aside={
           RESUME_PDF && <a
             href={RESUME_PDF}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors border-b border-muted-foreground/30 hover:border-foreground pb-px shrink-0"
             style={{ fontSize: "0.875rem" }}
           >
