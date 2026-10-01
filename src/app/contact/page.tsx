@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 // Add each profile URL to show it. Links without a URL stay hidden instead of going nowhere.
 const LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/phuvynguyen/" },
-  { label: "Dribbble", href: "" },
 ].filter((link) => link.href);
 
 export default function ContactPage() {

@@ -14,6 +14,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.phunguyendesign.com"),
   title: "Phu Nguyen — Product Designer",
   description:
     "Product designer focused on UX strategy, interaction design, visual design, and design systems.",

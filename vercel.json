@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "phunguyendesign-github-io.vercel.app" }],
+      "destination": "https://www.phunguyendesign.com/:path*",
+      "permanent": true
+    }
+  ]
+}
