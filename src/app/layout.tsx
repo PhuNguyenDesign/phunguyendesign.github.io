@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Preloader from "@/components/Preloader";
+import Cursor from "@/components/Cursor";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main" tabIndex={-1} className="flex-1">{children}</main>
         <Footer />
         <BackToTop />
+        <Cursor />
       </body>
     </html>
   );

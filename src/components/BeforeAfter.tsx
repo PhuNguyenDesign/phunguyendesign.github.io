@@ -44,6 +44,7 @@ export default function BeforeAfter({ before, after, ratio = "4 / 3", surface = 
 
       <div
         ref={box}
+        data-cursor="drag"
         className="relative touch-none select-none overflow-hidden"
         style={{ aspectRatio: ratio, backgroundColor: surface, cursor: "ew-resize" }}
         onPointerDown={(e) => {

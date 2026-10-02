@@ -247,3 +247,14 @@
 .pr-track[data-dir="down"] { animation-direction: reverse; }
 .group:hover .pr-track, .group:focus-visible .pr-track { animation-play-state: running; }
 @media (prefers-reduced-motion: reduce) { .pr-track { animation: none; } }
+
+/* Custom circular cursor (src/components/Cursor.tsx) replaces the pointer on mouse devices */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none !important;
+}
+html.custom-cursor input,
+html.custom-cursor textarea,
+html.custom-cursor [contenteditable="true"] {
+  cursor: text !important;
+}
