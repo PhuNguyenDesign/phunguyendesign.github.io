@@ -30,7 +30,7 @@ type Tune = {
   splash: number;
 };
 
-const DEFAULTS: Tune = { speed: 0.18, damping: 0.993, refraction: 0.022, highlight: 0.6, size: 4, trail: 0.8, splash: 1 };
+const DEFAULTS: Tune = { speed: 0.18, damping: 0.969, refraction: 0.04, highlight: 0.6, size: 5.5, trail: 0.8, splash: 1 };
 
 // Slider ranges for the local tuning panel
 const CONTROLS: { key: keyof Tune; label: string; min: number; max: number; step: number }[] = [
