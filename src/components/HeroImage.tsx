@@ -1,200 +1,255 @@
 "use client";
-import { useRef, useEffect, useCallback, ReactNode } from "react";
-import gsap from "gsap";
+import { useRef, useEffect, ReactNode } from "react";
 
-const PIXEL_SIZE = 22;
-const RECT_W = 240;
-const RECT_H = 180;
-const FEATHER = 36;
-const TEAL = "#0F6B6D";
-const TEAL_EVERY = 9;
+// Water ripples over the hero photo. A small height field runs the wave equation on the CPU
+// (one cell per CELL css px); WebGL then bends the photo by the slope of that surface, like
+// light refracting through water. The pointer drops ripples as it moves; a press drops a bigger one.
+// The loop sleeps once the water is still, and reduced-motion users get the plain photo.
 
-function isTeal(gx: number, gy: number): boolean {
-  const h = ((gx * 2654435761) ^ (gy * 2246822519)) >>> 0;
-  return h % TEAL_EVERY === 0;
+const CELL = 4; // css px per simulation cell
+const DAMPING = 0.99; // how quickly waves die out
+const REFRACTION = 0.045; // how far the photo bends, in uv units per unit of slope
+const HIGHLIGHT = 0.9; // light catching the wave crests
+
+const VERT = `
+attribute vec2 aPos;
+void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
+`;
+
+const FRAG = `
+precision mediump float;
+uniform sampler2D uImg;
+uniform sampler2D uHeight;
+uniform vec2 uSize;     // canvas size in device px
+uniform vec2 uCell;     // one simulation cell in uv
+uniform vec2 uScale;    // cover-fit: displayed image size / container size
+uniform vec2 uOffset;   // cover-fit: image offset / container size
+uniform float uRefract;
+uniform float uLight;
+
+float h(vec2 uv) { return texture2D(uHeight, uv).r - 0.5; }
+
+void main() {
+  vec2 uv = vec2(gl_FragCoord.x / uSize.x, 1.0 - gl_FragCoord.y / uSize.y);
+  vec2 slope = vec2(h(uv + vec2(uCell.x, 0.0)) - h(uv - vec2(uCell.x, 0.0)),
+                    h(uv + vec2(0.0, uCell.y)) - h(uv - vec2(0.0, uCell.y)));
+  vec2 bent = uv + slope * uRefract;
+  vec2 imgUv = (bent - uOffset) / uScale;
+  vec3 col = texture2D(uImg, clamp(imgUv, 0.0, 1.0)).rgb;
+  col += (slope.x + slope.y) * uLight;
+  gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+}
+`;
+
+function parsePosition(pos: string): [number, number] {
+  const part = (v: string | undefined) => (v === undefined || v === "center" ? 0.5 : parseFloat(v) / 100);
+  const [x, y] = pos.split(/\s+/);
+  return [part(x), part(y)];
 }
 
 export default function HeroImage({ src, children, fill }: { src: string; children?: ReactNode; /** Fill the parent box instead of a fixed 88vh band */ fill?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const offscreenRef = useRef<HTMLCanvasElement | null>(null);
-  const tmpRef = useRef<HTMLCanvasElement | null>(null);
-  const maskRef = useRef<HTMLCanvasElement | null>(null);
-  const stateRef = useRef({ x: 0, y: 0, radius: 0 });
-  const rafRef = useRef<number | null>(null);
-
-  const buildOffscreen = useCallback((w: number, h: number) => {
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      const off = document.createElement("canvas");
-      off.width = Math.ceil(w / PIXEL_SIZE);
-      off.height = Math.ceil(h / PIXEL_SIZE);
-      const ctx = off.getContext("2d")!;
-      ctx.drawImage(img, 0, 0, off.width, off.height);
-      offscreenRef.current = off;
-
-      const tmp = document.createElement("canvas");
-      tmp.width = w; tmp.height = h;
-      tmpRef.current = tmp;
-
-      const mask = document.createElement("canvas");
-      mask.width = w; mask.height = h;
-      maskRef.current = mask;
-    };
-  }, [src]);
+  const objectPosition = fill ? "80% 40%" : "72% center";
 
   useEffect(() => {
-    const canvas = canvasRef.current;
     const container = containerRef.current;
-    if (!canvas || !container) return;
-    const ro = new ResizeObserver(() => {
-      const { width, height } = container.getBoundingClientRect();
-      canvas.width = width;
-      canvas.height = height;
-      buildOffscreen(width, height);
-    });
-    ro.observe(container);
-    return () => ro.disconnect();
-  }, [buildOffscreen]);
-
-  const draw = useCallback(() => {
     const canvas = canvasRef.current;
-    const off = offscreenRef.current;
-    const tmp = tmpRef.current;
-    const mask = maskRef.current;
-    if (!canvas || !off || !tmp || !mask) return;
+    if (!container || !canvas) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const ctx = canvas.getContext("2d")!;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (stateRef.current.radius < 1) return;
+    const gl = canvas.getContext("webgl", { alpha: false, antialias: false, premultipliedAlpha: false });
+    if (!gl) return;
 
-    const { x, y, radius } = stateRef.current;
-    const scale = radius / 100;
-    const hw = (RECT_W / 2) * scale;
-    const hh = (RECT_H / 2) * scale;
-    const rx = Math.max(0, x - hw);
-    const ry = Math.max(0, y - hh);
-    const rw = Math.min(canvas.width - rx, hw * 2);
-    const rh = Math.min(canvas.height - ry, hh * 2);
+    const compile = (type: number, source: string) => {
+      const s = gl.createShader(type)!;
+      gl.shaderSource(s, source);
+      gl.compileShader(s);
+      return s;
+    };
+    const prog = gl.createProgram()!;
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+    gl.useProgram(prog);
 
-    // --- draw pixelated image + teal to tmp ---
-    const tctx = tmp.getContext("2d")!;
-    tctx.clearRect(0, 0, tmp.width, tmp.height);
-    tctx.imageSmoothingEnabled = false;
-    tctx.drawImage(off, 0, 0, tmp.width, tmp.height);
+    const quad = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(prog, "aPos");
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
-    const startGX = Math.floor(rx / PIXEL_SIZE);
-    const endGX = Math.ceil((rx + rw) / PIXEL_SIZE);
-    const startGY = Math.floor(ry / PIXEL_SIZE);
-    const endGY = Math.ceil((ry + rh) / PIXEL_SIZE);
-    tctx.fillStyle = TEAL;
-    for (let gx = startGX; gx <= endGX; gx++) {
-      for (let gy = startGY; gy <= endGY; gy++) {
-        if (isTeal(gx, gy)) tctx.fillRect(gx * PIXEL_SIZE, gy * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
+    const u = (name: string) => gl.getUniformLocation(prog, name);
+    const makeTexture = (unit: number) => {
+      const t = gl.createTexture()!;
+      gl.activeTexture(gl.TEXTURE0 + unit);
+      gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      return t;
+    };
+    const imgTex = makeTexture(0);
+    const heightTex = makeTexture(1);
+    gl.uniform1i(u("uImg"), 0);
+    gl.uniform1i(u("uHeight"), 1);
+    gl.uniform1f(u("uRefract"), REFRACTION);
+    gl.uniform1f(u("uLight"), HIGHLIGHT);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+
+    const [posX, posY] = parsePosition(objectPosition);
+    let imgW = 0, imgH = 0, cssW = 0, cssH = 0;
+    let gw = 0, gh = 0;
+    let cur = new Float32Array(0), prev = new Float32Array(0);
+    let bytes = new Uint8Array(0);
+    let raf: number | null = null;
+    let ready = false;
+    let stillFrames = 0;
+    let last: { x: number; y: number } | null = null;
+    let cancelled = false;
+
+    const layout = () => {
+      const rect = container.getBoundingClientRect();
+      cssW = rect.width; cssH = rect.height;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.round(cssW * dpr));
+      canvas.height = Math.max(1, Math.round(cssH * dpr));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(u("uSize"), canvas.width, canvas.height);
+
+      gw = Math.max(2, Math.ceil(cssW / CELL));
+      gh = Math.max(2, Math.ceil(cssH / CELL));
+      cur = new Float32Array(gw * gh);
+      prev = new Float32Array(gw * gh);
+      bytes = new Uint8Array(gw * gh).fill(128);
+      gl.uniform2f(u("uCell"), 1 / gw, 1 / gh);
+      uploadHeight();
+
+      if (imgW) {
+        // Same math as object-fit: cover with the img's object-position
+        const scale = Math.max(cssW / imgW, cssH / imgH);
+        const dw = imgW * scale, dh = imgH * scale;
+        gl.uniform2f(u("uScale"), dw / cssW, dh / cssH);
+        gl.uniform2f(u("uOffset"), ((cssW - dw) * posX) / cssW, ((cssH - dh) * posY) / cssH);
       }
-    }
+      render();
+    };
 
-    // --- build feathered rect mask ---
-    const mctx = mask.getContext("2d")!;
-    mctx.clearRect(0, 0, mask.width, mask.height);
+    const uploadHeight = () => {
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, heightTex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, gw, gh, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, bytes);
+    };
 
-    // Solid center
-    mctx.fillStyle = "white";
-    mctx.fillRect(rx + FEATHER, ry + FEATHER, rw - FEATHER * 2, rh - FEATHER * 2);
+    const render = () => {
+      if (!ready) return;
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    };
 
-    // Side gradients — each fades from white (inner edge) to transparent (outer edge)
-    const sideEdges: [number, number, number, number, number, number, number, number, boolean][] = [
-      [rx, 0, rx + FEATHER, 0, rx, ry + FEATHER, FEATHER, rh - FEATHER * 2, false],             // left: transparent→white
-      [rx + rw - FEATHER, 0, rx + rw, 0, rx + rw - FEATHER, ry + FEATHER, FEATHER, rh - FEATHER * 2, true], // right: white→transparent
-      [0, ry, 0, ry + FEATHER, rx + FEATHER, ry, rw - FEATHER * 2, FEATHER, false],             // top: transparent→white
-      [0, ry + rh - FEATHER, 0, ry + rh, rx + FEATHER, ry + rh - FEATHER, rw - FEATHER * 2, FEATHER, true], // bottom: white→transparent
-    ];
-    for (const [x0, y0, x1, y1, fx, fy, fw, fh, invert] of sideEdges) {
-      const g = mctx.createLinearGradient(x0, y0, x1, y1);
-      g.addColorStop(0, invert ? "white" : "transparent");
-      g.addColorStop(1, invert ? "transparent" : "white");
-      mctx.fillStyle = g;
-      mctx.fillRect(fx, fy, fw, fh);
-    }
+    const step = () => {
+      let energy = 0;
+      for (let y = 1; y < gh - 1; y++) {
+        for (let x = 1; x < gw - 1; x++) {
+          const i = y * gw + x;
+          const v = ((cur[i - 1] + cur[i + 1] + cur[i - gw] + cur[i + gw]) * 0.5 - prev[i]) * DAMPING;
+          prev[i] = v;
+          energy += v < 0 ? -v : v;
+        }
+      }
+      const t = prev; prev = cur; cur = t;
+      for (let i = 0; i < cur.length; i++) {
+        const b = 128 + cur[i] * 96;
+        bytes[i] = b < 0 ? 0 : b > 255 ? 255 : b;
+      }
+      return energy;
+    };
 
-    // Corner radial gradients
-    const corners: [number, number][] = [
-      [rx + FEATHER, ry + FEATHER],
-      [rx + rw - FEATHER, ry + FEATHER],
-      [rx + FEATHER, ry + rh - FEATHER],
-      [rx + rw - FEATHER, ry + rh - FEATHER],
-    ];
-    const cornerRects: [number, number][] = [
-      [rx, ry], [rx + rw - FEATHER, ry],
-      [rx, ry + rh - FEATHER], [rx + rw - FEATHER, ry + rh - FEATHER],
-    ];
-    corners.forEach(([cx2, cy2], i) => {
-      const g = mctx.createRadialGradient(cx2, cy2, 0, cx2, cy2, FEATHER);
-      g.addColorStop(0, "white");
-      g.addColorStop(1, "transparent");
-      mctx.fillStyle = g;
-      mctx.fillRect(cornerRects[i][0], cornerRects[i][1], FEATHER, FEATHER);
-    });
+    const loop = () => {
+      const energy = step();
+      uploadHeight();
+      render();
+      // Total motion across the whole surface; below this the water reads as flat
+      stillFrames = energy < 1.5 ? stillFrames + 1 : 0;
+      if (stillFrames > 30) {
+        cur.fill(0); prev.fill(0); bytes.fill(128);
+        uploadHeight(); render();
+        raf = null;
+        return;
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    const wake = () => { stillFrames = 0; if (raf === null && ready) raf = requestAnimationFrame(loop); };
 
-    // Apply mask to tmp
-    tctx.globalCompositeOperation = "destination-in";
-    tctx.drawImage(mask, 0, 0);
-    tctx.globalCompositeOperation = "source-over";
+    const drop = (cx: number, cy: number, radius: number, strength: number) => {
+      const gx = cx / CELL, gy = cy / CELL;
+      const r = Math.ceil(radius);
+      for (let y = Math.max(1, Math.floor(gy - r)); y <= Math.min(gh - 2, Math.ceil(gy + r)); y++) {
+        for (let x = Math.max(1, Math.floor(gx - r)); x <= Math.min(gw - 2, Math.ceil(gx + r)); x++) {
+          const d = Math.hypot(x - gx, y - gy) / radius;
+          if (d < 1) cur[y * gw + x] += strength * 0.5 * (1 + Math.cos(d * Math.PI));
+        }
+      }
+      wake();
+    };
 
-    // Draw tmp to main canvas — high opacity so pixels replace rather than overlay
-    ctx.globalAlpha = 0.94;
-    ctx.drawImage(tmp, 0, 0);
-    ctx.globalAlpha = 1;
-  }, []);
+    const onMove = (e: PointerEvent) => {
+      const rect = container.getBoundingClientRect();
+      const p = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      if (last) {
+        const dist = Math.hypot(p.x - last.x, p.y - last.y);
+        const steps = Math.min(12, Math.ceil(dist / 10));
+        const strength = Math.min(1.1, 0.25 + dist / 60);
+        for (let s = 1; s <= steps; s++) {
+          const t = s / steps;
+          drop(last.x + (p.x - last.x) * t, last.y + (p.y - last.y) * t, 3, strength / steps * 2);
+        }
+      }
+      last = p;
+    };
+    const onDown = (e: PointerEvent) => {
+      const rect = container.getBoundingClientRect();
+      drop(e.clientX - rect.left, e.clientY - rect.top, 7, 2.2);
+    };
+    const onLeave = () => { last = null; };
 
-  // Redraw only while the pointer is over the hero (or the effect is fading out), not every frame forever.
-  const startLoop = useCallback(() => {
-    if (rafRef.current !== null) return;
-    const loop = () => { draw(); rafRef.current = requestAnimationFrame(loop); };
-    rafRef.current = requestAnimationFrame(loop);
-  }, [draw]);
+    const img = new Image();
+    img.decoding = "async";
+    img.onload = () => {
+      if (cancelled) return;
+      imgW = img.naturalWidth; imgH = img.naturalHeight;
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, imgTex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+      ready = true;
+      layout();
+      canvas.style.opacity = "1";
+    };
+    img.src = src;
 
-  const stopLoop = useCallback(() => {
-    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    rafRef.current = null;
-    draw();
-  }, [draw]);
-
-  useEffect(() => () => { if (rafRef.current !== null) cancelAnimationFrame(rafRef.current); }, []);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    stateRef.current.x = e.clientX - rect.left;
-    stateRef.current.y = e.clientY - rect.top;
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    startLoop();
-    gsap.to(stateRef.current, { radius: 100, duration: 0.5, ease: "power3.out", overwrite: true });
-  }, [startLoop]);
-
-  const handleMouseLeave = useCallback(() => {
-    gsap.to(stateRef.current, { radius: 0, duration: 0.6, ease: "power3.in", overwrite: true, onComplete: stopLoop });
-  }, [stopLoop]);
+    const ro = new ResizeObserver(layout);
+    ro.observe(container);
+    container.addEventListener("pointermove", onMove);
+    container.addEventListener("pointerdown", onDown);
+    container.addEventListener("pointerleave", onLeave);
+    return () => {
+      cancelled = true;
+      ro.disconnect();
+      container.removeEventListener("pointermove", onMove);
+      container.removeEventListener("pointerdown", onDown);
+      container.removeEventListener("pointerleave", onLeave);
+      if (raf !== null) cancelAnimationFrame(raf);
+    };
+  }, [src, objectPosition]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative w-full ${fill ? "h-full" : ""}`}
-      style={{ cursor: "none" }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <img src={src} alt="" width={1125} height={751} fetchPriority="high" decoding="async" className="w-full block" style={{ objectFit: "cover", height: fill ? "100%" : "88vh", objectPosition: fill ? "80% 40%" : "72% center" }} />
+    <div ref={containerRef} className={`relative w-full ${fill ? "h-full" : ""}`}>
+      <img src={src} alt="" width={1125} height={751} fetchPriority="high" decoding="async" className="w-full block" style={{ objectFit: "cover", height: fill ? "100%" : "88vh", objectPosition }} />
       {children}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ pointerEvents: "none" }}
-      />
+      {/* Stays invisible until the photo is on the GPU, so the plain img shows first */}
+      <canvas ref={canvasRef} aria-hidden className="absolute inset-0 w-full h-full" style={{ pointerEvents: "none", opacity: 0 }} />
     </div>
   );
 }
