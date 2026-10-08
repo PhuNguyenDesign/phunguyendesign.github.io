@@ -264,3 +264,8 @@ html.custom-cursor [contenteditable="true"] {
 [data-ripple="on"] [data-hero-text] {
   opacity: 0;
 }
+
+/* While the preloader's copy of the name flies into place (src/components/Preloader.tsx) */
+html[data-intro="on"] [data-hero-text] {
+  opacity: 0;
+}

@@ -3,6 +3,8 @@ import { projects } from "@/lib/projects";
 import HeroImage from "@/components/HeroImage";
 import HeroRipple from "@/components/HeroRipple";
 import ParallaxHero from "@/components/ParallaxHero";
+import FitHeadline from "@/components/FitHeadline";
+import { HERO_NAME_STYLE, HERO_NAME_TEXT } from "@/lib/heroName";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
 
@@ -33,29 +35,15 @@ export default function Home() {
         <HeroRipple src="/homepicture.jpg" objectPosition="80% 40%" />
         <div
           className="relative mx-auto flex flex-col justify-end pointer-events-none"
-          style={{ minHeight: "calc(100dvh - var(--nav-height))", maxWidth: "var(--max-w)", padding: "0 var(--page-pad-x) clamp(32px, 6vw, 72px)" }}
+          style={{ minHeight: "calc(100dvh - var(--nav-height))", maxWidth: "var(--max-w)", padding: "0 var(--page-pad-x) clamp(20px, 3vw, 40px)" }}
         >
           <p data-hero-text style={{ fontSize: "0.75rem", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "clamp(16px, 3vw, 32px)", color: "#FAFAF8", mixBlendMode: "difference" }}>
             Product Designer, San Diego
           </p>
-          <h1
-            data-hero-text
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(4rem, 13.5vw, 15rem)",
-              fontWeight: 600,
-              lineHeight: 0.86,
-              letterSpacing: "-0.055em",
-              color: "#FAFAF8",
-              mixBlendMode: "difference",
-            }}
-          >
-            <span className="font-instrument-serif italic" style={{ fontWeight: 400, letterSpacing: "-0.03em" }}>Translating</span>
-            <br />
-            complexity
-            <br />
-            into clarity.
-          </h1>
+          {/* The name runs edge to edge in one line along the bottom; the preloader scales its copy into this spot */}
+          <FitHeadline data-hero-text data-hero-name style={{ ...HERO_NAME_STYLE, color: "#FAFAF8", mixBlendMode: "difference" }}>
+            {HERO_NAME_TEXT}
+          </FitHeadline>
         </div>
       </section>
       </ParallaxHero>

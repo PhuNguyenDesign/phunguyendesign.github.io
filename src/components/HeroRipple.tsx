@@ -195,6 +195,8 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
     let last: { x: number; y: number } | null = null;
     let cancelled = false;
     let introUntil = 0;
+    // While the preloader's copy of the name is flying in, keep this copy of the type hidden
+    let textOn = document.documentElement.dataset.intro === "on" ? 0 : 1;
 
     const uploadHeight = () => {
       gl.activeTexture(gl.TEXTURE1);
@@ -215,7 +217,7 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
       gl.activeTexture(gl.TEXTURE2);
       gl.bindTexture(gl.TEXTURE_2D, textTex);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textCanvas);
-      gl.uniform1f(u("uTextOn"), 1);
+      gl.uniform1f(u("uTextOn"), textOn);
       render();
     };
 
@@ -368,9 +370,21 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
     section.addEventListener("pointermove", onMove);
     section.addEventListener("pointerdown", onDown);
     section.addEventListener("pointerleave", onLeave);
+    // The headline refits its size after fonts load and on resize
+    const onHeroLayout = () => { if (ready) paintType(); };
+    // The preloader's name has landed exactly on this copy: swap to it in the same frame
+    const onIntroDone = () => {
+      textOn = 1;
+      gl.uniform1f(u("uTextOn"), textOn);
+      render();
+    };
     window.addEventListener("hero:splash", splashCenter);
+    window.addEventListener("hero:layout", onHeroLayout);
+    window.addEventListener("intro:done", onIntroDone);
     return () => {
       window.removeEventListener("hero:splash", splashCenter);
+      window.removeEventListener("hero:layout", onHeroLayout);
+      window.removeEventListener("intro:done", onIntroDone);
       cancelled = true;
       actions.current = null;
       delete section.dataset.ripple;
