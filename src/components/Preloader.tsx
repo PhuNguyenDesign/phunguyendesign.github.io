@@ -23,6 +23,11 @@ const MIN_COUNT_MS = 1400; // the counter never finishes faster than this
 const EASE: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const rgb = (c: string) => (c.startsWith("#") ? [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)) : (c.match(/\d+/g) ?? ["0", "0", "0"]).slice(0, 3).map(Number));
+const mixColor = (a: string, b: string, t: number) => {
+  const [x, y] = [rgb(a), rgb(b)];
+  return `rgb(${x.map((v, i) => Math.round(lerp(v, y[i], t))).join(", ")})`;
+};
 
 export default function Preloader() {
   const reduce = useReducedMotion();
@@ -42,6 +47,10 @@ export default function Preloader() {
   const nameTo = { x: useMotionValue(0), y: useMotionValue(0), hasTarget: useMotionValue(0) };
   const nameOpacity = useMotionValue(1);
   const logoOpacity = useMotionValue(1);
+  // The hero photo's box, so the name can invert only where it crosses the photo
+  const photo = { l: useMotionValue(0), t: useMotionValue(0), r: useMotionValue(0), b: useMotionValue(0) };
+  // The nav logo's color, which the flying mark eases into
+  const [logoEnd, setLogoEnd] = useState(TEAL);
 
   // A black sheet with a rectangular hole cut out of the middle
   const clip = useTransform(() => {
@@ -49,16 +58,27 @@ export default function Preloader() {
     const x1 = cx - w.get() / 2, x2 = cx + w.get() / 2, y1 = cy - h.get() / 2, y2 = cy + h.get() / 2;
     return `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${x1}px ${y1}px, ${x2}px ${y1}px, ${x2}px ${y2}px, ${x1}px ${y2}px, ${x1}px ${y1}px)`;
   });
-  // Just the window
-  const windowClip = useTransform(() => {
-    const sideX = Math.max(0, (vw.get() - w.get()) / 2), sideY = Math.max(0, (vh.get() - h.get()) / 2);
-    return `inset(${sideY}px ${sideX}px ${sideY}px ${sideX}px)`;
+  // Where the window overlaps the photo: the only place the name inverts, like the hero headline
+  const overlap = () => {
+    const cx = vw.get() / 2, cy = vh.get() / 2;
+    const l = Math.max(cx - w.get() / 2, photo.l.get()), r = Math.min(cx + w.get() / 2, photo.r.get());
+    const t = Math.max(cy - h.get() / 2, photo.t.get()), b = Math.min(cy + h.get() / 2, photo.b.get());
+    return r > l && b > t ? { l, r, t, b } : null;
+  };
+  const photoWindowClip = useTransform(() => {
+    const o = overlap();
+    return o ? `inset(${o.t}px ${vw.get() - o.r}px ${vh.get() - o.b}px ${o.l}px)` : "inset(100% 0 0 0)";
+  });
+  const tealNameClip = useTransform(() => {
+    const o = overlap() ?? { l: 0, r: 0, t: 0, b: 0 };
+    return `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${o.l}px ${o.t}px, ${o.r}px ${o.t}px, ${o.r}px ${o.b}px, ${o.l}px ${o.b}px, ${o.l}px ${o.t}px)`;
   });
 
   // Mark: centered above the window, then flies to the nav logo
   const logoX = useTransform(() => lerp(vw.get() / 2 - LOGO_W / 2, logoTo.x.get(), fly.get()));
   const logoY = useTransform(() => lerp(vh.get() / 2 - h.get() / 2 - GAP - LOGO_H, logoTo.y.get(), fly.get()));
   const logoS = useTransform(() => lerp(1, logoTo.s.get(), fly.get()));
+  const logoColor = useTransform(() => mixColor(TEAL, logoEnd, fly.get()));
 
   // Name: shown small under the window at first (it is set at the headline's full size and scaled down)
   const introScale = useTransform(() => Math.min(vw.get() * 0.34, 440) / nw.get());
@@ -81,6 +101,8 @@ export default function Preloader() {
     if (nameRefB.current) nameRefB.current.style.fontSize = el.style.fontSize;
     nw.set(el.offsetWidth || 1);
     nh.set(el.offsetHeight || 1);
+    const p = document.querySelector<HTMLElement>("[data-hero-photo]")?.getBoundingClientRect();
+    photo.l.set(p?.left ?? 0); photo.t.set(p?.top ?? 0); photo.r.set(p?.right ?? 0); photo.b.set(p?.bottom ?? 0);
   };
 
   useEffect(() => {
@@ -137,7 +159,9 @@ export default function Preloader() {
       if (cancelled) return;
 
       measure();
-      const navLogo = document.querySelector<SVGElement>("[data-nav-logo]")?.getBoundingClientRect();
+      const navLogoEl = document.querySelector<SVGElement>("[data-nav-logo]");
+      if (navLogoEl) setLogoEnd(getComputedStyle(navLogoEl).color);
+      const navLogo = navLogoEl?.getBoundingClientRect();
       if (navLogo) { logoTo.x.set(navLogo.left); logoTo.y.set(navLogo.top); logoTo.s.set(navLogo.width / LOGO_W); }
       else { logoTo.x.set(vw.get() / 2 - LOGO_W / 2); logoTo.y.set(-LOGO_H); }
       const headline = document.querySelector<HTMLElement>("[data-hero-name]")?.getBoundingClientRect();
@@ -188,14 +212,16 @@ export default function Preloader() {
 
       {!reduce && (
         <>
-          {/* Teal copy over the black */}
-          <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: clip }}>
-            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark color={TEAL} /></Flyer>
+          {/* The mark is teal everywhere and eases into the nav logo's color as it lands */}
+          <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]">
+            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark color={logoColor} /></Flyer>
+          </motion.div>
+          {/* The name is teal everywhere except where the window shows the photo... */}
+          <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: tealNameClip }}>
             <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRef} color={TEAL} /></Flyer>
           </motion.div>
-          {/* Inverting copy inside the window, blended as one group against the page */}
-          <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: windowClip, mixBlendMode: "difference" }}>
-            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark color={PAPER} /></Flyer>
+          {/* ...where it inverts, blended as one group against the page */}
+          <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: photoWindowClip, mixBlendMode: "difference" }}>
             <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRefB} color={PAPER} /></Flyer>
           </motion.div>
         </>
@@ -204,7 +230,7 @@ export default function Preloader() {
   );
 }
 
-function Mark({ color }: { color: string }) {
+function Mark({ color }: { color: string | MotionValue<string> }) {
   return (
     <motion.svg
       width={LOGO_W}

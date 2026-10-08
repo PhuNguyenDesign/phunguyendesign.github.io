@@ -12,6 +12,7 @@ import { useRef, useEffect, useState } from "react";
 
 const CELL = 4; // css px per simulation cell
 const PAPER = [0.9804, 0.9804, 0.9725];
+const TEAL = [0.0588, 0.4196, 0.4275]; // #0F6B6D
 
 type Tune = {
   /** Wave speed (lower = slower, max 0.5 for a stable simulation) */
@@ -62,8 +63,14 @@ uniform float uRefract;
 uniform float uLight;
 uniform float uTextOn;
 const vec3 PAPER = vec3(${PAPER.join(", ")});
+const vec3 TEAL = vec3(${TEAL.join(", ")});
 
 float h(vec2 uv) { return texture2D(uHeight, uv).r - 0.5; }
+
+float inPhoto(vec2 uv) {
+  vec2 p = (uv - uPhoto.xy) / uPhoto.zw;
+  return (p.x < 0.0 || p.y < 0.0 || p.x > 1.0 || p.y > 1.0) ? 0.0 : 1.0;
+}
 
 vec3 backdrop(vec2 uv) {
   vec2 p = (uv - uPhoto.xy) / uPhoto.zw;
@@ -77,9 +84,10 @@ void main() {
                     h(uv + vec2(0.0, uCell.y)) - h(uv - vec2(0.0, uCell.y)));
   vec2 bent = uv + slope * uRefract;
   vec3 b = backdrop(bent);
-  // The headline is paper-colored with mix-blend-mode: difference, so match that here
+  // Type is teal on the paper and inverts over the photo (a difference blend of paper)
   float a = texture2D(uText, bent).a * uTextOn;
-  vec3 col = mix(b, abs(b - PAPER), a);
+  vec3 ink = mix(TEAL, abs(b - PAPER), inPhoto(bent));
+  vec3 col = mix(b, ink, a);
   col += (slope.x + slope.y) * uLight;
   gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
 }
