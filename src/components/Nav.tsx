@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -12,8 +11,6 @@ const NAV_LINKS = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  // The home page carries the teal mark; other pages keep it black
-  const home = usePathname() === "/";
 
   // Close the full-screen menu with Escape.
   useEffect(() => {
@@ -36,7 +33,7 @@ export default function Nav() {
           className="flex h-full items-center justify-between mx-auto"
           style={{ paddingLeft: "var(--page-pad-x)", paddingRight: "var(--page-pad-x)", maxWidth: "var(--max-w)" }}
         >
-          <Link href="/" aria-label="Phu Nguyen, home" className="hover:opacity-60 focus-visible:opacity-60 transition-opacity" style={home ? { color: "#0F6B6D" } : undefined}>
+          <Link href="/" aria-label="Phu Nguyen, home" className="hover:opacity-60 focus-visible:opacity-60 transition-opacity" style={{ color: "#0F6B6D" }}>
             <svg data-nav-logo width="44" height="52" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M0 33.1127H9.14833V30.0672H6.09105V11.7705L21.3422 33.1127H27.445V30.0672H24.3877V20.0487H21.3422V27.4568L6.09105 6.10281H0V9.14834H3.04552V30.0672H0V33.1127Z" fill="currentColor"/>
               <path d="M21.3422 13.5108V9.14834H18.2966V6.10281H27.445V9.14834H24.3877V13.5108H21.3422Z" fill="currentColor"/>
