@@ -103,7 +103,7 @@
   --font-text: 'Neue Haas Grotesk Text Pro', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   /* Layout tokens */
-  --nav-height: 64px;
+  --nav-height: clamp(76px, 6.5vw, 88px);
   --page-pad-x: clamp(1.5rem, 5vw, 5rem);
   --max-w: 1440px;
 }
