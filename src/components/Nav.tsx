@@ -48,22 +48,22 @@ export default function Nav() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="flex flex-col justify-center items-center gap-[5px] w-8 h-8 hover:opacity-60 focus-visible:opacity-60 transition-opacity"
+            className="flex flex-col justify-center items-center gap-[6px] w-10 h-10 hover:opacity-60 focus-visible:opacity-60 transition-opacity"
           >
             <span
               aria-hidden="true"
-              className="block w-6 h-px bg-foreground transition-transform duration-300"
-              style={{ transform: open ? "translateY(6px) rotate(45deg)" : "none" }}
+              className="block w-7 h-[2px] bg-[#0F6B6D] transition-transform duration-300"
+              style={{ transform: open ? "translateY(8px) rotate(45deg)" : "none" }}
             />
             <span
               aria-hidden="true"
-              className="block w-6 h-px bg-foreground transition-opacity duration-300"
+              className="block w-7 h-[2px] bg-[#0F6B6D] transition-opacity duration-300"
               style={{ opacity: open ? 0 : 1 }}
             />
             <span
               aria-hidden="true"
-              className="block w-6 h-px bg-foreground transition-transform duration-300"
-              style={{ transform: open ? "translateY(-6px) rotate(-45deg)" : "none" }}
+              className="block w-7 h-[2px] bg-[#0F6B6D] transition-transform duration-300"
+              style={{ transform: open ? "translateY(-8px) rotate(-45deg)" : "none" }}
             />
           </button>
         </nav>
