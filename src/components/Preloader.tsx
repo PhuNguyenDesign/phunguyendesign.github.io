@@ -4,16 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from "framer-motion";
 import { HERO_NAME_STYLE, HERO_NAME_TEXT } from "@/lib/heroName";
 
-// Black intro, after Il Capo's: the NP mark above the name, with a 0–100 counter at the bottom.
+// Teal intro, after Il Capo's: the NP mark above the name, with a 0–100 counter at the bottom.
 // At 100 a small window opens between them, then grows to fill the screen. As it grows the mark
 // flies into the nav logo's spot and the name scales into the hero headline's spot, then both
 // hand off to the real ones. The window opening drops a splash into the hero water.
 //
-// The mark and name sit outside the black sheet so its cut-out never clips them. They use the
-// same difference blend as the hero headline, so they read light on black, black on paper, and
-// inverted over the photo at every moment of the flight.
+// The mark and name are drawn twice in lockstep: a plain light copy clipped to the teal, and a copy
+// clipped to the window that uses the hero headline's difference blend, so whatever part sits over
+// the page reads black on paper and inverted over the photo at every moment of the flight.
 
-const SHEET = "#000000";
+const SHEET = "#0F6B6D";
 const PAPER = "#FAFAF8";
 const GAP = 28; // px between the window and the mark / name
 const LOGO_W = 120; // preloader mark width; its height follows the 34 x 40 viewBox
@@ -28,6 +28,7 @@ export default function Preloader() {
   const [phase, setPhase] = useState<"count" | "open" | "done">("count");
   const [count, setCount] = useState(0);
   const nameRef = useRef<HTMLParagraphElement>(null);
+  const nameRefB = useRef<HTMLParagraphElement>(null);
 
   const vw = useMotionValue(0), vh = useMotionValue(0);
   // Window size in px; 0 x 0 until the counter finishes
@@ -41,11 +42,16 @@ export default function Preloader() {
   const nameOpacity = useMotionValue(1);
   const logoOpacity = useMotionValue(1);
 
-  // A black sheet with a rectangular hole cut out of the middle
+  // A teal sheet with a rectangular hole cut out of the middle
   const clip = useTransform(() => {
     const cx = vw.get() / 2, cy = vh.get() / 2;
     const x1 = cx - w.get() / 2, x2 = cx + w.get() / 2, y1 = cy - h.get() / 2, y2 = cy + h.get() / 2;
     return `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${x1}px ${y1}px, ${x2}px ${y1}px, ${x2}px ${y2}px, ${x1}px ${y2}px, ${x1}px ${y1}px)`;
+  });
+  // Just the window
+  const windowClip = useTransform(() => {
+    const sideX = Math.max(0, (vw.get() - w.get()) / 2), sideY = Math.max(0, (vh.get() - h.get()) / 2);
+    return `inset(${sideY}px ${sideX}px ${sideY}px ${sideX}px)`;
   });
 
   // Mark: centered above the window, then flies to the nav logo
@@ -71,6 +77,7 @@ export default function Preloader() {
     if (!el) return;
     const headline = document.querySelector<HTMLElement>("[data-hero-name]");
     el.style.fontSize = headline ? getComputedStyle(headline).fontSize : "12vw";
+    if (nameRefB.current) nameRefB.current.style.fontSize = el.style.fontSize;
     nw.set(el.offsetWidth || 1);
     nh.set(el.offsetHeight || 1);
   };
@@ -180,50 +187,65 @@ export default function Preloader() {
 
       {!reduce && (
         <>
-          <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}>
-            <motion.svg
-              width={LOGO_W}
-              height={LOGO_H}
-              viewBox="0 0 34 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              style={{ color: PAPER, display: "block" }}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <path d="M0 33.1127H9.14833V30.0672H6.09105V11.7705L21.3422 33.1127H27.445V30.0672H24.3877V20.0487H21.3422V27.4568L6.09105 6.10281H0V9.14834H3.04552V30.0672H0V33.1127Z" fill="currentColor" />
-              <path d="M21.3422 13.5108V9.14834H18.2966V6.10281H27.445V9.14834H24.3877V13.5108H21.3422Z" fill="currentColor" />
-              <path d="M15.2394 36.1465V27.5743L12.1938 23.3177V36.1465H9.14832V39.2155H18.2966V36.1465H15.2394Z" fill="currentColor" />
-              <path d="M9.14832 0V3.05728H12.1938V11.6294L15.2394 15.9096V3.05728H30.4905V15.2511H16.9914V18.2967H33.5478V0H9.14832Z" fill="currentColor" />
-            </motion.svg>
-          </Flyer>
-
-          <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}>
-            <div className="overflow-hidden">
-              <motion.p
-                ref={nameRef}
-                aria-hidden="true"
-                initial={{ y: "105%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                style={{ ...HERO_NAME_STYLE, color: PAPER, margin: 0, width: "max-content", fontSize: "12vw" }}
-              >
-                {HERO_NAME_TEXT}
-              </motion.p>
-            </div>
-          </Flyer>
+          {/* Light copy over the teal */}
+          <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: clip }}>
+            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark /></Flyer>
+            <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRef} /></Flyer>
+          </motion.div>
+          {/* Inverting copy inside the window, blended as one group against the page */}
+          <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: windowClip, mixBlendMode: "difference" }}>
+            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark /></Flyer>
+            <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRefB} /></Flyer>
+          </motion.div>
         </>
       )}
     </>
   );
 }
 
-// A fixed layer positioned by translate and scale from its top-left corner
+function Mark() {
+  return (
+    <motion.svg
+      width={LOGO_W}
+      height={LOGO_H}
+      viewBox="0 0 34 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style={{ color: PAPER, display: "block" }}
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <path d="M0 33.1127H9.14833V30.0672H6.09105V11.7705L21.3422 33.1127H27.445V30.0672H24.3877V20.0487H21.3422V27.4568L6.09105 6.10281H0V9.14834H3.04552V30.0672H0V33.1127Z" fill="currentColor" />
+      <path d="M21.3422 13.5108V9.14834H18.2966V6.10281H27.445V9.14834H24.3877V13.5108H21.3422Z" fill="currentColor" />
+      <path d="M15.2394 36.1465V27.5743L12.1938 23.3177V36.1465H9.14832V39.2155H18.2966V36.1465H15.2394Z" fill="currentColor" />
+      <path d="M9.14832 0V3.05728H12.1938V11.6294L15.2394 15.9096V3.05728H30.4905V15.2511H16.9914V18.2967H33.5478V0H9.14832Z" fill="currentColor" />
+    </motion.svg>
+  );
+}
+
+function Name({ textRef }: { textRef: React.RefObject<HTMLParagraphElement | null> }) {
+  return (
+    <div className="overflow-hidden">
+      <motion.p
+        ref={textRef}
+        aria-hidden="true"
+        initial={{ y: "105%" }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        style={{ ...HERO_NAME_STYLE, color: PAPER, margin: 0, width: "max-content", fontSize: "12vw" }}
+      >
+        {HERO_NAME_TEXT}
+      </motion.p>
+    </div>
+  );
+}
+
+// A layer positioned by translate and scale from its top-left corner, inside a full-screen clip
 function Flyer({ x, y, scale, opacity, children }: { x: MotionValue<number>; y: MotionValue<number>; scale: MotionValue<number>; opacity: MotionValue<number>; children: React.ReactNode }) {
   return (
-    <motion.div aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-[9998]" style={{ x, y, scale, opacity, transformOrigin: "0 0", mixBlendMode: "difference" }}>
+    <motion.div className="absolute left-0 top-0" style={{ x, y, scale, opacity, transformOrigin: "0 0" }}>
       {children}
     </motion.div>
   );
