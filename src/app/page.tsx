@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { projects } from "@/lib/projects";
 import HeroImage from "@/components/HeroImage";
+import HeroRipple from "@/components/HeroRipple";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
 
@@ -23,17 +24,20 @@ export default function Home() {
       {/* Poster hero: the headline runs full width; the portrait is cropped hard and bleeds off the right edge.
           Text over the photo inverts via mix-blend-mode so it stays readable on both paper and image. */}
       <section className="relative overflow-hidden" style={{ minHeight: "100dvh", paddingTop: "var(--nav-height)" }}>
-        <div className="absolute right-0 top-0 h-full w-full md:w-[58vw]">
+        <div data-hero-photo className="absolute right-0 top-0 h-full w-full md:w-[58vw]">
           <HeroImage src="/homepicture.jpg" fill />
         </div>
+        {/* Water over the paper, the photo, and the headline together */}
+        <HeroRipple src="/homepicture.jpg" objectPosition="80% 40%" />
         <div
           className="relative mx-auto flex flex-col justify-end pointer-events-none"
           style={{ minHeight: "calc(100dvh - var(--nav-height))", maxWidth: "var(--max-w)", padding: "0 var(--page-pad-x) clamp(32px, 6vw, 72px)" }}
         >
-          <p style={{ fontSize: "0.75rem", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "clamp(16px, 3vw, 32px)", color: "#FAFAF8", mixBlendMode: "difference" }}>
+          <p data-hero-text style={{ fontSize: "0.75rem", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "clamp(16px, 3vw, 32px)", color: "#FAFAF8", mixBlendMode: "difference" }}>
             Product Designer, San Diego
           </p>
           <h1
+            data-hero-text
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(4rem, 13.5vw, 15rem)",

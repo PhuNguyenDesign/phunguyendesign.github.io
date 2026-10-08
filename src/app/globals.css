@@ -258,3 +258,9 @@ html.custom-cursor textarea,
 html.custom-cursor [contenteditable="true"] {
   cursor: text !important;
 }
+
+/* Hero ripples (src/components/HeroRipple.tsx) draw their own copy of the headline; hide the HTML
+   copy visually but keep it for screen readers and selection */
+[data-ripple="on"] [data-hero-text] {
+  opacity: 0;
+}
