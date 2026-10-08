@@ -10,7 +10,7 @@ const DRAGGABLE = "[role='slider'], [data-cursor='drag']";
 const MEDIA = "img, video, picture";
 
 // Size of the ring in each mode, in px
-const SIZE: Record<Mode, number> = { idle: 14, media: 14, link: 84, drag: 84 };
+const SIZE: Record<Mode, number> = { idle: 14, media: 14, link: 60, drag: 60 };
 
 // A circular cursor that replaces the system pointer on mouse and trackpad devices.
 // It stays a small inverting dot, including over images; over links and buttons it grows and says "View".
