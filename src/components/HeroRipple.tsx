@@ -194,6 +194,7 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
     let stillFrames = 0;
     let last: { x: number; y: number } | null = null;
     let cancelled = false;
+    let introUntil = 0;
 
     const uploadHeight = () => {
       gl.activeTexture(gl.TEXTURE1);
@@ -251,7 +252,9 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
     };
 
     const step = () => {
-      const { damping, speed } = tune.current;
+      const { speed } = tune.current;
+      // The intro splash rings out a little longer than everyday ripples
+      const damping = performance.now() < introUntil ? Math.max(tune.current.damping, 0.985) : tune.current.damping;
       let energy = 0;
       for (let y = 1; y < gh - 1; y++) {
         for (let x = 1; x < gw - 1; x++) {
@@ -323,6 +326,19 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
     };
     const onLeave = () => { last = null; };
 
+    // The preloader's window opening drops one big splash in the middle of the screen
+    let pendingSplash = false;
+    const splashCenter = () => {
+      if (!ready) { pendingSplash = true; return; }
+      const rect = section.getBoundingClientRect();
+      const cx = window.innerWidth / 2 - rect.left, cy = window.innerHeight / 2 - rect.top;
+      introUntil = performance.now() + 2200;
+      // Three pulses, like a stone landing and the water answering
+      [0, 160, 340].forEach((delay, i) => setTimeout(() => {
+        if (!cancelled) drop(cx, cy, tune.current.size * (4 - i), (4 - i * 1.2) * tune.current.splash);
+      }, delay));
+    };
+
     const img = new Image();
     img.decoding = "async";
     img.onload = async () => {
@@ -338,6 +354,7 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
       // Swap the HTML type for the rippling copy only once the copy is on screen
       canvas.style.opacity = "1";
       section.dataset.ripple = "on";
+      if (pendingSplash) { pendingSplash = false; splashCenter(); }
     };
     img.src = src;
 
@@ -351,7 +368,9 @@ export default function HeroRipple({ src, objectPosition = "50% 50%" }: { src: s
     section.addEventListener("pointermove", onMove);
     section.addEventListener("pointerdown", onDown);
     section.addEventListener("pointerleave", onLeave);
+    window.addEventListener("hero:splash", splashCenter);
     return () => {
+      window.removeEventListener("hero:splash", splashCenter);
       cancelled = true;
       actions.current = null;
       delete section.dataset.ripple;
