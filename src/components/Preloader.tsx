@@ -4,16 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from "framer-motion";
 import { HERO_NAME_STYLE, HERO_NAME_TEXT } from "@/lib/heroName";
 
-// Teal intro, after Il Capo's: the NP mark above the name, with a 0–100 counter at the bottom.
+// Black intro with a teal mark and name, after Il Capo's: the NP mark above the name, with a 0–100 counter at the bottom.
 // At 100 a small window opens between them, then grows to fill the screen. As it grows the mark
 // flies into the nav logo's spot and the name scales into the hero headline's spot, then both
 // hand off to the real ones. The window opening drops a splash into the hero water.
 //
-// The mark and name are drawn twice in lockstep: a plain light copy clipped to the teal, and a copy
+// The mark and name are drawn twice in lockstep: a teal copy clipped to the black sheet, and a copy
 // clipped to the window that uses the hero headline's difference blend, so whatever part sits over
 // the page reads black on paper and inverted over the photo at every moment of the flight.
 
-const SHEET = "#0F6B6D";
+const SHEET = "#000000";
+const TEAL = "#0F6B6D";
 const PAPER = "#FAFAF8";
 const GAP = 28; // px between the window and the mark / name
 const LOGO_W = 120; // preloader mark width; its height follows the 34 x 40 viewBox
@@ -42,7 +43,7 @@ export default function Preloader() {
   const nameOpacity = useMotionValue(1);
   const logoOpacity = useMotionValue(1);
 
-  // A teal sheet with a rectangular hole cut out of the middle
+  // A black sheet with a rectangular hole cut out of the middle
   const clip = useTransform(() => {
     const cx = vw.get() / 2, cy = vh.get() / 2;
     const x1 = cx - w.get() / 2, x2 = cx + w.get() / 2, y1 = cy - h.get() / 2, y2 = cy + h.get() / 2;
@@ -187,15 +188,15 @@ export default function Preloader() {
 
       {!reduce && (
         <>
-          {/* Light copy over the teal */}
+          {/* Teal copy over the black */}
           <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: clip }}>
-            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark /></Flyer>
-            <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRef} /></Flyer>
+            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark color={TEAL} /></Flyer>
+            <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRef} color={TEAL} /></Flyer>
           </motion.div>
           {/* Inverting copy inside the window, blended as one group against the page */}
           <motion.div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9998]" style={{ clipPath: windowClip, mixBlendMode: "difference" }}>
-            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark /></Flyer>
-            <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRefB} /></Flyer>
+            <Flyer x={logoX} y={logoY} scale={logoS} opacity={logoOpacity}><Mark color={PAPER} /></Flyer>
+            <Flyer x={nameX} y={nameY} scale={nameS} opacity={nameOpacity}><Name textRef={nameRefB} color={PAPER} /></Flyer>
           </motion.div>
         </>
       )}
@@ -203,7 +204,7 @@ export default function Preloader() {
   );
 }
 
-function Mark() {
+function Mark({ color }: { color: string }) {
   return (
     <motion.svg
       width={LOGO_W}
@@ -212,7 +213,7 @@ function Mark() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      style={{ color: PAPER, display: "block" }}
+      style={{ color, display: "block" }}
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -225,7 +226,7 @@ function Mark() {
   );
 }
 
-function Name({ textRef }: { textRef: React.RefObject<HTMLParagraphElement | null> }) {
+function Name({ textRef, color }: { textRef: React.RefObject<HTMLParagraphElement | null>; color: string }) {
   return (
     <div className="overflow-hidden">
       <motion.p
@@ -234,7 +235,7 @@ function Name({ textRef }: { textRef: React.RefObject<HTMLParagraphElement | nul
         initial={{ y: "105%" }}
         animate={{ y: 0 }}
         transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        style={{ ...HERO_NAME_STYLE, color: PAPER, margin: 0, width: "max-content", fontSize: "12vw" }}
+        style={{ ...HERO_NAME_STYLE, color, margin: 0, width: "max-content", fontSize: "12vw" }}
       >
         {HERO_NAME_TEXT}
       </motion.p>
