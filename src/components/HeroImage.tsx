@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect, ReactNode } from "react";
+import { useRef, useEffect, useState, ReactNode } from "react";
 
 // Water ripples over the hero photo. A small height field runs the wave equation on the CPU
 // (one cell per CELL css px); WebGL then bends the photo by the slope of that surface, like
@@ -7,9 +7,33 @@ import { useRef, useEffect, ReactNode } from "react";
 // The loop sleeps once the water is still, and reduced-motion users get the plain photo.
 
 const CELL = 4; // css px per simulation cell
-const DAMPING = 0.99; // how quickly waves die out
-const REFRACTION = 0.045; // how far the photo bends, in uv units per unit of slope
-const HIGHLIGHT = 0.9; // light catching the wave crests
+
+type Tune = {
+  /** How long waves last (closer to 1 = longer) */
+  damping: number;
+  /** How far the photo bends, in uv units per unit of slope */
+  refraction: number;
+  /** Light catching the wave crests */
+  highlight: number;
+  /** Ripple size, in simulation cells */
+  size: number;
+  /** Strength of the trail the pointer leaves */
+  trail: number;
+  /** Strength of the splash a click makes */
+  splash: number;
+};
+
+const DEFAULTS: Tune = { damping: 0.99, refraction: 0.045, highlight: 0.9, size: 3, trail: 1, splash: 1 };
+
+// Slider ranges for the local tuning panel
+const CONTROLS: { key: keyof Tune; label: string; min: number; max: number; step: number }[] = [
+  { key: "refraction", label: "Strength", min: 0, max: 0.15, step: 0.005 },
+  { key: "damping", label: "Fade", min: 0.95, max: 0.998, step: 0.001 },
+  { key: "highlight", label: "Shine", min: 0, max: 3, step: 0.05 },
+  { key: "size", label: "Ripple size", min: 1, max: 10, step: 0.5 },
+  { key: "trail", label: "Trail", min: 0, max: 3, step: 0.05 },
+  { key: "splash", label: "Click splash", min: 0, max: 3, step: 0.05 },
+];
 
 const VERT = `
 attribute vec2 aPos;
@@ -51,6 +75,12 @@ export default function HeroImage({ src, children, fill }: { src: string; childr
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const objectPosition = fill ? "80% 40%" : "72% center";
+  const tune = useRef<Tune>({ ...DEFAULTS });
+  const actions = useRef<{ redraw: () => void; splash: () => void } | null>(null);
+  const setTune = (key: keyof Tune, v: number) => {
+    tune.current[key] = v;
+    actions.current?.redraw();
+  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -96,8 +126,6 @@ export default function HeroImage({ src, children, fill }: { src: string; childr
     const heightTex = makeTexture(1);
     gl.uniform1i(u("uImg"), 0);
     gl.uniform1i(u("uHeight"), 1);
-    gl.uniform1f(u("uRefract"), REFRACTION);
-    gl.uniform1f(u("uLight"), HIGHLIGHT);
     gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
 
     const [posX, posY] = parsePosition(objectPosition);
@@ -146,15 +174,18 @@ export default function HeroImage({ src, children, fill }: { src: string; childr
 
     const render = () => {
       if (!ready) return;
+      gl.uniform1f(u("uRefract"), tune.current.refraction);
+      gl.uniform1f(u("uLight"), tune.current.highlight);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
 
     const step = () => {
       let energy = 0;
+      const damping = tune.current.damping;
       for (let y = 1; y < gh - 1; y++) {
         for (let x = 1; x < gw - 1; x++) {
           const i = y * gw + x;
-          const v = ((cur[i - 1] + cur[i + 1] + cur[i - gw] + cur[i + gw]) * 0.5 - prev[i]) * DAMPING;
+          const v = ((cur[i - 1] + cur[i + 1] + cur[i - gw] + cur[i + gw]) * 0.5 - prev[i]) * damping;
           prev[i] = v;
           energy += v < 0 ? -v : v;
         }
@@ -195,23 +226,27 @@ export default function HeroImage({ src, children, fill }: { src: string; childr
       wake();
     };
 
+    // Slider drags on the tuning panel shouldn't make ripples underneath it
+    const fromPanel = (e: PointerEvent) => !!(e.target as Element | null)?.closest?.("[data-tune-panel]");
     const onMove = (e: PointerEvent) => {
+      if (fromPanel(e)) { last = null; return; }
       const rect = container.getBoundingClientRect();
       const p = { x: e.clientX - rect.left, y: e.clientY - rect.top };
       if (last) {
         const dist = Math.hypot(p.x - last.x, p.y - last.y);
         const steps = Math.min(12, Math.ceil(dist / 10));
-        const strength = Math.min(1.1, 0.25 + dist / 60);
+        const strength = Math.min(1.1, 0.25 + dist / 60) * tune.current.trail;
         for (let s = 1; s <= steps; s++) {
           const t = s / steps;
-          drop(last.x + (p.x - last.x) * t, last.y + (p.y - last.y) * t, 3, strength / steps * 2);
+          drop(last.x + (p.x - last.x) * t, last.y + (p.y - last.y) * t, tune.current.size, strength / steps * 2);
         }
       }
       last = p;
     };
     const onDown = (e: PointerEvent) => {
+      if (fromPanel(e)) return;
       const rect = container.getBoundingClientRect();
-      drop(e.clientX - rect.left, e.clientY - rect.top, 7, 2.2);
+      drop(e.clientX - rect.left, e.clientY - rect.top, tune.current.size * 2.3, 2.2 * tune.current.splash);
     };
     const onLeave = () => { last = null; };
 
@@ -229,6 +264,11 @@ export default function HeroImage({ src, children, fill }: { src: string; childr
     };
     img.src = src;
 
+    actions.current = {
+      redraw: render,
+      splash: () => drop(cssW * 0.6, cssH * 0.45, tune.current.size * 2.3, 2.2 * tune.current.splash),
+    };
+
     const ro = new ResizeObserver(layout);
     ro.observe(container);
     container.addEventListener("pointermove", onMove);
@@ -236,6 +276,7 @@ export default function HeroImage({ src, children, fill }: { src: string; childr
     container.addEventListener("pointerleave", onLeave);
     return () => {
       cancelled = true;
+      actions.current = null;
       ro.disconnect();
       container.removeEventListener("pointermove", onMove);
       container.removeEventListener("pointerdown", onDown);
@@ -250,6 +291,60 @@ export default function HeroImage({ src, children, fill }: { src: string; childr
       {children}
       {/* Stays invisible until the photo is on the GPU, so the plain img shows first */}
       <canvas ref={canvasRef} aria-hidden className="absolute inset-0 w-full h-full" style={{ pointerEvents: "none", opacity: 0 }} />
+      {process.env.NODE_ENV === "development" && <TunePanel onChange={setTune} onSplash={() => actions.current?.splash()} />}
+    </div>
+  );
+}
+
+// Local-only sliders for dialing in the ripples. Never rendered in production builds.
+function TunePanel({ onChange, onSplash }: { onChange: (key: keyof Tune, v: number) => void; onSplash: () => void }) {
+  const [values, setValues] = useState<Tune>({ ...DEFAULTS });
+  const [open, setOpen] = useState(true);
+  const [copied, setCopied] = useState(false);
+
+  const set = (key: keyof Tune, v: number) => {
+    onChange(key, v);
+    setValues((prev) => ({ ...prev, [key]: v }));
+  };
+  const summary = CONTROLS.map((c) => `${c.label}: ${values[c.key]}`).join(", ");
+
+  return (
+    <div
+      data-tune-panel
+      className="fixed z-[60] bg-[#FAFAF8] text-black"
+      style={{ top: "calc(var(--nav-height) + 12px)", right: 16, width: 260, border: "1px solid rgba(56,56,59,0.16)", boxShadow: "0 8px 24px rgba(0,0,0,0.12)", fontSize: "0.75rem" }}
+    >
+      <button type="button" onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between px-3 py-2" style={{ letterSpacing: "0.14em", textTransform: "uppercase" }}>
+        Ripple settings <span aria-hidden>{open ? "–" : "+"}</span>
+      </button>
+      {open && (
+        <div className="flex flex-col gap-3 px-3 pb-3">
+          {CONTROLS.map((c) => (
+            <label key={c.key} className="flex flex-col gap-1">
+              <span className="flex justify-between">
+                <span>{c.label}</span>
+                <span style={{ fontVariantNumeric: "tabular-nums", color: "#38383B" }}>{values[c.key]}</span>
+              </span>
+              <input type="range" min={c.min} max={c.max} step={c.step} value={values[c.key]} onChange={(e) => set(c.key, parseFloat(e.target.value))} style={{ accentColor: "#0F6B6D" }} />
+            </label>
+          ))}
+          <div className="flex gap-2">
+            <button type="button" onClick={onSplash} className="flex-1 bg-black px-2 py-2 text-[#FAFAF8] hover:bg-[#0F6B6D]">Test splash</button>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard?.writeText(summary).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); });
+              }}
+              className="flex-1 border border-black px-2 py-2 hover:bg-black hover:text-[#FAFAF8]"
+            >
+              {copied ? "Copied" : "Copy values"}
+            </button>
+          </div>
+          <button type="button" onClick={() => CONTROLS.forEach((c) => set(c.key, DEFAULTS[c.key]))} className="self-start underline underline-offset-2" style={{ color: "#38383B" }}>
+            Reset
+          </button>
+        </div>
+      )}
     </div>
   );
 }
