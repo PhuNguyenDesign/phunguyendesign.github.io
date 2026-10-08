@@ -68,13 +68,11 @@ export default function SchemaPage() {
               <div className="relative left-1/2 w-[min(calc(100vw-32px),1440px)] -translate-x-1/2">
                 <Pan src={mobile.preview!} ratio="21/8" />
               </div>
-              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-12">
-                <p className="md:col-span-2" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: faint }}>01</p>
-                <div className="md:col-span-6">
-                  <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1 }} className="transition-colors group-hover:text-[#0F6B6D]">{mobile.label}</p>
-                  <p style={{ fontSize: "0.875rem", color: faint, marginTop: "8px" }}>{mobile.category} · {mobile.year}</p>
-                </div>
-                <p className="font-instrument-serif md:col-span-4" style={{ fontSize: "1.375rem", lineHeight: 1.3, color: muted }}>{mobile.blurb}</p>
+              <div className="mt-8">
+                <p style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: faint, marginBottom: "16px" }}>01</p>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1 }} className="transition-colors group-hover:text-[#0F6B6D]">{mobile.label}</p>
+                <p style={{ fontSize: "0.875rem", color: faint, marginTop: "8px" }}>{mobile.category} · {mobile.year}</p>
+                <p style={{ fontSize: "1rem", lineHeight: 1.6, color: muted, marginTop: "16px", maxWidth: "40ch" }}>{mobile.blurb}</p>
               </div>
             </Link>
           </Reveal>
