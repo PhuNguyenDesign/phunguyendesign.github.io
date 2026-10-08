@@ -2,6 +2,7 @@ import Link from "next/link";
 import { projects } from "@/lib/projects";
 import HeroImage from "@/components/HeroImage";
 import HeroRipple from "@/components/HeroRipple";
+import ParallaxHero from "@/components/ParallaxHero";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
 
@@ -23,6 +24,7 @@ export default function Home() {
     <>
       {/* Poster hero: the headline runs full width; the portrait is cropped hard and bleeds off the right edge.
           Text over the photo inverts via mix-blend-mode so it stays readable on both paper and image. */}
+      <ParallaxHero>
       <section className="relative overflow-hidden" style={{ minHeight: "100dvh", paddingTop: "var(--nav-height)" }}>
         <div data-hero-photo className="absolute right-0 top-0 h-full w-full md:w-[58vw]">
           <HeroImage src="/homepicture.jpg" fill />
@@ -56,6 +58,9 @@ export default function Home() {
           </h1>
         </div>
       </section>
+      </ParallaxHero>
+      {/* Everything after the hero slides up over it */}
+      <div className="relative z-10" style={{ backgroundColor: "#FAFAF8", boxShadow: "0 -32px 48px -16px rgba(0,0,0,0.14)" }}>
 
       {/* Intro */}
       <section className="mx-auto" style={{ padding: "clamp(5rem, 10vw, 9rem) var(--page-pad-x) clamp(3rem, 6vw, 5rem)", maxWidth: "var(--max-w)" }}>
@@ -128,6 +133,7 @@ export default function Home() {
         </div>
       </section>
       )}
+      </div>
     </>
   );
 }
