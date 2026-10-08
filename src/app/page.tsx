@@ -68,9 +68,10 @@ export default function Home() {
               <a href="https://schema.education" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 decoration-1 hover:text-[#0F6B6D] transition-colors">
                 Schema
               </a>{" "}
-              for clients like Open&nbsp;edX, ClearDemand, and Factor AE, from research and interaction design to
-              design systems, and lately building my designs in code with AI. I start on paper, and I care a lot about
-              how things look and feel.
+              for clients like Open&nbsp;edX, ClearDemand, and Factor AE, working across research, interaction design,
+              and design systems. Lately, I’ve been using AI-assisted workflows to bring more of my designs into code. I
+              tend to start on paper, then refine through interaction, structure, and visual craft until the experience
+              feels right.
             </p>
           </div>
         </Reveal>
