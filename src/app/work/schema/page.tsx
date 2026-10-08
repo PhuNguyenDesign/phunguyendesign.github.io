@@ -79,15 +79,14 @@ export default function SchemaPage() {
             </Link>
           </Reveal>
 
-          {/* 02 Agentic: type-led, the serif does the work; small artifact on warm gray */}
+          {/* 02 Agentic: text on the left, small artifact on warm gray */}
           <Reveal>
             <Link href={agentic.href} className="group grid grid-cols-1 items-end gap-8 md:grid-cols-12" style={{ textDecoration: "none", color: "inherit" }}>
               <div className="md:col-span-7">
-                <p style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: faint, marginBottom: "20px" }}>02 · {agentic.category} · {agentic.year}</p>
-                <p className="font-instrument-serif transition-colors group-hover:text-[#0F6B6D]" style={{ fontSize: "clamp(2.75rem, 6.5vw, 6rem)", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
-                  <span className="italic">{agentic.label}.</span>
-                </p>
-                <p style={{ fontSize: "1rem", lineHeight: 1.6, color: muted, marginTop: "20px", maxWidth: "44ch" }}>{agentic.blurb}</p>
+                <p style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: faint, marginBottom: "16px" }}>02</p>
+                <p style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1 }} className="transition-colors group-hover:text-[#0F6B6D]">{agentic.label}</p>
+                <p style={{ fontSize: "0.875rem", color: faint, marginTop: "8px" }}>{agentic.category} · {agentic.year}</p>
+                <p style={{ fontSize: "1rem", lineHeight: 1.6, color: muted, marginTop: "16px", maxWidth: "40ch" }}>{agentic.blurb}</p>
               </div>
               {/* My merged PRs as tickets; they scroll only while this card is hovered */}
               <div className="md:col-span-4 md:col-start-9" style={{ aspectRatio: "4/5", backgroundColor: "#A8A6A1", padding: "0 14px" }}>
