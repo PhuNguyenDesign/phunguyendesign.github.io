@@ -21,7 +21,7 @@ function Diamond() {
 export default function SkillsMarquee() {
   const all = Array.from(new Set(ROWS.flatMap((r) => r.items)));
   return (
-    <section aria-label="Skills" className="select-none" style={{ padding: "clamp(1rem, 2vw, 1.5rem) 0 0", borderBottom: "1px solid rgba(56,56,59,0.16)" }}>
+    <section aria-label="Skills" className="select-none" style={{ padding: "clamp(1rem, 2vw, 1.5rem) 0 0" }}>
       <p className="sr-only">{all.join(", ")}</p>
       <div aria-hidden className="flex flex-col" style={{ gap: "clamp(0.1rem, 0.4vw, 0.35rem)", paddingBottom: "clamp(1rem, 2vw, 1.5rem)" }}>
         {ROWS.map((row, r) => (
