@@ -2,9 +2,12 @@
 // Hovering a row pauses it (shared .hmarquee CSS) and the word under the pointer turns teal.
 // Each row's items are doubled so the -50% loop is seamless; the copy is hidden from screen readers.
 
-const ROWS: { items: string[]; dir: "left" | "right"; serif: boolean; duration: number }[] = [
-  { items: ["Product Design", "Interaction Design", "Design Systems", "Visual Design"], dir: "left", serif: false, duration: 38 },
-  { items: ["Prototyping", "AI Interfaces", "Research"], dir: "right", serif: true, duration: 44 },
+// Both rows travel at the same speed. Type scales with the viewport, so the ratio of the rows'
+// widths holds at every size; durations come from measuring them (top row is ~1.7x the bottom).
+// Update both if the items change.
+const ROWS: { items: string[]; dir: "left" | "right"; duration: number }[] = [
+  { items: ["Product Design", "Interaction Design", "Design Systems", "Visual Design"], dir: "left", duration: 74.7 },
+  { items: ["Prototyping", "AI Interfaces", "Research"], dir: "right", duration: 44 },
 ];
 
 function Diamond() {
@@ -30,12 +33,13 @@ export default function SkillsMarquee() {
                   {[...row.items, ...row.items].map((item, i) => (
                     <span key={`${copy}-${i}`} className="flex items-center" style={{ fontSize: "clamp(2.5rem, 7.5vw, 7rem)" }}>
                       <span
-                        className={`whitespace-nowrap text-black transition-colors duration-200 hover:text-[#0F6B6D] ${row.serif ? "font-instrument-serif italic" : ""}`}
+                        className="whitespace-nowrap text-black transition-colors duration-200 hover:text-[#0F6B6D]"
                         style={{
-                          fontFamily: row.serif ? undefined : "var(--font-display)",
-                          fontWeight: row.serif ? 400 : 600,
-                          letterSpacing: row.serif ? "-0.02em" : "-0.045em",
+                          fontFamily: "var(--font-display)",
+                          fontWeight: 600,
+                          letterSpacing: "-0.03em",
                           lineHeight: 1.05,
+                          textTransform: "uppercase",
                         }}
                       >
                         {item}
