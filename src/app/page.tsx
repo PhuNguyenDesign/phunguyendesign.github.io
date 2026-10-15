@@ -11,6 +11,8 @@ import ProjectCard from "@/components/ProjectCard";
 
 // Flip to true once real photos replace the placeholders below.
 const SHOW_MOMENTS = false;
+// Hidden for now: the "Same eye. Different mediums." line between work and the footer.
+const SHOW_INTERRUPTION = false;
 
 // A narrow strip of personal work between professional sections. Placeholders until the photos are added.
 const moments = [
@@ -113,6 +115,7 @@ export default function Home() {
       </section>
 
       {/* Editorial interruption */}
+      {SHOW_INTERRUPTION && (
       <section className="mx-auto" style={{ padding: "clamp(6rem, 12vw, 11rem) var(--page-pad-x)", maxWidth: "var(--max-w)" }}>
         <Reveal>
           <p className="font-instrument-serif" style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)", lineHeight: 0.98, letterSpacing: "-0.02em" }}>
@@ -122,6 +125,7 @@ export default function Home() {
           </p>
         </Reveal>
       </section>
+      )}
 
       {/* Moments of me: narrow, irregular strip between work and the footer. Hidden until the photos are added. */}
       {SHOW_MOMENTS && (
