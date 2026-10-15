@@ -6,8 +6,8 @@
 // widths holds at every size; durations come from measuring them (top row is ~1.7x the bottom).
 // Update both if the items change.
 const ROWS: { items: string[]; dir: "left" | "right"; duration: number }[] = [
-  { items: ["Product Design", "Interaction Design", "Design Systems", "Visual Design"], dir: "left", duration: 37.4 },
-  { items: ["Prototyping", "AI Interfaces", "Research"], dir: "right", duration: 22 },
+  { items: ["Product Design", "Interaction Design", "Design Systems", "Visual Design"], dir: "left", duration: 59.8 },
+  { items: ["Prototyping", "AI Interfaces", "Research"], dir: "right", duration: 35.2 },
 ];
 
 function Diamond() {
