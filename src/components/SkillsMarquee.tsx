@@ -6,8 +6,8 @@
 // widths holds at every size; durations come from measuring them (top row is ~1.7x the bottom).
 // Update both if the items change.
 const ROWS: { items: string[]; dir: "left" | "right"; duration: number }[] = [
-  { items: ["Product Design", "Interaction Design", "Design Systems", "Visual Design"], dir: "left", duration: 74.7 },
-  { items: ["Prototyping", "AI Interfaces", "Research"], dir: "right", duration: 44 },
+  { items: ["Product Design", "Interaction Design", "Design Systems", "Visual Design"], dir: "left", duration: 37.4 },
+  { items: ["Prototyping", "AI Interfaces", "Research"], dir: "right", duration: 22 },
 ];
 
 function Diamond() {
@@ -21,9 +21,9 @@ function Diamond() {
 export default function SkillsMarquee() {
   const all = Array.from(new Set(ROWS.flatMap((r) => r.items)));
   return (
-    <section aria-label="Skills" className="select-none" style={{ padding: "clamp(2.5rem, 5vw, 4.5rem) 0 0", borderBottom: "1px solid rgba(56,56,59,0.16)" }}>
+    <section aria-label="Skills" className="select-none" style={{ padding: "clamp(1rem, 2vw, 1.5rem) 0 0", borderBottom: "1px solid rgba(56,56,59,0.16)" }}>
       <p className="sr-only">{all.join(", ")}</p>
-      <div aria-hidden className="flex flex-col" style={{ gap: "clamp(0.25rem, 1vw, 0.75rem)", paddingBottom: "clamp(2.5rem, 5vw, 4.5rem)" }}>
+      <div aria-hidden className="flex flex-col" style={{ gap: "clamp(0.1rem, 0.4vw, 0.35rem)", paddingBottom: "clamp(1rem, 2vw, 1.5rem)" }}>
         {ROWS.map((row, r) => (
           <div key={r} className="hmarquee" data-dir={row.dir}>
             <div className="hmarquee-track items-center" style={{ animationDuration: `${row.duration}s` }}>
@@ -31,7 +31,7 @@ export default function SkillsMarquee() {
                 <div key={copy} className="flex items-center">
                   {/* Repeated within each half so short rows still overflow wide screens */}
                   {[...row.items, ...row.items].map((item, i) => (
-                    <span key={`${copy}-${i}`} className="flex items-center" style={{ fontSize: "clamp(2.5rem, 7.5vw, 7rem)" }}>
+                    <span key={`${copy}-${i}`} className="flex items-center" style={{ fontSize: "clamp(1.75rem, 3.6vw, 3.5rem)" }}>
                       <span
                         className="whitespace-nowrap text-black transition-colors duration-200 hover:text-[#0F6B6D]"
                         style={{
