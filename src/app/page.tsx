@@ -57,12 +57,9 @@ export default function Home() {
       {/* Intro */}
       <section className="mx-auto" style={{ padding: "clamp(5rem, 10vw, 9rem) var(--page-pad-x) clamp(3rem, 6vw, 5rem)", maxWidth: "var(--max-w)" }}>
         <Reveal>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
-            <p className="md:col-span-2" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#A8A6A1" }}>
-              01 · About
-            </p>
+          <div>
+            {/* Aligned to the page margin, under the logo */}
             <p
-              className="md:col-span-9"
               style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem, 2.8vw, 2.5rem)", fontWeight: 500, lineHeight: 1.22, letterSpacing: "-0.02em", maxWidth: "34ch" }}
             >
               I design products at{" "}
