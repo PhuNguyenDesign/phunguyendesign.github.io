@@ -4,6 +4,7 @@ import HeroImage from "@/components/HeroImage";
 import HeroRipple from "@/components/HeroRipple";
 import ParallaxHero from "@/components/ParallaxHero";
 import FitHeadline from "@/components/FitHeadline";
+import SkillsMarquee from "@/components/SkillsMarquee";
 import { HERO_NAME_STYLE, HERO_NAME_TEXT } from "@/lib/heroName";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
@@ -49,6 +50,9 @@ export default function Home() {
       </ParallaxHero>
       {/* Everything after the hero slides up over it */}
       <div className="relative z-10" style={{ backgroundColor: "#FAFAF8", boxShadow: "0 -32px 48px -16px rgba(0,0,0,0.14)" }}>
+
+      {/* Skills: two rows scrolling in opposite directions, between the hero and the intro */}
+      <SkillsMarquee />
 
       {/* Intro */}
       <section className="mx-auto" style={{ padding: "clamp(5rem, 10vw, 9rem) var(--page-pad-x) clamp(3rem, 6vw, 5rem)", maxWidth: "var(--max-w)" }}>
