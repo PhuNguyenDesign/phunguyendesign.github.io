@@ -10,6 +10,7 @@ export default function ProjectCard({
   headingLevel = "h3",
   ratio,
   className,
+  captionClassName,
 }: {
   project: Project;
   wide?: boolean;
@@ -18,6 +19,8 @@ export default function ProjectCard({
   /** Override the image proportions, e.g. "4/5" for a portrait tile */
   ratio?: string;
   className?: string;
+  /** Extra classes for the title row, e.g. to keep it off the screen edge on a full-bleed image */
+  captionClassName?: string;
 }) {
   const Heading = headingLevel;
   return (
@@ -53,7 +56,7 @@ export default function ProjectCard({
           </div>
         </div>
 
-        <div className="flex items-baseline justify-between gap-4">
+        <div className={`flex items-baseline justify-between gap-4 ${captionClassName ?? ""}`}>
           <div>
             <Heading
               className="text-foreground mb-1 transition-opacity group-hover:opacity-70"

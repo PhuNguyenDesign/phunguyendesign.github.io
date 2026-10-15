@@ -75,19 +75,41 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* Selected work: broken grid, irregular proportions, the second project offset down */}
-      <section className="mx-auto" style={{ padding: "clamp(2rem, 5vw, 4rem) var(--page-pad-x) 0", maxWidth: "var(--max-w)" }}>
-        <div className="flex items-baseline justify-between" style={{ borderTop: "1px solid rgba(56,56,59,0.16)", paddingTop: "20px", marginBottom: "clamp(40px, 6vw, 72px)" }}>
-          <h2 style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>Selected Work</h2>
-          <Link href="/work" className="text-[#0F6B6D] hover:underline underline-offset-4" style={{ fontSize: "0.875rem" }}>View all work →</Link>
+      {/* Selected work: the first project bleeds to the left edge of the screen and the second to the
+          right, each leaving open paper on the other side; the second is offset down */}
+      <section style={{ padding: "clamp(2rem, 5vw, 4rem) 0 0" }}>
+        <div className="mx-auto" style={{ padding: "0 var(--page-pad-x)", maxWidth: "var(--max-w)" }}>
+          <div className="flex items-baseline justify-between" style={{ borderTop: "1px solid rgba(56,56,59,0.16)", paddingTop: "20px", marginBottom: "clamp(40px, 6vw, 72px)" }}>
+            <h2 style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>Selected Work</h2>
+            <Link href="/work" className="text-[#0F6B6D] hover:underline underline-offset-4" style={{ fontSize: "0.875rem" }}>View all work →</Link>
+          </div>
         </div>
-        <div className="grid grid-cols-1 gap-y-16 md:grid-cols-12 md:gap-x-8">
-          {featured[0] && <ProjectCard project={featured[0]} ratio="16/11" className="md:col-span-7 md:-ml-[4vw]" />}
-          {featured[1] && <ProjectCard project={featured[1]} ratio="4/5" delay={0.08} className="md:col-span-4 md:col-start-9 md:mt-48" />}
-          {featured.slice(2).map((p, i) => (
-            <ProjectCard key={p.id} project={p} ratio="21/9" delay={i * 0.08} className="md:col-span-10 md:col-start-2" />
-          ))}
+        <div className="flex flex-col gap-16 md:flex-row md:items-start md:justify-between md:gap-0">
+          {featured[0] && (
+            <ProjectCard
+              project={featured[0]}
+              ratio="16/11"
+              className="w-full md:w-[60vw]"
+              captionClassName="px-[var(--page-pad-x)] md:pr-0"
+            />
+          )}
+          {featured[1] && (
+            <ProjectCard
+              project={featured[1]}
+              ratio="4/5"
+              delay={0.08}
+              className="w-full md:mt-48 md:w-[32vw]"
+              captionClassName="px-[var(--page-pad-x)] md:pl-0"
+            />
+          )}
         </div>
+        {featured.length > 2 && (
+          <div className="mx-auto mt-16 grid grid-cols-1 gap-y-16" style={{ padding: "0 var(--page-pad-x)", maxWidth: "var(--max-w)" }}>
+            {featured.slice(2).map((p, i) => (
+              <ProjectCard key={p.id} project={p} ratio="21/9" delay={i * 0.08} />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Editorial interruption */}
