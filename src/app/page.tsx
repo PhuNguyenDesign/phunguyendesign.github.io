@@ -78,7 +78,7 @@ export default function Home() {
       {/* Selected work: broken grid, irregular proportions, the second project offset down */}
       <section className="mx-auto" style={{ padding: "clamp(2rem, 5vw, 4rem) var(--page-pad-x) 0", maxWidth: "var(--max-w)" }}>
         <div className="flex items-baseline justify-between" style={{ borderTop: "1px solid rgba(56,56,59,0.16)", paddingTop: "20px", marginBottom: "clamp(40px, 6vw, 72px)" }}>
-          <h2 style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500 }}>02 · Selected Work</h2>
+          <h2 style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>Selected Work</h2>
           <Link href="/work" className="text-[#0F6B6D] hover:underline underline-offset-4" style={{ fontSize: "0.875rem" }}>View all work →</Link>
         </div>
         <div className="grid grid-cols-1 gap-y-16 md:grid-cols-12 md:gap-x-8">
