@@ -22,6 +22,22 @@ export const metadata: Metadata = {
   icons: {
     icon: "/logo.svg",
   },
+  // Link previews on LinkedIn, Slack, iMessage, etc. The image comes from app/opengraph-image.jpg.
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Phu Nguyen",
+    title: "Phu Nguyen — Product Designer",
+    description:
+      "Case studies in design systems, mobile, and AI interfaces, from a product designer with a background in graphic and presentation design.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Phu Nguyen — Product Designer",
+    description:
+      "Case studies in design systems, mobile, and AI interfaces, from a product designer with a background in graphic and presentation design.",
+  },
 };
 
 export const viewport: Viewport = {
